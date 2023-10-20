@@ -8,7 +8,7 @@
 psql
 
 -- Create DB
-CREATE DATABASE dbname;
+CREATE DATABASE bookbites;
 
 -- View all databases
 \l
@@ -17,21 +17,46 @@ CREATE DATABASE dbname;
 \q
 
 -- Connect to the project db
-psql dbname;
+psql bookbites;
 
--- Create table
-CREATE TABLE tablename (
-    id SERIAL PRIMARY KEY,
+-- Create tables
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    phone_number VARCHAR(50),
-    address TEXT,
-    image_path VARCHAR(512)
+    image VARCHAR(500)
 );
 
--- Index to speed up searches on the 'x' column
-CREATE INDEX idx_tablename_title ON tablename (x);
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    api_id VARCHAR(255) UNIQUE NOT NULL,
+    user_id INT REFERENCES users(user_id),
+    isFavorite BOOLEAN DEFAULT FALSE,
+    shelf_status INT CHECK (shelf_status IN (0, 1, 2)),
+    note TEXT
+);
+
+CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    book_id INT REFERENCES Books(book_id),
+    text TEXT NOT NULL,
+    date TIMESTAMP NOT NULL,
+    rate FLOAT CHECK (rate >= 0 AND rate <= 5)
+);
+
+CREATE TABLE demo_api (
+    demo_api_id SERIAL PRIMARY KEY,
+    api_id VARCHAR(255) UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    publicationYear INT NOT NULL,
+    image_url VARCHAR(500) NOT NULL,
+    categories VARCHAR(255) NOT NULL,
+    averageRating FLOAT,
+    ratingsCount INT
+);
 
 -- View all tables
 \dt
@@ -40,22 +65,15 @@ CREATE INDEX idx_tablename_title ON tablename (x);
 \d tablename
 
 -- Insert rows into table
-INSERT INTO tablename (first_name, last_name, email, phone_number, address, image_path) 
-VALUES 
-('', '', '', '', '', ''),
-
-('', '', '', '', '', ''),
-
-('', '', '', '', '', '');
+INSERT INTO demo_api (api_id, title, author, publicationYear, image_url, categories, averageRating, ratingsCount) VALUES
+('wvqXEAAAQBAJ','Spare', 'Prince Harry', 2023, 'https://books.google.com/books/publisher/content?id=wvqXEAAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE732E29sIZHqNHHYYl1hJ27Pc5ilMrFGKJUogaucPjdmjxSzizl-rUnUbrY02iValiVuGwdlQLiUr5v5PiQEKrqsBYnSa7x94CVgRsYIRNbjClEwtNGnJ_gZH5mNjDWt49yP3IAf&source=gbs_api', 'Biography', 5, 1),
+('Ayk3EAAAQBAJ','Lessons in Chemistry', 'Bonnie Garmus', 2022, 'https://books.google.com/books/content?id=Ayk3EAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Fiction', 4.0, 80),
+('vHnZCwAAQBAJ','The Body Keeps the Score', 'Bessel van der Kolk, M.D.', 2014, 'https://books.google.com/books/content?id=T7iJDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Psychology', 4.2, 120),
+('XfFvDwAAQBAJ','Atomic Habits', 'James Clear', 2018, 'https://books.google.com/books/content?id=XfFvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Business & Economics', 4.6, 140),
+('Sm5AKLXKxHgC','Harry Potter and the Prisoner of Azkaban', 'J.K. Rowling', 2015, 'https://books.google.com/books/content?id=Sm5AKLXKxHgC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 'Fiction', 4.5, 107);
 
 -- View the list
-SELECT * FROM tablename;
-
--- To list all indexes
-\di
-
--- Or
-SELECT * FROM pg_indexes WHERE tablename = 'tablename';
+SELECT * FROM demo_api;
 
 
 --
