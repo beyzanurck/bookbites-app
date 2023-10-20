@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Root from "./pages/Root.jsx";
+import Profile from "./pages/Profile.jsx";
+import About from "./pages/About.jsx";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,6 +16,14 @@ function App() {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: 'about',
+          element: <About />,
+        },
+        {
+          path: 'profile',
+          element: <Profile />,
         }
       ],
     },
