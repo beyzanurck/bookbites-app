@@ -25,8 +25,13 @@ export default function Home() {
   return (
     <div>
         <h1>Beyza's Homepage</h1>
-        <p>{books[0].categories}</p>
-        <BookCard />
+
+        <BookCard 
+          title = {books[0] && books[0].title}
+          author = {books[0] && books[0].author}
+          img = {books[0] && books[0].image_url}
+          category = {books[0] && books[0].categories}
+        />
     </div>
   )
 }

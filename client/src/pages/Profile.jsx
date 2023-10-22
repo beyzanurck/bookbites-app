@@ -7,7 +7,7 @@ export default function Profile() {
 
   return (
     <div>
-      <p> {user.name}'s Page </p>
+      <p> {user && user.name}'s Page </p>
     </div>
   )
 }
