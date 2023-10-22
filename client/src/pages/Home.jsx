@@ -26,18 +26,22 @@ export default function Home() {
     <div>
         <h1>Beyza's Homepage</h1>
 
-        {
-          books.map((item, index) => (
-            <BookCard 
-              key = {index}
-              title = {item.title}
-              author = {item.author}
-              img = {item.image_url}
-              category = {item.categories}
-            />
-          ))
-        }
+        <div className="books-grid">
 
+          {
+            books.map((item, index) => (
+              <BookCard 
+                key = {index}
+                title = {item.title}
+                author = {item.author}
+                img = {item.image_url}
+                category = {item.categories}
+              />
+            ))
+          }
+
+        </div>
+        
     </div>
   )
 }
