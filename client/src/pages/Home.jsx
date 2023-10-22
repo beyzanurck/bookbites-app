@@ -26,12 +26,18 @@ export default function Home() {
     <div>
         <h1>Beyza's Homepage</h1>
 
-        <BookCard 
-          title = {books[0] && books[0].title}
-          author = {books[0] && books[0].author}
-          img = {books[0] && books[0].image_url}
-          category = {books[0] && books[0].categories}
-        />
+        {
+          books.map((item, index) => (
+            <BookCard 
+              key = {index}
+              title = {item.title}
+              author = {item.author}
+              img = {item.image_url}
+              category = {item.categories}
+            />
+          ))
+        }
+
     </div>
   )
 }
