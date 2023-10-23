@@ -59,10 +59,11 @@ export default function Home() {
                 author = {item.author}
                 img = {item.image_url}
                 category = {item.categories}
+                id = {item.api_id}
               />
             ))
           }
-          
+
         </div>
 
     </div>

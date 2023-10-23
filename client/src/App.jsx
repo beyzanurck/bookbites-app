@@ -27,7 +27,7 @@ function App() {
           element: <Profile />,
         },
         {
-          path: 'book',
+          path: 'book/:id',
           element: <Book />,
         }
       ],
