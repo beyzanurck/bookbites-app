@@ -4,6 +4,7 @@ import BookCard from '../components/BookCard'
 export default function Home() {
 
   const [books, setBooks] = useState([]);
+  const [search, setSearch] = useState('');
 
   async function getBooks() {
 
@@ -22,14 +23,36 @@ export default function Home() {
     getBooks();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value)
+  };
+
   return (
     <div>
         <h1>Beyza's Homepage</h1>
 
+        <input
+          placeholder="search a book by title/author"
+          type='text'
+          value={search}
+          onChange={handleSearchChange}
+        />
+
         <div className="books-grid">
 
           {
-            books.map((item, index) => (
+            books.filter((item) => {
+
+              if(!search) { //empty str is falsy(false). !false => true
+                return true
+              }
+
+              return (
+                item.title.toLowerCase().includes(search.toLowerCase()) || 
+                item.author.toLowerCase().includes(search.toLowerCase())
+              )
+            })
+            .map((item, index) => (
               <BookCard 
                 key = {index}
                 title = {item.title}
@@ -39,9 +62,9 @@ export default function Home() {
               />
             ))
           }
-
+          
         </div>
-        
+
     </div>
   )
 }
