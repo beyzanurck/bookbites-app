@@ -21,4 +21,19 @@ app.get("/", async (req, res) =>  {
 
 });
 
+app.get("/:id", async (req, res) =>  {
+    
+    try {
+
+        const { id } = req.params;
+        const {rows: book} = await db.query('SELECT * FROM demo_api WHERE api_id = $1',  [id]);
+        res.send(book);
+
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
+
+});
+
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
