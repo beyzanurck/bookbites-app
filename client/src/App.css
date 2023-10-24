@@ -44,3 +44,8 @@
   display: flex;
   gap: 4%;
 }
+
+.top{
+  display: flex;
+  gap: 5%;
+}

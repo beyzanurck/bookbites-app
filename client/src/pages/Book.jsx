@@ -27,8 +27,20 @@ export default function Book() {
 
   return (
     <div>
+        
       <p>Book Page</p>
-      <img src={book[0] && book[0].image_url}/>
+
+      <div className='top'>
+
+        <img src={book[0] && book[0].image_url}/>
+
+        <div className='book-details'>
+            <p>{book[0].title}</p>
+            <p>{book[0].description}</p>
+        </div>
+
+      </div>
+     
     </div>
   )
 }
