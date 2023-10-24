@@ -76,6 +76,32 @@ INSERT INTO demo_api (api_id, title, author, publicationYear, image_url, categor
 SELECT * FROM demo_api;
 
 
+-- Add a new column to the table
+ALTER TABLE demo_api
+ADD COLUMN description TEXT;
+
+-- Add values to the description
+UPDATE demo_api
+SET description = 'This is the first sample description for the API.'
+WHERE demo_api_id = 1;
+
+UPDATE demo_api
+SET description = 'The second placeholder description.'
+WHERE demo_api_id = 2;
+
+UPDATE demo_api
+SET description = 'This is another example of an API description.'
+WHERE demo_api_id = 3;
+
+UPDATE demo_api
+SET description = 'Sample description four goes here.'
+WHERE demo_api_id = 4;
+
+UPDATE demo_api
+SET description = 'The fifth placeholder sentence is this one.'
+WHERE demo_api_id = 5;
+
+
 --
 -- PostgreSQL database dump complete
 --
