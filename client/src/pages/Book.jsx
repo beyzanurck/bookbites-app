@@ -49,6 +49,12 @@ export default function Book() {
         <div className='book-details'>
             <p>{book[0] && book[0].title}</p>
             <p>{book[0] && book[0].description}</p>
+
+            <div>
+                <textarea  rows="10" cols="60" />
+
+                <button> Add Comment </button>
+            </div>
         </div>
 
       </div>
