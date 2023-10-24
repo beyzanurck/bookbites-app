@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
+import {MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
 export default function Book() {
 
@@ -27,16 +28,19 @@ export default function Book() {
 
   return (
     <div>
-        
+
       <p>Book Page</p>
 
       <div className='top'>
 
         <img src={book[0] && book[0].image_url}/>
+        <MdFavorite size={32} style={{ color: 'red' }} />
+        <MdFavoriteBorder size={32}/>
+
 
         <div className='book-details'>
-            <p>{book[0].title}</p>
-            <p>{book[0].description}</p>
+            <p>{book[0] && book[0].title}</p>
+            <p>{book[0] && book[0].description}</p>
         </div>
 
       </div>
