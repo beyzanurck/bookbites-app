@@ -9,6 +9,16 @@ const PORT = 1212;
 app.use(cors());
 app.use(express.json()); //req.body
 
+app.get("/users", async (req, res) =>  {
+    
+    try {
+        const {rows : users} = await db.query('SELECT * FROM users');
+        res.send(users);
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
+
+});
 
 app.get("/", async (req, res) =>  {
     
@@ -34,6 +44,8 @@ app.get("/:id", async (req, res) =>  {
     }
 
 });
+
+
 
 
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
