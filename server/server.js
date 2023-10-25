@@ -20,6 +20,23 @@ app.get("/users", async (req, res) =>  {
 
 });
 
+app.post("/users", async (req, res) =>  {
+    
+    try {
+        const {first_name, last_name, email, image } = req.body;
+
+        const newUser = await db.query (
+            "INSERT INTO users (first_name, last_name, email, image) VALUES ($1, $2, $3, $4) RETURNING *", [first_name, last_name, email, image]
+        );
+
+        res.json(newUser.rows[0])
+        
+    } catch (error) {
+        console.error(error.message)
+    }
+
+});
+
 app.get("/", async (req, res) =>  {
     
     try {
