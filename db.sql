@@ -101,6 +101,9 @@ UPDATE demo_api
 SET description = 'The fifth placeholder sentence is this one.'
 WHERE demo_api_id = 5;
 
+-- Add a user to the user table
+INSERT INTO users (first_name, last_name, email) VALUES ('Beyza', 'Kilinc', 'beyzanurceylan77@gmail.com');
+
 
 --
 -- PostgreSQL database dump complete
