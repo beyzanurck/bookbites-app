@@ -103,16 +103,19 @@ app.put('/users/books/:id', async (req, res) => {
 
     try {
 
-      const { id } = req.params;
+        const { id } = req.params; //api_id
+        const { user_email, isFavorite, shelf_status, note } = req.body;
 
-      const {user_id, isFavorite, shelf_status, note} = req.body;
+        const userResult = await db.query('SELECT user_id FROM users WHERE email = $1', [user_email]);
+        const user_id = userResult.rows[0].user_id;
+        console.log("USER " +  user_id)
 
-      const updatedBook = await db.query(
-        "UPDATE books SET user_id = $1, isFavorite = $2, shelf_status = $3, note = $4 WHERE api_id = $5 RETURNING *",
-        [user_id, isFavorite, shelf_status, note, id]
-      );
+        const updatedBook = await db.query(
+            "UPDATE books SET user_id = $1, isFavorite = $2, shelf_status = $3, note = $4 WHERE api_id = $5 RETURNING *",
+            [user_id, isFavorite, shelf_status, note, id]
+        );
 
-        res.json(updatedBook.rows[0])
+        res.json(updatedBook.rows[0]); 
 
     } catch(error){
         console.log(error);

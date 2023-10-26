@@ -8,12 +8,36 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function BookCard({title, author, img, category, id}) {
 
   const navigate = useNavigate();
-  const { isAuthenticated} = useAuth0();
+  const { isAuthenticated, user} = useAuth0();
 
-  const [isFaved, setIsFaved] = useState(false)
+  const [isFaved, setIsFaved] = useState(false);
+  const [userBook, setUserBook] = useState({
+    "api_id":"",
+    "user_email":"",
+    "isFavorite": false,
+    "shelf_status": 0,
+    "note": ""
+  })
 
   function handleFavories () {
     setIsFaved(!isFaved)
+
+    updateUserBook(userBook)
+  }
+
+  const updateUserBook = async (data) => {
+    try {
+      
+      const response = await fetch(`http://localhost:1212/users/books/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({...data, user_email : user.email, isFavorite : isFaved})
+      })
+
+    
+    } catch (error) {
+      console.error(error.message)
+    }
   }
 
 
