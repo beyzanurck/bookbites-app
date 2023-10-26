@@ -28,7 +28,7 @@ export default function BookCard({title, author, img, category, id}) {
   const updateUserBook = async (data) => {
     try {
       
-      const response = await fetch(`http://localhost:1212/users/books/${id}`, {
+      const response = await fetch(`http://localhost:1212/user/books/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({...data, user_email : user.email, isFavorite : isFaved})

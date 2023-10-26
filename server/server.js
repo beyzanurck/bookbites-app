@@ -71,7 +71,7 @@ app.get("/:id", async (req, res) =>  {
 });
 
 
-app.get("/users/books", async (req, res) =>  {
+app.get("/user/books", async (req, res) =>  {
     
     try {
         const {rows : user_library} = await db.query('SELECT * FROM books');
@@ -82,7 +82,7 @@ app.get("/users/books", async (req, res) =>  {
 
 });
 
-app.post("/users/books", async (req, res) =>  {
+app.post("/user/books", async (req, res) =>  {
     
     try {
         const {api_id, user_id, isFavorite, shelf_status, note} = req.body;
@@ -99,7 +99,7 @@ app.post("/users/books", async (req, res) =>  {
 
 });
 
-app.put('/users/books/:id', async (req, res) => {
+app.put('/user/books/:id', async (req, res) => {
 
     try {
 
