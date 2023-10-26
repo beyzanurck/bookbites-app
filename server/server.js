@@ -71,13 +71,30 @@ app.get("/:id", async (req, res) =>  {
 });
 
 
-app.get("/books", async (req, res) =>  {
+app.get("/users/books", async (req, res) =>  {
     
     try {
         const {rows : user_library} = await db.query('SELECT * FROM books');
         res.send(user_library);
     } catch (error) {
         console.error("Error Message!:", error.message);
+    }
+
+});
+
+app.post("/users/books", async (req, res) =>  {
+    
+    try {
+        const {api_id, user_id, isFavorite, shelf_status, note} = req.body;
+
+        const newBook = await db.query (
+            "INSERT INTO books (api_id, user_id, isFavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFavorite, shelf_status, note]
+        );
+
+        res.json(newBook.rows[0])
+        
+    } catch (error) {
+        console.error(error.message)
     }
 
 });
