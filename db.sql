@@ -104,6 +104,9 @@ WHERE demo_api_id = 5;
 -- Add a user to the user table
 INSERT INTO users (first_name, last_name, email) VALUES ('Beyza', 'Kilinc', 'beyzanurceylan77@gmail.com');
 
+-- Add a foreign key to the book table
+ALTER TABLE book ADD FOREIGN KEY (api_id) REFERENCES demo_api(api_id);
+
 
 --
 -- PostgreSQL database dump complete
