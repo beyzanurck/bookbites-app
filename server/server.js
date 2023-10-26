@@ -99,4 +99,24 @@ app.post("/users/books", async (req, res) =>  {
 
 });
 
+app.put('/users/books/:id', async (req, res) => {
+
+    try {
+
+      const { id } = req.params;
+
+      const {user_id, isFavorite, shelf_status, note} = req.body;
+
+      const updatedBook = await db.query(
+        "UPDATE books SET user_id = $1, isFavorite = $2, shelf_status = $3, note = $4 WHERE api_id = $5 RETURNING *",
+        [user_id, isFavorite, shelf_status, note, id]
+      );
+
+        res.json(updatedBook.rows[0])
+
+    } catch(error){
+        console.log(error);
+    }  
+});
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
