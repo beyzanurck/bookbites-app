@@ -25,17 +25,25 @@ app.post("/users", async (req, res) =>  {
     try {
         const {first_name, last_name, email, image } = req.body;
 
-        const newUser = await db.query (
+        // checks if the user with this email already exists - otherwise server throws an error bc the email has UNIQUE.
+        const existingUser = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+
+        if (existingUser.rows.length > 0) {
+            return res.status(409).json({ status: "user_exists", message: "User already exists!" }); // returns 409 conflict status if the user already exists.
+        }
+
+        // If not, insert the new user
+        const newUser = await db.query(
             "INSERT INTO users (first_name, last_name, email, image) VALUES ($1, $2, $3, $4) RETURNING *", [first_name, last_name, email, image]
         );
 
-        res.json(newUser.rows[0])
+        res.json(newUser.rows[0]);
         
     } catch (error) {
-        console.error(error.message)
+        console.error(error.message);
     }
-
 });
+
 
 app.get("/", async (req, res) =>  {
     
