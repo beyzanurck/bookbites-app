@@ -20,6 +20,20 @@ app.get("/users", async (req, res) =>  {
 
 });
 
+app.get('/users/:id', async (req, res) =>{
+
+    try{
+        const { id } = req.params;
+        const user = await db.query("SELECT * FROM users WHERE user_id = $1",  [id]
+        );
+    
+        res.json(user.rows[0]);
+
+    } catch(error){
+        console.log(error);
+    }    
+})
+
 app.post("/users", async (req, res) =>  {
     
     try {
