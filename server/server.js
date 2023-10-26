@@ -71,6 +71,15 @@ app.get("/:id", async (req, res) =>  {
 });
 
 
+app.get("/books", async (req, res) =>  {
+    
+    try {
+        const {rows : user_library} = await db.query('SELECT * FROM books');
+        res.send(user_library);
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
 
+});
 
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
