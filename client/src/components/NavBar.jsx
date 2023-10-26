@@ -7,14 +7,14 @@ export default function NavBar() {
 
     const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
-    async function sendEmailToBackend(first_name, last_name, email) {
+    async function sendEmailToBackend(first_name, last_name, email, auth0_sub) {
 
         const response = await fetch('http://localhost:1212/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ first_name, last_name, email })
+            body: JSON.stringify({ first_name, last_name, email, auth0_sub })
         });
     
         return await response.json();
@@ -24,8 +24,8 @@ export default function NavBar() {
 
         if (isAuthenticated && user && user.email) {
             try {
-                
-                const response = await sendEmailToBackend(user.given_name, user.family_name, user.email);
+
+                const response = await sendEmailToBackend(user.given_name, user.family_name, user.email, user.sub);
 
                 if (response.status === "user_exists") {
                     console.log(response.message); 
