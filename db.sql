@@ -107,6 +107,9 @@ INSERT INTO users (first_name, last_name, email) VALUES ('Beyza', 'Kilinc', 'bey
 -- Add a foreign key to the book table
 ALTER TABLE book ADD FOREIGN KEY (api_id) REFERENCES demo_api(api_id);
 
+-- Add auth0_sub attribute
+ALTER TABLE users ADD COLUMN auth0_sub VARCHAR(255) UNIQUE;
+
 
 --
 -- PostgreSQL database dump complete
