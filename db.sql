@@ -30,7 +30,7 @@ CREATE TABLE users (
 
 CREATE TABLE books (
     book_id SERIAL PRIMARY KEY,
-    api_id VARCHAR(255) UNIQUE NOT NULL,
+    api_id VARCHAR(255) NOT NULL,
     user_id INT REFERENCES users(user_id),
     isFavorite BOOLEAN DEFAULT FALSE,
     shelf_status INT CHECK (shelf_status IN (0, 1, 2)),
@@ -40,7 +40,7 @@ CREATE TABLE books (
 CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
-    book_id INT REFERENCES Books(book_id),
+    api_id VARCHAR(255) REFERENCES demo_api(api_id),
     text TEXT NOT NULL,
     date TIMESTAMP NOT NULL,
     rate FLOAT CHECK (rate >= 0 AND rate <= 5)
