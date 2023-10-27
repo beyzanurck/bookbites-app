@@ -1,17 +1,20 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Card from 'react-bootstrap/Card'
 import { useNavigate } from 'react-router-dom';
 import {MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
-export default function BookCard({title, author, img, category, id}) {
+export default function BookCard({title, author, img, category, id, faved}) {
 
   const navigate = useNavigate();
   const { isAuthenticated, user} = useAuth0();
 
-  const [isFaved, setIsFaved] = useState(false);
+  const [isFaved, setIsFaved] = useState(faved);
 
+  useEffect(() => {
+    setIsFaved(faved);
+  }, [faved]);
 
   function handleFavories () {
     setIsFaved(!isFaved)
@@ -32,6 +35,7 @@ export default function BookCard({title, author, img, category, id}) {
     return await response.json();
 }
 
+console.log("BookCard",id,faved,isFaved)
 
   return (
 

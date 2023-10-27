@@ -125,4 +125,22 @@ app.post("/feed", async (req, res) =>  {
 
 });
 
+
+//queries all the user actions
+app.get("/feed/:id", async (req, res) =>  {
+    
+    try {
+        // const {auth0_sub} = req.body;
+        const { id } = req.params;
+        console.log(id)
+
+        let user_id = await getUserIdFromSub(id)
+        const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);
+        res.send(user_actions);
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
+
+});
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));

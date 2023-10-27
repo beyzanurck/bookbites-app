@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Home() {
 
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState('');
+  const [actions, setActions] = useState([]);
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
   async function getBooks() {
 
@@ -18,10 +21,39 @@ export default function Home() {
       console.log(error.message)
     }
   }
+  async function getActions(auth0_sub) {
+
+    try {
+      const response = await fetch(`http://localhost:1212/feed/${auth0_sub}`);
+
+      const allActions = await response.json();
+      setActions(allActions);
+      console.log(allActions)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   useEffect(() => {
     getBooks();
   }, []);
+
+  useEffect(() => {
+    console.log("Main page, user logged", isAuthenticated, user)
+    if(isAuthenticated){
+      getActions(user.sub);
+    }
+  }, [isAuthenticated]);
+
+  function isFaved(api_id){
+    console.log("is faved", api_id, actions)
+    const matchingAction = actions.find(element => element.api_id == api_id);
+    if (matchingAction) {
+      console.log("is faved match", matchingAction)
+      return matchingAction.isfavorite;
+    }
+    return false;
+  }
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value)
@@ -60,6 +92,7 @@ export default function Home() {
                 img = {item.image_url}
                 category = {item.categories}
                 id = {item.api_id}
+                faved = {isFaved(item.api_id)}
               />
             ))
           }
