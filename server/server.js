@@ -17,6 +17,7 @@ app.get("/users", async (req, res) =>  {
         res.send(users);
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(400).json({ message: error.message });
     }
 
 });
