@@ -17,7 +17,7 @@ export default function BookCard({title, author, img, category, id, faved}) {
   }, [faved]);
 
   function handleFavories () {
-    
+
     const newStatus = !isFaved;
 
     setIsFaved(newStatus)
@@ -38,7 +38,15 @@ export default function BookCard({title, author, img, category, id, faved}) {
     return await response.json();
 }
 
-console.log("BookCard",id,faved,isFaved)
+  console.log("BookCard",id,faved,isFaved)
+
+  const iconProps = {
+    size: 32,
+    style: {
+      color: 'red',
+    },
+    onClick: handleFavories,
+  };
 
   return (
 
@@ -54,8 +62,9 @@ console.log("BookCard",id,faved,isFaved)
           {
             isAuthenticated && 
             (
-              isFaved ? <MdFavorite size={32} style={{ color: 'red' }} onClick={handleFavories}/>
-              : <MdFavoriteBorder size={32} style={{ color: 'red' }} onClick={handleFavories}/>
+              isFaved
+                ? <MdFavorite {...iconProps} />
+                : <MdFavoriteBorder {...iconProps} />
             )
           }
           
