@@ -28,8 +28,8 @@ CREATE TABLE users (
     image VARCHAR(500)
 );
 
-CREATE TABLE books (
-    book_id SERIAL PRIMARY KEY,
+CREATE TABLE feeds (
+    feed_id SERIAL PRIMARY KEY,
     api_id VARCHAR(255) NOT NULL,
     user_id INT REFERENCES users(user_id),
     isFavorite BOOLEAN DEFAULT FALSE,

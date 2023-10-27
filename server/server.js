@@ -97,17 +97,28 @@ async function getUserIdFromSub(userSub) {
     return user.rows[0].user_id;
 }
 
-//displays all books
-app.post("/library", async (req, res) =>  {
+//update and add feed events
+app.post("/feed", async (req, res) =>  {
     
     try {
         console.log(req.body)
         const {auth0_sub, api_id, isFav } = req.body;
         let user_id = await getUserIdFromSub(auth0_sub)
-        const newItem = await db.query(
-            "INSERT INTO books (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, null, null]
-        );
-        res.json(newItem.rows[0]);
+
+        const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
+
+        if (existingEntry.rows.length > 0) {
+            const updatedBook = await db.query(
+                "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
+                [isFav, null, null, api_id, user_id]
+            );
+        }
+        else {
+            const newItem = await db.query(
+                "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, null, null]
+            );
+        }
+        res.json({});
     } catch (error) {
         console.error("Error Message!:", error.message);
     }
