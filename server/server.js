@@ -88,4 +88,30 @@ app.get("/:id", async (req, res) =>  {
 
 });
 
+async function getUserIdFromSub(userSub) {
+    const user = await db.query(
+        'SELECT user_id FROM users WHERE auth0_sub = $1',
+         [userSub]
+    );
+    
+    return user.rows[0].user_id;
+}
+
+//displays all books
+app.post("/library", async (req, res) =>  {
+    
+    try {
+        console.log(req.body)
+        const {auth0_sub, api_id, isFav } = req.body;
+        let user_id = await getUserIdFromSub(auth0_sub)
+        const newItem = await db.query(
+            "INSERT INTO books (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, null, null]
+        );
+        res.json(newItem.rows[0]);
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
+
+});
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));

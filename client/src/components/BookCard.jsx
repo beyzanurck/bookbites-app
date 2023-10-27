@@ -15,7 +15,22 @@ export default function BookCard({title, author, img, category, id}) {
 
   function handleFavories () {
     setIsFaved(!isFaved)
+    console.log("favorite:", user.sub, id, !isFaved)
+    sendFavoriteInfo(user.sub, id, !isFaved)
   }
+
+  async function sendFavoriteInfo(auth0_sub, api_id, isFav) {
+
+    const response = await fetch('http://localhost:1212/library', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ auth0_sub, api_id, isFav })
+    });
+
+    return await response.json();
+}
 
 
   return (
