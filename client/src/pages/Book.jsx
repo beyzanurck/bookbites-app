@@ -34,7 +34,8 @@ export default function Book() {
       <div className='top'>
 
         <div className='book-img'>
-            <img src={book[0] && book[0].image_url}/>
+
+            <img src={book?.[0]?.image_url}/>
             <MdFavorite size={32} style={{ color: 'red' }} />
             <MdFavoriteBorder size={32}/>
 
@@ -47,12 +48,13 @@ export default function Book() {
 
     
         <div className='book-details'>
-            <p>{book[0] && book[0].title}</p>
-            <p>{book[0] && book[0].description}</p>
+            
+            <p>{book?.[0]?.title}</p>
+            <p>{book?.[0]?.description}</p>
 
             <div>
                 <textarea  rows="10" cols="60" />
-                
+
                 <button> Add Comment </button>
             </div>
         </div>
