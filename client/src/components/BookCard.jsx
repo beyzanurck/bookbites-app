@@ -17,9 +17,12 @@ export default function BookCard({title, author, img, category, id, faved}) {
   }, [faved]);
 
   function handleFavories () {
-    setIsFaved(!isFaved)
-    console.log("favorite:", user.sub, id, !isFaved)
-    sendFavoriteInfo(user.sub, id, !isFaved)
+    
+    const newStatus = !isFaved;
+
+    setIsFaved(newStatus)
+    console.log("favorite:", user.sub, id, newStatus)
+    sendFavoriteInfo(user.sub, id, newStatus)
   }
 
   async function sendFavoriteInfo(auth0_sub, api_id, isFav) {
