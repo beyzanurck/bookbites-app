@@ -9,6 +9,7 @@ const PORT = 1212;
 app.use(cors());
 app.use(express.json()); //req.body
 
+//displays all users
 app.get("/users", async (req, res) =>  {
     
     try {
@@ -20,6 +21,7 @@ app.get("/users", async (req, res) =>  {
 
 });
 
+//displays specific user
 app.get('/users/:id', async (req, res) =>{
 
     try{
@@ -34,6 +36,7 @@ app.get('/users/:id', async (req, res) =>{
     }    
 })
 
+//adds a new user
 app.post("/users", async (req, res) =>  {
     
     try {
@@ -58,7 +61,7 @@ app.post("/users", async (req, res) =>  {
     }
 });
 
-
+//displays all books
 app.get("/", async (req, res) =>  {
     
     try {
@@ -70,6 +73,7 @@ app.get("/", async (req, res) =>  {
 
 });
 
+////displays specific books
 app.get("/:id", async (req, res) =>  {
     
     try {
@@ -82,58 +86,6 @@ app.get("/:id", async (req, res) =>  {
         console.error("Error Message!:", error.message);
     }
 
-});
-
-
-app.get("/user/books", async (req, res) =>  {
-    
-    try {
-        const {rows : user_library} = await db.query('SELECT * FROM books');
-        res.send(user_library);
-    } catch (error) {
-        console.error("Error Message!:", error.message);
-    }
-
-});
-
-app.post("/user/books", async (req, res) =>  {
-    
-    try {
-        const {api_id, user_id, isFavorite, shelf_status, note} = req.body;
-
-        const newBook = await db.query (
-            "INSERT INTO books (api_id, user_id, isFavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFavorite, shelf_status, note]
-        );
-
-        res.json(newBook.rows[0])
-        
-    } catch (error) {
-        console.error(error.message)
-    }
-
-});
-
-app.put('/user/books/:id', async (req, res) => {
-
-    try {
-
-        const { id } = req.params; //api_id
-        const { user_email, isFavorite, shelf_status, note } = req.body;
-
-        const userResult = await db.query('SELECT user_id FROM users WHERE email = $1', [user_email]);
-        const user_id = userResult.rows[0].user_id;
-        console.log("USER " +  user_id)
-
-        const updatedBook = await db.query(
-            "UPDATE books SET user_id = $1, isFavorite = $2, shelf_status = $3, note = $4 WHERE api_id = $5 RETURNING *",
-            [user_id, isFavorite, shelf_status, note, id]
-        );
-
-        res.json(updatedBook.rows[0]); 
-
-    } catch(error){
-        console.log(error);
-    }  
 });
 
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));

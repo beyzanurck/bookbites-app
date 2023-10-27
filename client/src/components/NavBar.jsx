@@ -1,11 +1,27 @@
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 export default function NavBar() {
 
     const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+
+    // const [userInfo, setUserInfo] = useState([])
+
+    // async function getUserById() {
+    //     try {
+
+    //         const response = await fetch(`http://localhost:1212/users?user_sub=${user.sub}`);
+
+    //         const theUser = await response.json()
+
+    //         setUserInfo(theUser)
+
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
 
     async function sendEmailToBackend(first_name, last_name, email, auth0_sub) {
 
