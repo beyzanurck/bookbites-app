@@ -1,9 +1,56 @@
 /* @import 'bootstrap/dist/css/bootstrap.min.css'; */
 
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+
+.navbar {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
 }
 
+.home {
+  font-size: 2rem;
+}
+
+.navbar ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.books-grid {
+  margin: 3%;
+  display: flex;
+  gap: 4%;
+}
+
+.top{
+  display: flex;
+  gap: 5%;
+}
+
+.book-img {
+  display: flex;
+  flex-direction: column;
+}

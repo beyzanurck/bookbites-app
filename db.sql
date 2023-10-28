@@ -28,9 +28,9 @@ CREATE TABLE users (
     image VARCHAR(500)
 );
 
-CREATE TABLE books (
-    book_id SERIAL PRIMARY KEY,
-    api_id VARCHAR(255) UNIQUE NOT NULL,
+CREATE TABLE feeds (
+    feed_id SERIAL PRIMARY KEY,
+    api_id VARCHAR(255) NOT NULL,
     user_id INT REFERENCES users(user_id),
     isFavorite BOOLEAN DEFAULT FALSE,
     shelf_status INT CHECK (shelf_status IN (0, 1, 2)),
@@ -40,7 +40,7 @@ CREATE TABLE books (
 CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
-    book_id INT REFERENCES Books(book_id),
+    api_id VARCHAR(255) REFERENCES demo_api(api_id),
     text TEXT NOT NULL,
     date TIMESTAMP NOT NULL,
     rate FLOAT CHECK (rate >= 0 AND rate <= 5)
@@ -74,6 +74,41 @@ INSERT INTO demo_api (api_id, title, author, publicationYear, image_url, categor
 
 -- View the list
 SELECT * FROM demo_api;
+
+
+-- Add a new column to the table
+ALTER TABLE demo_api
+ADD COLUMN description TEXT;
+
+-- Add values to the description
+UPDATE demo_api
+SET description = 'This is the first sample description for the API.'
+WHERE demo_api_id = 1;
+
+UPDATE demo_api
+SET description = 'The second placeholder description.'
+WHERE demo_api_id = 2;
+
+UPDATE demo_api
+SET description = 'This is another example of an API description.'
+WHERE demo_api_id = 3;
+
+UPDATE demo_api
+SET description = 'Sample description four goes here.'
+WHERE demo_api_id = 4;
+
+UPDATE demo_api
+SET description = 'The fifth placeholder sentence is this one.'
+WHERE demo_api_id = 5;
+
+-- Add a user to the user table
+INSERT INTO users (first_name, last_name, email) VALUES ('Beyza', 'Kilinc', 'beyzanurceylan77@gmail.com');
+
+-- Add a foreign key to the book table
+ALTER TABLE book ADD FOREIGN KEY (api_id) REFERENCES demo_api(api_id);
+
+-- Add auth0_sub attribute
+ALTER TABLE users ADD COLUMN auth0_sub VARCHAR(255) UNIQUE;
 
 
 --
