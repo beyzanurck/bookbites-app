@@ -25,7 +25,7 @@ export default function NavBar() {
 
     async function sendEmailToBackend(first_name, last_name, email, auth0_sub) {
 
-        const response = await fetch('http://localhost:1212/users', {
+        const response = await fetch('/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
