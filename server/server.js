@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 //displays all users
 app.get("/api/users", async (req, res) =>  {
-    
+    console.log("/api/users")
     try {
         const {rows : users} = await db.query('SELECT * FROM users');
         res.send(users);
@@ -78,6 +78,7 @@ app.post("/api/users", async (req, res) =>  {
 
 //displays all books
 app.get("/api/books", async (req, res) =>  {
+    console.log("/api/books")
     
     try {
         const {rows : demo_books} = await db.query('SELECT * FROM demo_api');

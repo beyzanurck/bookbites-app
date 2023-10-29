@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: tpl622_8
+-- Name: comments; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.comments (
@@ -35,10 +35,10 @@ CREATE TABLE public.comments (
 );
 
 
-ALTER TABLE public.comments OWNER TO tpl622_8;
+ALTER TABLE public.comments OWNER TO postgres;
 
 --
--- Name: comments_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl622_8
+-- Name: comments_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.comments_comment_id_seq
@@ -50,17 +50,17 @@ CREATE SEQUENCE public.comments_comment_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.comments_comment_id_seq OWNER TO tpl622_8;
+ALTER TABLE public.comments_comment_id_seq OWNER TO postgres;
 
 --
--- Name: comments_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl622_8
+-- Name: comments_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.comments_comment_id_seq OWNED BY public.comments.comment_id;
 
 
 --
--- Name: demo_api; Type: TABLE; Schema: public; Owner: tpl622_8
+-- Name: demo_api; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.demo_api (
@@ -77,10 +77,10 @@ CREATE TABLE public.demo_api (
 );
 
 
-ALTER TABLE public.demo_api OWNER TO tpl622_8;
+ALTER TABLE public.demo_api OWNER TO postgres;
 
 --
--- Name: demo_api_demo_api_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl622_8
+-- Name: demo_api_demo_api_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.demo_api_demo_api_id_seq
@@ -92,17 +92,17 @@ CREATE SEQUENCE public.demo_api_demo_api_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.demo_api_demo_api_id_seq OWNER TO tpl622_8;
+ALTER TABLE public.demo_api_demo_api_id_seq OWNER TO postgres;
 
 --
--- Name: demo_api_demo_api_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl622_8
+-- Name: demo_api_demo_api_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.demo_api_demo_api_id_seq OWNED BY public.demo_api.demo_api_id;
 
 
 --
--- Name: feeds; Type: TABLE; Schema: public; Owner: tpl622_8
+-- Name: feeds; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.feeds (
@@ -116,10 +116,10 @@ CREATE TABLE public.feeds (
 );
 
 
-ALTER TABLE public.feeds OWNER TO tpl622_8;
+ALTER TABLE public.feeds OWNER TO postgres;
 
 --
--- Name: feeds_feed_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl622_8
+-- Name: feeds_feed_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.feeds_feed_id_seq
@@ -131,17 +131,17 @@ CREATE SEQUENCE public.feeds_feed_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.feeds_feed_id_seq OWNER TO tpl622_8;
+ALTER TABLE public.feeds_feed_id_seq OWNER TO postgres;
 
 --
--- Name: feeds_feed_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl622_8
+-- Name: feeds_feed_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.feeds_feed_id_seq OWNED BY public.feeds.feed_id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: tpl622_8
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.users (
@@ -154,10 +154,10 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO tpl622_8;
+ALTER TABLE public.users OWNER TO postgres;
 
 --
--- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl622_8
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.users_user_id_seq
@@ -169,45 +169,45 @@ CREATE SEQUENCE public.users_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_user_id_seq OWNER TO tpl622_8;
+ALTER TABLE public.users_user_id_seq OWNER TO postgres;
 
 --
--- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl622_8
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
--- Name: comments comment_id; Type: DEFAULT; Schema: public; Owner: tpl622_8
+-- Name: comments comment_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.comments ALTER COLUMN comment_id SET DEFAULT nextval('public.comments_comment_id_seq'::regclass);
 
 
 --
--- Name: demo_api demo_api_id; Type: DEFAULT; Schema: public; Owner: tpl622_8
+-- Name: demo_api demo_api_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.demo_api ALTER COLUMN demo_api_id SET DEFAULT nextval('public.demo_api_demo_api_id_seq'::regclass);
 
 
 --
--- Name: feeds feed_id; Type: DEFAULT; Schema: public; Owner: tpl622_8
+-- Name: feeds feed_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.feeds ALTER COLUMN feed_id SET DEFAULT nextval('public.feeds_feed_id_seq'::regclass);
 
 
 --
--- Name: users user_id; Type: DEFAULT; Schema: public; Owner: tpl622_8
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
 
 
 --
--- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: tpl622_8
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.comments (comment_id, user_id, api_id, text, date, rate) FROM stdin;
@@ -215,7 +215,7 @@ COPY public.comments (comment_id, user_id, api_id, text, date, rate) FROM stdin;
 
 
 --
--- Data for Name: demo_api; Type: TABLE DATA; Schema: public; Owner: tpl622_8
+-- Data for Name: demo_api; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.demo_api (demo_api_id, api_id, title, author, publicationyear, image_url, categories, averagerating, ratingscount, description) FROM stdin;
@@ -228,7 +228,7 @@ COPY public.demo_api (demo_api_id, api_id, title, author, publicationyear, image
 
 
 --
--- Data for Name: feeds; Type: TABLE DATA; Schema: public; Owner: tpl622_8
+-- Data for Name: feeds; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.feeds (feed_id, api_id, user_id, isfavorite, shelf_status, note) FROM stdin;
@@ -242,7 +242,7 @@ COPY public.feeds (feed_id, api_id, user_id, isfavorite, shelf_status, note) FRO
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tpl622_8
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.users (user_id, first_name, last_name, email, image, auth0_sub) FROM stdin;
@@ -252,35 +252,35 @@ COPY public.users (user_id, first_name, last_name, email, image, auth0_sub) FROM
 
 
 --
--- Name: comments_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl622_8
+-- Name: comments_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.comments_comment_id_seq', 1, false);
 
 
 --
--- Name: demo_api_demo_api_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl622_8
+-- Name: demo_api_demo_api_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.demo_api_demo_api_id_seq', 5, true);
 
 
 --
--- Name: feeds_feed_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl622_8
+-- Name: feeds_feed_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.feeds_feed_id_seq', 6, true);
 
 
 --
--- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl622_8
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.users_user_id_seq', 19, true);
 
 
 --
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.comments
@@ -288,7 +288,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: demo_api demo_api_api_id_key; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: demo_api demo_api_api_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.demo_api
@@ -296,7 +296,7 @@ ALTER TABLE ONLY public.demo_api
 
 
 --
--- Name: demo_api demo_api_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: demo_api demo_api_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.demo_api
@@ -304,7 +304,7 @@ ALTER TABLE ONLY public.demo_api
 
 
 --
--- Name: feeds feeds_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: feeds feeds_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.feeds
@@ -312,7 +312,7 @@ ALTER TABLE ONLY public.feeds
 
 
 --
--- Name: users users_auth0_sub_key; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: users users_auth0_sub_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -320,7 +320,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -328,7 +328,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
@@ -336,7 +336,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: comments comments_api_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: comments comments_api_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.comments
@@ -344,7 +344,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.comments
@@ -352,7 +352,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
--- Name: feeds feeds_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl622_8
+-- Name: feeds feeds_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.feeds
