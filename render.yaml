@@ -5,7 +5,7 @@ services:
     env: node
     repo: https://github.com/beyzanurck/bookbites-app.git
     buildCommand: cd client && npm install && npm run build && cd ../server && npm install
-    startCommand: cd server && node ./node_modules/db-migrate/bin/db-migrate up && node server.js
+    startCommand: cd server && sh import-db.sh && node server.js
     envVars:
       - key: DATABASE_URL
         fromDatabase:
