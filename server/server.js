@@ -52,7 +52,7 @@ app.get('/api/users/:id', async (req, res) =>{
 })
 
 //adds a new user
-app.post("/users", async (req, res) =>  {
+app.post("/api/users", async (req, res) =>  {
     
     try {
         const {first_name, last_name, email, image, auth0_sub } = req.body;
