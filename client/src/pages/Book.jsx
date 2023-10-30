@@ -11,7 +11,7 @@ export default function Book() {
     async function getBookById() {
         try {
 
-            const response = await fetch(`http://localhost:1212/${id}`);
+            const response = await fetch(`/api/${id}`);
 
             const theBook = await response.json()
 

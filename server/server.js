@@ -2,16 +2,30 @@ import express from 'express';
 import 'dotenv/config'
 import db from "./db/db-connection.js";
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 const app = express();
-const PORT = 1212;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const REACT_BUILD_DIR = path.join(__dirname, '..', 'client', 'dist');
+app.use(express.static(REACT_BUILD_DIR));
+
+const PORT = process.env.PORT || 8080;
 app.use(cors());
-app.use(express.json()); //req.body
+app.use(express.json());
+
+// serve the frontend
+app.get('/', (req, res) => {
+  res.sendFile(path.join(REACT_BUILD_DIR, 'index.html'));
+});
+
 
 //displays all users
-app.get("/users", async (req, res) =>  {
-    
+app.get("/api/users", async (req, res) =>  {
+    console.log("/api/users")
     try {
         const {rows : users} = await db.query('SELECT * FROM users');
         res.send(users);
@@ -23,7 +37,7 @@ app.get("/users", async (req, res) =>  {
 });
 
 //displays specific user
-app.get('/users/:id', async (req, res) =>{
+app.get('/api/users/:id', async (req, res) =>{
 
     try{
         const { id } = req.params;
@@ -38,7 +52,7 @@ app.get('/users/:id', async (req, res) =>{
 })
 
 //adds a new user
-app.post("/users", async (req, res) =>  {
+app.post("/api/users", async (req, res) =>  {
     
     try {
         const {first_name, last_name, email, image, auth0_sub } = req.body;
@@ -63,7 +77,8 @@ app.post("/users", async (req, res) =>  {
 });
 
 //displays all books
-app.get("/", async (req, res) =>  {
+app.get("/api/books", async (req, res) =>  {
+    console.log("/api/books")
     
     try {
         const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
@@ -75,7 +90,7 @@ app.get("/", async (req, res) =>  {
 });
 
 ////displays specific books
-app.get("/:id", async (req, res) =>  {
+app.get("/api/:id", async (req, res) =>  {
     
     try {
 
@@ -99,7 +114,7 @@ async function getUserIdFromSub(userSub) {
 }
 
 //update and add feed events
-app.post("/feed", async (req, res) =>  {
+app.post("/api/feed", async (req, res) =>  {
     
     try {
         console.log(req.body)
@@ -128,7 +143,7 @@ app.post("/feed", async (req, res) =>  {
 
 
 //queries all the user actions
-app.get("/feed/:id", async (req, res) =>  {
+app.get("/api/feed/:id", async (req, res) =>  {
     
     try {
         // const {auth0_sub} = req.body;
