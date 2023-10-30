@@ -11,19 +11,8 @@ export default function BookCard({title, author, img, category, id, faved}) {
 
   const [isFaved, setIsFaved] = useState(faved);
 
-  useEffect(() => {
-    setIsFaved(faved);
-  }, [faved]);
 
-  function handleFavories () {
-
-    const newStatus = !isFaved;
-
-    setIsFaved(newStatus)
-    console.log("favorite:", user.sub, id, newStatus)
-    sendFavoriteInfo(user.sub, id, newStatus)
-  }
-
+  //sends favorite action info to the feed table
   async function sendFavoriteInfo(auth0_sub, api_id, isFav) {
 
     const response = await fetch('/api/feed', {
@@ -35,10 +24,27 @@ export default function BookCard({title, author, img, category, id, faved}) {
     });
 
     return await response.json();
-}
+  }
 
-  console.log("BookCard",id,faved,isFaved)
 
+  // changes isFaved state
+  function handleFavories () {
+
+    const newStatus = !isFaved; //setIsFaved is an asycn ()
+
+    setIsFaved(newStatus)
+    
+    sendFavoriteInfo(user.sub, id, newStatus)
+  }
+
+
+  // turns updates the UI accordingly
+  useEffect(() => {
+    setIsFaved(faved);
+  }, [faved]);
+
+  
+  //an obj for the favorite icon
   const iconProps = {
     size: 32,
     style: {
@@ -46,6 +52,7 @@ export default function BookCard({title, author, img, category, id, faved}) {
     },
     onClick: handleFavories,
   };
+  
 
   return (
 

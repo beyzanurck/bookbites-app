@@ -19,7 +19,6 @@
 | nodemon      	|                 	|          	|                           	|
  
 
-
 ## Project Setup
 
 1. The data for this project can be found in db.sql. If you have PostgreSQL installed on your local machine, you can follow the instructions inside db.sql to set up the database.

@@ -8,14 +8,22 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+
+// Needed it for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Set the path to the React application's build directory. This assumes that the production-ready frontend code
+// is located in the 'client/dist' directory, which is a common convention for React applications.
 const REACT_BUILD_DIR = path.join(__dirname, '..', 'client', 'dist');
+
+// Serve the static files from the React build directory. This middleware enables the Express server to
+// serve the optimized, production build of the React app, including HTML, CSS, JavaScript, and any other static assets.
 app.use(express.static(REACT_BUILD_DIR));
 
 const PORT = process.env.PORT || 8080;
-app.use(cors());
-app.use(express.json());
 
 // serve the frontend
 app.get('/', (req, res) => {
@@ -36,6 +44,7 @@ app.get("/api/users", async (req, res) =>  {
 
 });
 
+
 //displays specific user
 app.get('/api/users/:id', async (req, res) =>{
 
@@ -50,6 +59,7 @@ app.get('/api/users/:id', async (req, res) =>{
         console.log(error);
     }    
 })
+
 
 //adds a new user
 app.post("/api/users", async (req, res) =>  {
@@ -76,6 +86,7 @@ app.post("/api/users", async (req, res) =>  {
     }
 });
 
+
 //displays all books
 app.get("/api/books", async (req, res) =>  {
     console.log("/api/books")
@@ -89,7 +100,8 @@ app.get("/api/books", async (req, res) =>  {
 
 });
 
-////displays specific books
+
+//displays specific books
 app.get("/api/:id", async (req, res) =>  {
     
     try {
@@ -104,7 +116,10 @@ app.get("/api/:id", async (req, res) =>  {
 
 });
 
+
+//finds the user id based on the auth0_sub
 async function getUserIdFromSub(userSub) {
+
     const user = await db.query(
         'SELECT user_id FROM users WHERE auth0_sub = $1',
          [userSub]
@@ -112,6 +127,7 @@ async function getUserIdFromSub(userSub) {
     
     return user.rows[0].user_id;
 }
+
 
 //update and add feed events
 app.post("/api/feed", async (req, res) =>  {
@@ -146,13 +162,13 @@ app.post("/api/feed", async (req, res) =>  {
 app.get("/api/feed/:id", async (req, res) =>  {
     
     try {
-        // const {auth0_sub} = req.body;
         const { id } = req.params;
         console.log(id)
 
         let user_id = await getUserIdFromSub(id)
         const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);
         res.send(user_actions);
+        
     } catch (error) {
         console.error("Error Message!:", error.message);
     }

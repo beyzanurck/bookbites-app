@@ -12,7 +12,6 @@ export default function Book() {
         try {
 
             const response = await fetch(`/api/${id}`);
-
             const theBook = await response.json()
 
             setBook(theBook)
