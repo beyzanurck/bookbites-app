@@ -16,7 +16,7 @@ export default function Book() {
     const { faved } = location.state || {} ;
     const [isFaved, setIsFaved] = useState(faved);
 
-   
+  
     async function getBookById() {
         try {
 
@@ -35,11 +35,28 @@ export default function Book() {
     }, []);
 
 
+    //sends favorite and status action info to the feed table
+    async function sendActionInfo(auth0_sub, api_id, isFav, shelf_status) {
+        console.log(auth0_sub, api_id, isFav, shelf_status)
+        const response = await fetch('/api/feed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ auth0_sub, api_id, isFav, shelf_status })
+        });
+
+        return await response.json();
+    }
+
+
     function handleFavories () {
 
         const newStatus = !isFaved;
     
         setIsFaved(newStatus)
+
+        sendActionInfo(user.sub, id, newStatus, 1)
     }
 
     

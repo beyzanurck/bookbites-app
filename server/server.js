@@ -134,7 +134,7 @@ app.post("/api/feed", async (req, res) =>  {
     
     try {
         console.log(req.body)
-        const {auth0_sub, api_id, isFav } = req.body;
+        const {auth0_sub, api_id, isFav, shelf_status } = req.body;
         let user_id = await getUserIdFromSub(auth0_sub)
 
         const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
@@ -142,12 +142,12 @@ app.post("/api/feed", async (req, res) =>  {
         if (existingEntry.rows.length > 0) {
             const updatedBook = await db.query(
                 "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
-                [isFav, null, null, api_id, user_id]
+                [isFav, shelf_status, null, api_id, user_id]
             );
         }
         else {
             const newItem = await db.query(
-                "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, null, null]
+                "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, shelf_status, null]
             );
         }
         res.json({});
