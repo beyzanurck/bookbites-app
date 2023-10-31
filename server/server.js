@@ -158,7 +158,7 @@ app.post("/api/feed", async (req, res) =>  {
 });
 
 
-//queries all the user actions
+//queries for the user's all actions
 app.get("/api/feed/:id", async (req, res) =>  {
     
     try {
@@ -168,6 +168,23 @@ app.get("/api/feed/:id", async (req, res) =>  {
         let user_id = await getUserIdFromSub(id)
         const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);
         res.send(user_actions);
+        
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+    }
+
+});
+
+
+//queries for the user's action
+app.get("/api/feed/:id/:apiId", async (req, res) =>  {
+    
+    try {
+        const { id, apiId } = req.params;
+
+        let user_id = await getUserIdFromSub(id)
+        const {rows : user_action} = await db.query('SELECT * FROM feeds WHERE user_id = $1 AND api_id = $2', [user_id, apiId]);
+        res.send(user_action);
         
     } catch (error) {
         console.error("Error Message!:", error.message);
