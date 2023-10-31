@@ -133,10 +133,10 @@ async function getUserIdFromSub(userSub) {
 app.post("/api/feed", async (req, res) =>  {
     
     try {
-        console.log(req.body)
+        
         const {auth0_sub, api_id, isFav, shelf_status } = req.body;
         let user_id = await getUserIdFromSub(auth0_sub)
-
+        console.log("beyza:  ",req.body)
         const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
 
         if (existingEntry.rows.length > 0) {

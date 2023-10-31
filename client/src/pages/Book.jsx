@@ -16,6 +16,10 @@ export default function Book() {
     const { faved } = location.state || {} ;
     const [isFaved, setIsFaved] = useState(faved);
 
+    //dropdown menu
+    // const [status, setStatus] = useState(1);
+    const [status, setStatus] = useState("");
+
   
     async function getBookById() {
         try {
@@ -55,11 +59,46 @@ export default function Book() {
         const newStatus = !isFaved;
     
         setIsFaved(newStatus)
-
-        sendActionInfo(user.sub, id, newStatus, 1)
+        // sendActionInfo(user.sub, id, newStatus, status)
     }
 
+
+    function handleSelect (event) {
+
+        const test = event.target.value;
+        console.log("menu value: ", test)
+        setStatus(test);
+
+    }
     
+    useEffect(() => {
+
+        console.log("effect function: ", status)
+
+        let status_code; 
+
+        switch (status) {
+
+            case 'read':
+                status_code = 0
+
+            break;
+
+            case 'to-read':
+                status_code = 1
+            break;
+
+            case 'currently-reading':
+                status_code = 2
+            break;
+
+            default:
+        }
+
+        sendActionInfo(user.sub, id, isFaved, status_code)
+
+    }, [status, isFaved]);
+
     const iconProps = {
         size: 32,
         style: {
@@ -86,7 +125,8 @@ export default function Book() {
                     )
             }
 
-            <select>
+            <select value={status} onChange={handleSelect}>
+                <option value="" disabled> select a status</option>
                 <option value="read">Read</option>
                 <option value="to-read">To Read</option>
                 <option value="currently-reading">Currently Reading</option>
