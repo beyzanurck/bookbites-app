@@ -5,7 +5,7 @@ import {MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
-export default function BookCard({title, author, img, category, id, faved}) {
+export default function BookCard({title, author, img, category, id, faved, status}) {
 
   const { isAuthenticated, user} = useAuth0();
 
@@ -58,7 +58,7 @@ export default function BookCard({title, author, img, category, id, faved}) {
 
     <Card style={{ width: '18rem' }}>
 
-      <Link to={`/book/${id}`} state={{ faved : isFaved }}>
+      <Link to={`/book/${id}`} state={{ faved : isFaved, shelf_status : status }}>
         <Card.Img variant="top" src={img} />
       </Link>
 

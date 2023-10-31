@@ -59,7 +59,7 @@ export default function Home() {
 
     if (matchingAction) {
 
-      return matchingAction.isfavorite;
+      return [matchingAction.isfavorite, matchingAction.shelf_status];
     }
     return false;
   }
@@ -101,7 +101,8 @@ export default function Home() {
                 img = {item.image_url}
                 category = {item.categories}
                 id = {item.api_id}
-                faved = {isFaved(item.api_id)}
+                faved = {isFaved(item.api_id)[0]}
+                status = {isFaved(item.api_id)[1]}
               />
             ))
           }

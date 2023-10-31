@@ -14,6 +14,7 @@ export default function Book() {
     //coming from Link
     const location = useLocation();
     const { faved } = location.state || {} ;
+    const {shelf_status} = location.state || {} ;
     const [isFaved, setIsFaved] = useState(faved);
 
     //dropdown menu
@@ -106,6 +107,27 @@ export default function Book() {
         },
         onClick: handleFavories,
     };
+
+
+    useEffect(() => {
+        switch (shelf_status) {
+
+            case 0:
+                setStatus("read");
+
+            break;
+
+            case 1:
+                setStatus( "to-read");
+            break;
+
+            case 2:
+                setStatus("currently-reading");
+            break;
+
+            default:
+        }
+    }, [shelf_status]);
 
   return (
     <div>
