@@ -58,27 +58,27 @@ export default function BookCard({title, author, img, category, id, faved}) {
 
     <Card style={{ width: '18rem' }}>
 
-      <Link to={`/book/${id}`}>
+      <Link to={`/book/${id}`} state={{ faved : isFaved }}>
         <Card.Img variant="top" src={img} />
       </Link>
-      
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>
-            <strong>Author:</strong> {author} <br />
-            <strong>Category:</strong> {category}
-          </Card.Text>
 
-          {
-            isAuthenticated && 
-            (
-              isFaved
-                ? <MdFavorite {...iconProps} />
-                : <MdFavoriteBorder {...iconProps} />
-            )
-          }
-          
-        </Card.Body>
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>
+          <strong>Author:</strong> {author} <br />
+          <strong>Category:</strong> {category}
+        </Card.Text>
+
+        {
+          isAuthenticated && 
+          (
+            isFaved
+              ? <MdFavorite {...iconProps} />
+              : <MdFavoriteBorder {...iconProps} />
+          )
+        }
+        
+      </Card.Body>
     </Card>
 
   )
