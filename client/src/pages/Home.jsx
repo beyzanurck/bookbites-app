@@ -53,7 +53,7 @@ export default function Home() {
 
 
   //finds the favorited books of the user
-  function isFaved(api_id){
+  function actionById(api_id){
     
     const matchingAction = actions.find(element => element.api_id == api_id);
 
@@ -101,8 +101,8 @@ export default function Home() {
                 img = {item.image_url}
                 category = {item.categories}
                 id = {item.api_id}
-                faved = {isFaved(item.api_id)[0]}
-                status = {isFaved(item.api_id)[1]}
+                faved = {actionById(item.api_id)[0]}
+                status = {actionById(item.api_id)[1]}
               />
             ))
           }

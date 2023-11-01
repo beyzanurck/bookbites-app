@@ -13,13 +13,12 @@ export default function Book() {
 
     //coming from Link
     const location = useLocation();
-    const { faved } = location.state || {} ;
-    const {shelf_status} = location.state || {} ;
-    const [isFaved, setIsFaved] = useState(faved);
-
-    //dropdown menu
-    // const [status, setStatus] = useState(1);
-    const [status, setStatus] = useState("");
+    const { faved, shelf_status } = location.state || {} ;
+ 
+    const [action, setAction] = useState({
+        "isFaved" : faved,
+        "status" : ""
+    })
 
   
     async function getBookById() {
@@ -57,32 +56,26 @@ export default function Book() {
 
     function handleFavories () {
 
-        const newStatus = !isFaved;
-    
-        setIsFaved(newStatus)
-        // sendActionInfo(user.sub, id, newStatus, status)
+        const newStatus = !action.isFaved;
+        setAction((prevValue)=> ({...action, isFaved : newStatus}));
     }
 
 
     function handleSelect (event) {
 
-        const test = event.target.value;
-        console.log("menu value: ", test)
-        setStatus(test);
+        const value = event.target.value;
 
+        setAction((prevValue)=> ({...action, status : value})); 
     }
     
+    //turns str status to int to add it to the db
     useEffect(() => {
 
-        console.log("effect function: ", status)
-
         let status_code; 
-
-        switch (status) {
+        switch (action.status) {
 
             case 'read':
                 status_code = 0
-
             break;
 
             case 'to-read':
@@ -96,9 +89,30 @@ export default function Book() {
             default:
         }
 
-        sendActionInfo(user.sub, id, isFaved, status_code)
+        sendActionInfo(user.sub, id, action.isFaved, status_code)
 
-    }, [status, isFaved]);
+    }, [action]);
+
+  //int status comes from db. Turn it to str status
+    useEffect(() => {
+        switch (shelf_status) {
+
+            case 0:
+                setAction((prevValue)=> ({...action, status : "read"}));
+            break;
+
+            case 1:
+                setAction((prevValue)=> ({...action, status : "to-read"}));
+            break;
+
+            case 2:
+                setAction((prevValue)=> ({...action, status : "currently-reading"}));
+            break;
+
+            default:
+        }
+    }, [shelf_status]);
+
 
     const iconProps = {
         size: 32,
@@ -107,27 +121,6 @@ export default function Book() {
         },
         onClick: handleFavories,
     };
-
-
-    useEffect(() => {
-        switch (shelf_status) {
-
-            case 0:
-                setStatus("read");
-
-            break;
-
-            case 1:
-                setStatus( "to-read");
-            break;
-
-            case 2:
-                setStatus("currently-reading");
-            break;
-
-            default:
-        }
-    }, [shelf_status]);
 
   return (
     <div>
@@ -141,13 +134,13 @@ export default function Book() {
             {
                 isAuthenticated && 
                     (
-                    isFaved
+                    action.isFaved
                         ? <MdFavorite {...iconProps} />
                         : <MdFavoriteBorder {...iconProps} />
                     )
             }
 
-            <select value={status} onChange={handleSelect}>
+            <select value={action.status} onChange={handleSelect}>
                 <option value="" disabled> select a status</option>
                 <option value="read">Read</option>
                 <option value="to-read">To Read</option>
