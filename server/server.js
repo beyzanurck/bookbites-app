@@ -101,9 +101,11 @@ app.get("/api/books", async (req, res) =>  {
     
     try {
         const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
-        res.send(demo_books);
+        res.status(200).json(demo_books);
+
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
@@ -111,15 +113,20 @@ app.get("/api/books", async (req, res) =>  {
 
 //displays specific books
 app.get("/api/:id", async (req, res) =>  {
-    
-    try {
 
+    try {
         const { id } = req.params;
-        const {rows: book} = await db.query('SELECT * FROM demo_api WHERE api_id = $1',  [id]);
-        res.send(book);
+        const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        if (book.length === 0) {
+            res.status(404).json({ message: "Book not found" });
+        } else {
+            res.status(200).json(book);
+        }
 
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
@@ -143,8 +150,9 @@ app.post("/api/feed", async (req, res) =>  {
     try {
         
         const {auth0_sub, api_id, isFav, shelf_status } = req.body;
+
         let user_id = await getUserIdFromSub(auth0_sub)
-        console.log("beyza:  ",req.body)
+
         const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
 
         if (existingEntry.rows.length > 0) {
@@ -152,15 +160,21 @@ app.post("/api/feed", async (req, res) =>  {
                 "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
                 [isFav, shelf_status, null, api_id, user_id]
             );
+            // Send back the updated book entry with a 200 OK status
+            res.status(200).json(updatedBook.rows[0]);
         }
         else {
             const newItem = await db.query(
                 "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, shelf_status, null]
             );
+
+            // Send back the new feed entry with a 201 Created status
+            res.status(201).json(newItem.rows[0]);
         }
-        res.json({});
+
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
@@ -175,10 +189,17 @@ app.get("/api/feed/:id", async (req, res) =>  {
 
         let user_id = await getUserIdFromSub(id)
         const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);
-        res.send(user_actions);
+
+        if (user_actions.length === 0) {
+            res.status(200).json([]); 
+        } 
+        else {
+            res.status(200).json(user_actions);
+        }
         
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
@@ -192,10 +213,17 @@ app.get("/api/feed/:id/:apiId", async (req, res) =>  {
 
         let user_id = await getUserIdFromSub(id)
         const {rows : user_action} = await db.query('SELECT * FROM feeds WHERE user_id = $1 AND api_id = $2', [user_id, apiId]);
-        res.send(user_action);
+    
+        if (user_action.length === 0) {
+            
+            res.status(404).json({ message: "User action not found" });
+        } else {
+            res.status(200).json(user_action);
+        }
         
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
