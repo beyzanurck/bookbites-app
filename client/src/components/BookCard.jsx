@@ -51,6 +51,7 @@ export default function BookCard({title, author, img, category, id, faved, statu
       color: 'red',
     },
     onClick: handleFavories,
+    role : "button",
   };
   
 
