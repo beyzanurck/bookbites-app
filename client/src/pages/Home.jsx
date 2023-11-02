@@ -7,8 +7,10 @@ export default function Home() {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState('');
   const [actions, setActions] = useState([]);
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
+
+  //gets all books
   async function getBooks() {
 
     try {
@@ -21,6 +23,9 @@ export default function Home() {
       console.log(error.message)
     }
   }
+
+
+  //gets the user's actions from feed table
   async function getActions(auth0_sub) {
 
     try {
@@ -28,29 +33,33 @@ export default function Home() {
 
       const allActions = await response.json();
       setActions(allActions);
-      console.log(allActions)
+
     } catch (error) {
       console.log(error.message)
     }
   }
+
 
   useEffect(() => {
     getBooks();
   }, []);
 
   useEffect(() => {
-    console.log("Main page, user logged", isAuthenticated, user)
+   
     if(isAuthenticated){
       getActions(user.sub);
     }
   }, [isAuthenticated]);
 
-  function isFaved(api_id){
-    console.log("is faved", api_id, actions)
+
+  //finds the favorited books of the user
+  function actionById(api_id){
+    
     const matchingAction = actions.find(element => element.api_id == api_id);
+
     if (matchingAction) {
-      console.log("is faved match", matchingAction)
-      return matchingAction.isfavorite;
+
+      return [matchingAction.isfavorite, matchingAction.shelf_status];
     }
     return false;
   }
@@ -58,10 +67,10 @@ export default function Home() {
   const handleSearchChange = (e) => {
     setSearch(e.target.value)
   };
+  
 
   return (
     <div>
-        <h1>Beyza's Homepage</h1>
 
         <input
           placeholder="search a book by title/author"
@@ -92,7 +101,8 @@ export default function Home() {
                 img = {item.image_url}
                 category = {item.categories}
                 id = {item.api_id}
-                faved = {isFaved(item.api_id)}
+                faved = {actionById(item.api_id)[0]}
+                status = {actionById(item.api_id)[1]}
               />
             ))
           }

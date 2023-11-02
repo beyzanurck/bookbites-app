@@ -8,14 +8,22 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+
+// Needed it for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Set the path to the React application's build directory. This assumes that the production-ready frontend code
+// is located in the 'client/dist' directory, which is a common convention for React applications.
 const REACT_BUILD_DIR = path.join(__dirname, '..', 'client', 'dist');
+
+// Serve the static files from the React build directory. This middleware enables the Express server to
+// serve the optimized, production build of the React app, including HTML, CSS, JavaScript, and any other static assets.
 app.use(express.static(REACT_BUILD_DIR));
 
 const PORT = process.env.PORT || 8080;
-app.use(cors());
-app.use(express.json());
 
 // serve the frontend
 app.get('/', (req, res) => {
@@ -28,13 +36,15 @@ app.get("/api/users", async (req, res) =>  {
     console.log("/api/users")
     try {
         const {rows : users} = await db.query('SELECT * FROM users');
-        res.send(users);
+        res.status(200).json(users); // OK
+
     } catch (error) {
         console.error("Error Message!:", error.message);
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 
 });
+
 
 //displays specific user
 app.get('/api/users/:id', async (req, res) =>{
@@ -44,12 +54,19 @@ app.get('/api/users/:id', async (req, res) =>{
         const user = await db.query("SELECT * FROM users WHERE user_id = $1",  [id]
         );
     
-        res.json(user.rows[0]);
+        if (user.rows.length === 0) {
+            res.status(404).json({ message: "User not found" }); 
+        } else {
+            // User found
+            res.status(200).json(user.rows[0]); // OK
+        }
 
     } catch(error){
-        console.log(error);
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }    
 })
+
 
 //adds a new user
 app.post("/api/users", async (req, res) =>  {
@@ -69,12 +86,14 @@ app.post("/api/users", async (req, res) =>  {
             "INSERT INTO users (first_name, last_name, email, image, auth0_sub) VALUES ($1, $2, $3, $4, $5) RETURNING *", [first_name, last_name, email, image, auth0_sub]
         );
 
-        res.json(newUser.rows[0]);
+        res.status(201).json(newUser.rows[0]);
         
     } catch (error) {
-        console.error(error.message);
+        console.error("Error Message:", error.message);
+        res.status(500).json({ message: error.message });
     }
 });
+
 
 //displays all books
 app.get("/api/books", async (req, res) =>  {
@@ -82,29 +101,40 @@ app.get("/api/books", async (req, res) =>  {
     
     try {
         const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
-        res.send(demo_books);
+        res.status(200).json(demo_books);
+
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
 
-////displays specific books
+
+//displays specific books
 app.get("/api/:id", async (req, res) =>  {
-    
-    try {
 
+    try {
         const { id } = req.params;
-        const {rows: book} = await db.query('SELECT * FROM demo_api WHERE api_id = $1',  [id]);
-        res.send(book);
+        const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        if (book.length === 0) {
+            res.status(404).json({ message: "Book not found" });
+        } else {
+            res.status(200).json(book);
+        }
 
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
 
+
+//finds the user id based on the auth0_sub
 async function getUserIdFromSub(userSub) {
+
     const user = await db.query(
         'SELECT user_id FROM users WHERE auth0_sub = $1',
          [userSub]
@@ -113,12 +143,14 @@ async function getUserIdFromSub(userSub) {
     return user.rows[0].user_id;
 }
 
+
 //update and add feed events
 app.post("/api/feed", async (req, res) =>  {
     
     try {
-        console.log(req.body)
-        const {auth0_sub, api_id, isFav } = req.body;
+        
+        const {auth0_sub, api_id, isFav, shelf_status } = req.body;
+
         let user_id = await getUserIdFromSub(auth0_sub)
 
         const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
@@ -126,35 +158,72 @@ app.post("/api/feed", async (req, res) =>  {
         if (existingEntry.rows.length > 0) {
             const updatedBook = await db.query(
                 "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
-                [isFav, null, null, api_id, user_id]
+                [isFav, shelf_status, null, api_id, user_id]
             );
+            // Send back the updated book entry with a 200 OK status
+            res.status(200).json(updatedBook.rows[0]);
         }
         else {
             const newItem = await db.query(
-                "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, null, null]
+                "INSERT INTO feeds (api_id, user_id, isfavorite, shelf_status, note) VALUES ($1, $2, $3, $4, $5) RETURNING *", [api_id, user_id, isFav, shelf_status, null]
             );
+
+            // Send back the new feed entry with a 201 Created status
+            res.status(201).json(newItem.rows[0]);
         }
-        res.json({});
+
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });
 
 
-//queries all the user actions
+//queries for the user's all actions
 app.get("/api/feed/:id", async (req, res) =>  {
     
     try {
-        // const {auth0_sub} = req.body;
         const { id } = req.params;
         console.log(id)
 
         let user_id = await getUserIdFromSub(id)
         const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);
-        res.send(user_actions);
+
+        if (user_actions.length === 0) {
+            res.status(200).json([]); 
+        } 
+        else {
+            res.status(200).json(user_actions);
+        }
+        
     } catch (error) {
         console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+
+});
+
+
+//queries for the user's action
+app.get("/api/feed/:id/:apiId", async (req, res) =>  {
+    
+    try {
+        const { id, apiId } = req.params;
+
+        let user_id = await getUserIdFromSub(id)
+        const {rows : user_action} = await db.query('SELECT * FROM feeds WHERE user_id = $1 AND api_id = $2', [user_id, apiId]);
+    
+        if (user_action.length === 0) {
+            
+            res.status(404).json({ message: "User action not found" });
+        } else {
+            res.status(200).json(user_action);
+        }
+        
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
     }
 
 });

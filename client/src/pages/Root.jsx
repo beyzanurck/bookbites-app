@@ -8,7 +8,7 @@ export default function Root() {
     <div>
         <NavBar />
 
-        <div className="container">
+        <div className="container" data-testid="container">
             <Outlet />
         </div>
 
