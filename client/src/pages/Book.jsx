@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 import {MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
+import SelectStatus from '../components/SelectStatus';
 
 
 export default function Book() {
@@ -140,12 +141,8 @@ export default function Book() {
                     )
             }
 
-            <select value={action.status} onChange={handleSelect}>
-                <option value="" disabled> select a status</option>
-                <option value="read">Read</option>
-                <option value="to-read">To Read</option>
-                <option value="currently-reading">Currently Reading</option>
-            </select>
+            <SelectStatus value = {action.status} onChange = {handleSelect}/>
+
         </div>
 
     
