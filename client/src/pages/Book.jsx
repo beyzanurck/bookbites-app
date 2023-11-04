@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import {MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
 import SelectStatus from '../components/SelectStatus';
+import TextArea from '../components/TextArea';
 
 
 export default function Book() {
@@ -123,7 +124,7 @@ export default function Book() {
 
     //add new comment
        async function newComment(auth0_sub, api_id, comment) {
-        // console.log(auth0_sub, api_id, isFav, shelf_status)
+
         const response = await fetch('/api/comment', {
             method: 'POST',
             headers: {
@@ -186,14 +187,9 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <textarea  
-                    placeholder='comment here'
-                    name = "text"
-                    value={comment.text}
-                    rows="10" 
-                    cols="60" 
-                    onChange={handleChange}
-                />
+                {/* implement star rating here later */}
+
+                <TextArea placeholder={"Comment"} name = {"text"} value = {comment.text} onChange={handleChange}/> 
 
                 <button type='submit'> Add </button>
             </form>
