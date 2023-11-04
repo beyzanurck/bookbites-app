@@ -228,4 +228,29 @@ app.get("/api/feed/:id/:apiId", async (req, res) =>  {
 
 });
 
+
+//add a new comment on Book Page
+app.post("/api/comment", async (req, res) =>  {
+
+    try {
+
+        const {auth0_sub, api_id, text, date, rate } = req.body;
+
+        let user_id = await getUserIdFromSub(auth0_sub)
+
+        const { rows: comment } = await db.query("INSERT INTO comments (user_id, api_id, text, date, rate) VALUES ($1, $2, $3, $4, $5) RETURNING *", [user_id, api_id, text, date, rate]);
+
+        if (comment.length === 0) {
+            res.status(404).json({ message: "Comment not found" });
+        } else {
+            res.status(200).json(comment);
+        }
+
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+
+});
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
