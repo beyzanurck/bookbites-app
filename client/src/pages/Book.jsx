@@ -222,7 +222,15 @@ export default function Book() {
                 <button type='submit'> Add </button>
             </form>
 
-            <CommentCard text = {commentList?.[4]?.text}/>
+            {
+                commentList.map((item, index) => (
+                    <CommentCard 
+                        key = {index}
+                        text = {item.text}
+                    />
+                ))
+            }
+
         </div>
 
       </div>
