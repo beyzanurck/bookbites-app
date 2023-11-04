@@ -21,6 +21,12 @@ export default function Book() {
         "status" : ""
     })
 
+    const [comment, setComment] = useState({
+        "text" : "",
+        "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
+        "rate" : 0
+    })
+
   
     async function getBookById() {
         try {
@@ -115,6 +121,33 @@ export default function Book() {
     }, [shelf_status]);
 
 
+    //add new comment
+       async function newComment(auth0_sub, api_id, comment) {
+        // console.log(auth0_sub, api_id, isFav, shelf_status)
+        const response = await fetch('/api/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ auth0_sub, api_id, ...comment })
+        });
+
+        return await response.json();
+    }
+
+    function handleChange(event){
+
+        const {value, name} = event.target
+
+        setComment((preValue) => ({...preValue, [name]: value}));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        newComment(user.sub, id, comment);
+    }
+
+
     const iconProps = {
         size: 32,
         style: {
@@ -151,11 +184,19 @@ export default function Book() {
             <p>{book?.[0]?.title}</p>
             <p>{book?.[0]?.description}</p>
 
-            <div>
-                <textarea  rows="10" cols="60" />
+            <form className='new-comment' onSubmit={handleSubmit}>
 
-                <button> Add Comment </button>
-            </div>
+                <textarea  
+                    placeholder='comment here'
+                    name = "text"
+                    value={comment.text}
+                    rows="10" 
+                    cols="60" 
+                    onChange={handleChange}
+                />
+
+                <button type='submit'> Add </button>
+            </form>
         </div>
 
       </div>
