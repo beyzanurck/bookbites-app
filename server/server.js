@@ -253,4 +253,29 @@ app.post("/api/comment", async (req, res) =>  {
 
 });
 
+
+
+//gets the book's comments
+app.get("/api/comment/:id", async (req, res) =>  {
+    
+    try {
+        const { id } = req.params;
+        
+        const {rows : commentList} = await db.query('SELECT * FROM comments WHERE api_id = $1', [id]);
+
+        if (commentList.length === 0) {
+            res.status(200).json([]); 
+        } 
+        else {
+            res.status(200).json(commentList);
+        }
+        
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+
+});
+
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
