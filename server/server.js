@@ -256,10 +256,11 @@ app.post("/api/comment", async (req, res) =>  {
 
 
 //gets the book's comments
-app.get("/api/comment/:id", async (req, res) =>  {
+app.get("/api/comment/:id/:userSub", async (req, res) =>  {
     
     try {
-        const { id } = req.params;
+        const { id, userSub } = req.params;
+        let loggedInUserId = await getUserIdFromSub(userSub)
         
         const {rows : commentList} = await db.query(`
             SELECT 
@@ -272,7 +273,10 @@ app.get("/api/comment/:id", async (req, res) =>  {
             FROM comments 
             JOIN users ON comments.user_id = users.user_id
             WHERE comments.api_id = $1
-        `, [id]);
+            ORDER BY 
+                CASE WHEN comments.user_id = $2 THEN 0 ELSE 1 END, 
+                comments.date DESC
+        `, [id, loggedInUserId]);
 
         if (commentList.length === 0) {
             res.status(200).json([]); 

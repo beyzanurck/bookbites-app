@@ -154,10 +154,10 @@ export default function Book() {
 
 
     //gets the book's comments
-    async function getComments() {
+    async function getComments(id, auth0_sub) {
 
         try {
-            const response = await fetch(`/api/comment/${id}`);
+            const response = await fetch(`/api/comment/${id}/${auth0_sub}`);
     
             const allComments = await response.json();
             setCommentList(allComments);
@@ -168,9 +168,7 @@ export default function Book() {
     }
 
     useEffect(() => {
-        getComments();
-        console.log(commentList)
-
+        getComments(id, user.sub);
     }, []);
 
 
