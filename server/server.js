@@ -261,7 +261,18 @@ app.get("/api/comment/:id", async (req, res) =>  {
     try {
         const { id } = req.params;
         
-        const {rows : commentList} = await db.query('SELECT * FROM comments WHERE api_id = $1', [id]);
+        const {rows : commentList} = await db.query(`
+            SELECT 
+                comments.comment_id, 
+                comments.text, 
+                comments.date, 
+                comments.rate, 
+                users.first_name, 
+                users.last_name
+            FROM comments 
+            JOIN users ON comments.user_id = users.user_id
+            WHERE comments.api_id = $1
+        `, [id]);
 
         if (commentList.length === 0) {
             res.status(200).json([]); 
