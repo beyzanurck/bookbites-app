@@ -227,6 +227,9 @@ export default function Book() {
                     <CommentCard 
                         key = {index}
                         text = {item.text}
+                        userName = {"Beyza Kilinc"}
+                        date = {item.date}
+                        rating={item.rate}
                     />
                 ))
             }
