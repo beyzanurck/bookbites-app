@@ -4,6 +4,7 @@ import {MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
 import SelectStatus from '../components/SelectStatus';
 import TextArea from '../components/TextArea';
+import CommentCard from '../components/CommentCard';
 
 
 export default function Book() {
@@ -28,7 +29,9 @@ export default function Book() {
         "rate" : 0
     })
 
+    const [commentList, setCommentList] = useState([])
   
+
     async function getBookById() {
         try {
 
@@ -149,6 +152,28 @@ export default function Book() {
     }
 
 
+
+    //gets the book's comments
+    async function getComments() {
+
+        try {
+            const response = await fetch(`/api/comment/${id}`);
+    
+            const allComments = await response.json();
+            setCommentList(allComments);
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    useEffect(() => {
+        getComments();
+        console.log(commentList)
+
+    }, []);
+
+
     const iconProps = {
         size: 32,
         style: {
@@ -156,6 +181,9 @@ export default function Book() {
         },
         onClick: handleFavories,
     };
+
+
+
 
   return (
     <div>
@@ -193,6 +221,8 @@ export default function Book() {
 
                 <button type='submit'> Add </button>
             </form>
+
+            <CommentCard text = {commentList?.[4]?.text}/>
         </div>
 
       </div>
