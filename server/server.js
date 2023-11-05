@@ -294,4 +294,19 @@ app.get("/api/comment/:id/:userSub", async (req, res) =>  {
 });
 
 
+//delete a comment
+app.delete('/api/comment/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deletePost= await db.query("DELETE FROM comments WHERE comment_id = $1", [id]
+        );
+
+        res.json("The comment was deleted!");
+
+    } catch (error) {
+        console.error(error.message)
+    }
+})
+
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
