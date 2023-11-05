@@ -227,6 +227,7 @@ export default function Book() {
                         date = {item.date}
                         rating={item.rate}
                         icon = {item.auth0_sub === user.sub}
+                        commentId = {item.comment_id}
                     />
                 ))
             }

@@ -3,7 +3,19 @@ import Card from 'react-bootstrap/Card';
 import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
 
-export default function CommentCard({ text, userName, date, rating, icon }) {
+export default function CommentCard({ text, userName, date, rating, icon, commentId }) {
+
+
+    async function deleteComment(id) {
+
+        try {
+            const deletePost = await fetch(`/api/comment/${id}`, 
+            {method: "DELETE"})
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
   return (
     <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row', margin: '1rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
@@ -27,12 +39,9 @@ export default function CommentCard({ text, userName, date, rating, icon }) {
             icon &&
             <div>
                 <AiFillEdit size={32} style={{color: 'red'}}/>
-                <MdDelete size={32} style={{color: 'green'}}/>
+                <MdDelete size={32} style={{color: 'green'}} onClick={() => {deleteComment(commentId)}}/>
             </div> 
         }
-        
-            
-        
         
       </Card.Body>
     </Card>
