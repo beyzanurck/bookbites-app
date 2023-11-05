@@ -181,8 +181,6 @@ export default function Book() {
     };
 
 
-
-
   return (
     <div>
 
@@ -228,6 +226,7 @@ export default function Book() {
                         userName = {item.first_name + " " + item.last_name}
                         date = {item.date}
                         rating={item.rate}
+                        icon = {item.auth0_sub === user.sub}
                     />
                 ))
             }
