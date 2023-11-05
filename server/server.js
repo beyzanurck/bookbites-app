@@ -316,4 +316,24 @@ app.delete('/api/comment/:id', async (req, res) => {
 })
 
 
+//edit a comment
+app.put('/api/comment', async (req, res) => {
+
+    const {text, rate, comment_id } = req.body;
+
+    try {
+        const updatedComment = await db.query(
+            "UPDATE comments SET text = $1, rate = $2 WHERE comment_id = $3 RETURNING *",
+            [ text, rate, comment_id ]
+        );
+
+        res.status(200).json(updatedComment.rows[0]);
+        
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+})
+
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));
