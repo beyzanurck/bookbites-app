@@ -149,13 +149,20 @@ app.post("/api/feed", async (req, res) =>  {
     
     try {
         
-        const {auth0_sub, api_id, isFav, shelf_status } = req.body;
+        let {auth0_sub, api_id, isFav, shelf_status } = req.body;
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
         const existingEntry = await db.query("SELECT * FROM feeds WHERE api_id = $1 AND user_id = $2", [api_id, user_id]);
 
         if (existingEntry.rows.length > 0) {
+
+            // console.log(shelf_status,existingEntry.rows[0].shelf_status)
+
+            if (shelf_status === undefined) {
+                shelf_status = existingEntry.rows[0].shelf_status;
+            }
+
             const updatedBook = await db.query(
                 "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
                 [isFav, shelf_status, null, api_id, user_id]
