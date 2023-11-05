@@ -31,7 +31,8 @@ export default function Book() {
 
     const [commentList, setCommentList] = useState([])
   
-
+    
+    //Get specific book info
     async function getBookById() {
         try {
 
@@ -48,6 +49,7 @@ export default function Book() {
     useEffect(() => {
         getBookById();
     }, []);
+    //
 
 
     //sends favorite and status action info to the feed table
@@ -146,11 +148,31 @@ export default function Book() {
         setComment((preValue) => ({...preValue, [name]: value}));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        newComment(user.sub, id, comment);
-    }
 
+        // newComment(user.sub, id, comment);
+
+        try {
+            // Await the response from the newComment function
+            const newCommentResponse = await newComment(user.sub, id, comment);
+    
+            // Update the local comment list with the new comment
+            setCommentList(prevComments => [...prevComments, newCommentResponse]);
+    
+            // Reset the comment state to clear the form
+            setComment({
+                "text" : "",
+                "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
+                "rate" : 0
+            });
+    
+        } catch (error) {
+            console.log(error.message);
+            // Handle error scenario, possibly show an error message to the user
+        }
+    }
+    //
 
 
     //gets the book's comments
@@ -169,8 +191,8 @@ export default function Book() {
 
     useEffect(() => {
         getComments(id, user.sub);
-    }, []);
-
+    }, [commentList]);
+    //
 
     const iconProps = {
         size: 32,
