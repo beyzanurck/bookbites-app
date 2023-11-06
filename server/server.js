@@ -328,7 +328,7 @@ app.put('/api/comment', async (req, res) => {
         );
 
         res.status(200).json(updatedComment.rows[0]);
-        
+
     } catch (error) {
         console.error("Error Message!:", error.message);
         res.status(500).json({ message: error.message });

@@ -3,16 +3,38 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 
-export default function EditCommentPopup({show, onClose, text, rating}) {
+export default function EditCommentPopup({show, onClose, text, rating, comment_id}) {
 
     const [editedComment, setEditedComment] = useState({
         "text" : text,
-        "rating" : rating,
-        "date" : new Date().toISOString().split('T')[0] + ' 00:00:00'
+        "rate" : rating,
+        "comment_id" : comment_id
     })
 
+    function handleChange (event) {
+
+        const { value, name } = event.target;
+        setEditedComment((prevValue) => ({ ...prevValue, [name]: value }));
+    }
+
+    async function updateComment () {
+
+        try {
+          const response = await fetch(`/api/comment`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(editedComment)
+          })
+    
+        } catch (error) {
+          console.error(error.message)
+        }
+    }
+
     function handleSubmit(event) {
+
         event.preventDefault();
+        updateComment()
     }
 
     return (
@@ -23,7 +45,7 @@ export default function EditCommentPopup({show, onClose, text, rating}) {
             </Modal.Header>
 
             <Modal.Body>
-                <form className='edit-comment' onSubmit={handleSubmit}>
+                <form className='edit-comment'>
 
                     {/* start rating here */}
 
@@ -31,16 +53,16 @@ export default function EditCommentPopup({show, onClose, text, rating}) {
                         placeholder={"Comment"} 
                         name = {"text"} 
                         value = {editedComment.text} 
-                        // onChange={handleChange}
+                        onChange={handleChange}
                     />
-                    
+
                 </form>
                     
             </Modal.Body>
 
             <Modal.Footer>
 
-                <Button variant="primary" type="submit" >Save</Button>
+                <Button variant="primary" type="submit" onClick={handleSubmit}>Save</Button>
 
                 <Button variant="secondary" onClick={onClose}>
                     Close

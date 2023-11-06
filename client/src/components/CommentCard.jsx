@@ -53,6 +53,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
                 onClose={() => {setShow(false)}}
                 text = {text}
                 rating = {rating}
+                comment_id = {commentId}
             />
         }
 
