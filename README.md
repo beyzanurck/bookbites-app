@@ -29,6 +29,14 @@ BookBites is an easy-to-use website for people who love books. You can find grea
 
 [DB SCHEMA](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.jk8agzwxywxx)
 
+#### STRETCH GOALS
+
+
+- Feed page so that people can see activity on the page
+- Users can follow each other
+- Users can message each other
+- Editing the user’s image
+
 
 ## Project Setup
 
