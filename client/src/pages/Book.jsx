@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import SelectStatus from '../components/SelectStatus';
 import TextArea from '../components/TextArea';
 import CommentCard from '../components/CommentCard';
+import StarRating from '../components/StarRating';
 
 
 export default function Book() {
@@ -54,7 +55,7 @@ export default function Book() {
 
     //sends favorite and status action info to the feed table
     async function sendActionInfo(auth0_sub, api_id, isFav, shelf_status) {
-        console.log(auth0_sub, api_id, isFav, shelf_status)
+
         const response = await fetch('/api/feed', {
             method: 'POST',
             headers: {
@@ -152,13 +153,13 @@ export default function Book() {
         e.preventDefault();
 
         // newComment(user.sub, id, comment);
-        
+
         //shows the new comment immediately on the page
         try {
             
             const newCommentResponse = await newComment(user.sub, id, comment);
             setCommentList(preValue => [...preValue, newCommentResponse]);
-    
+            console.log("submit: ", newCommentResponse)
             setComment({
                 "text" : "",
                 "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
@@ -231,7 +232,7 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                {/* implement star rating here later */}
+                <StarRating />
 
                 <TextArea placeholder={"Comment"} name = {"text"} value = {comment.text} onChange={handleChange}/> 
 
