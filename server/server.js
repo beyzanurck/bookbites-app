@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 //displays all users
 app.get("/api/users", async (req, res) =>  {
-    
+
     try {
         const {rows : users} = await db.query('SELECT * FROM users');
         res.status(200).json(users); // OK
@@ -332,6 +332,36 @@ app.put('/api/comment', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
+
+
+//gets all info about user's actions
+app.get("/api/profile/:id", async (req, res) =>  {
+    
+    try {
+        const { id } = req.params;
+        let loggedInUserId = await getUserIdFromSub(id)
+        
+        const {rows : user_actions} = await db.query(`
+            SELECT u.image, u.user_id, f.*, c.*
+            FROM feeds f
+            JOIN users u ON f.user_id = u.user_id
+            LEFT JOIN comments c ON f.user_id = c.user_id AND f.api_id = c.api_id
+            WHERE u.user_id = $1`, [loggedInUserId]
+        );
+
+        if (user_actions.length === 0) {
+            res.status(200).json([]); 
+        } 
+        else {
+            res.status(200).json(user_actions);
+        }
+        
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+
+});
 
 
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));

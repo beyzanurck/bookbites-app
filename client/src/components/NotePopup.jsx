@@ -32,7 +32,6 @@ export default function NotePopup({show, onClose}) {
         <Modal.Body>
             <form className='add-note'>
 
-            
 
                 <TextArea 
                     placeholder={"Note"} 
