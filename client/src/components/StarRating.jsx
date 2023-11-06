@@ -1,12 +1,10 @@
 import {useEffect, useState} from 'react'
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 
-export default function StarRating({ totalStars = 5 }) {
+export default function StarRating({ rating, onRating, totalStars = 5, text }) {
 
-    const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
 
-    // Function to determine the type of star to render
     const renderStarIcon = (starIndex) => {
         if (hover >= starIndex) {
             return <BsStarFill />;
@@ -25,21 +23,22 @@ export default function StarRating({ totalStars = 5 }) {
 
   return (
     <div>
-         {[...Array(totalStars)].map((_, index) => {
-                const starValue = index + 1;
-                return (
-                    <button
-                        key={starValue}
-                        className={`star ${starValue <= (hover || rating) ? 'on' : 'off'}`}
-                        onClick={() => setRating(starValue)}
-                        onMouseEnter={() => setHover(starValue)}
-                        onMouseLeave={() => setHover(0)}
-                        style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-                    >
-                        {renderStarIcon(starValue)}
-                    </button>
-                );
-            })}
+        {[...Array(totalStars)].map((_, index) => {
+            const starValue = index + 1;
+            return (
+                <button
+                    key={starValue}
+                    className={`star ${starValue <= (hover || rating) ? 'on' : 'off'}`}
+                    onClick={() => onRating(starValue)} 
+                    onMouseEnter={() => setHover(starValue)}
+                    onMouseLeave={() => setHover(rating)}
+                    style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                    disabled={!text} 
+                >
+                    {renderStarIcon(starValue)}
+                </button>
+            );
+        })}
     </div>
   )
 }

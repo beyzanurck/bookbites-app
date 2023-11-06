@@ -201,6 +201,10 @@ export default function Book() {
         onClick: handleFavories,
     };
 
+    function handleRating(rate) {
+        setComment(prevValue => ({...prevValue, rate }));
+    }
+
 
   return (
     <div>
@@ -232,11 +236,10 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <StarRating />
-
+                <StarRating rating={comment.rate} onRating={handleRating} text = {comment.text} />
+        
                 <TextArea placeholder={"Comment"} name = {"text"} value = {comment.text} onChange={handleChange}/> 
-
-                <button type='submit'> Add </button>
+                <p>To submit your comment, rate the book after writing the comment.</p>
             </form>
 
             {
