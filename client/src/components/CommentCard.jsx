@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
 import EditCommentPopup from './EditCommentPopUp';
+import StarDisplay from './StarDisplay';
 
 export default function CommentCard({ text, userName, date, rating, icon, commentId }) {
 
@@ -32,8 +33,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         <Card.Title>{userName}</Card.Title>
 
         <div>
-          {/* Placeholder for star rating */}
-          {`Rating: ${rating}`}
+          <StarDisplay rating={rating} />
         </div>
         <Card.Text>{text}</Card.Text>
         <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{date}</div>
