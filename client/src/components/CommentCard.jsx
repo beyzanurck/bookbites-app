@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
+import EditCommentPopup from './EditCommentPopUp';
 
 export default function CommentCard({ text, userName, date, rating, icon, commentId }) {
 
+    const [show, setShow] = useState(false)
 
     async function deleteComment(id) {
 
@@ -15,6 +17,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
             console.error(error.message)
         }
     }
+
 
   return (
     <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row', margin: '1rem' }}>
@@ -38,10 +41,22 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         {
             icon &&
             <div>
-                <AiFillEdit size={32} style={{color: 'red'}}/>
+                <AiFillEdit size={32} style={{color: 'red'}} onClick={() => {setShow(true)}}/>
                 <MdDelete size={32} style={{color: 'green'}} onClick={() => {deleteComment(commentId)}}/>
             </div> 
         }
+
+        {
+            show && 
+            <EditCommentPopup 
+                show = {show}
+                onClose={() => {setShow(false)}}
+                text = {text}
+                rating = {rating}
+            />
+        }
+
+       
         
       </Card.Body>
     </Card>
