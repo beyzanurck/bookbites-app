@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 //displays all users
 app.get("/api/users", async (req, res) =>  {
-    console.log("/api/users")
+    
     try {
         const {rows : users} = await db.query('SELECT * FROM users');
         res.status(200).json(users); // OK
@@ -97,7 +97,6 @@ app.post("/api/users", async (req, res) =>  {
 
 //displays all books
 app.get("/api/books", async (req, res) =>  {
-    console.log("/api/books")
     
     try {
         const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
@@ -192,7 +191,6 @@ app.get("/api/feed/:id", async (req, res) =>  {
     
     try {
         const { id } = req.params;
-        console.log(id)
 
         let user_id = await getUserIdFromSub(id)
         const {rows : user_actions} = await db.query('SELECT * FROM feeds WHERE user_id = $1', [user_id]);

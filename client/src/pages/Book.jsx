@@ -152,15 +152,13 @@ export default function Book() {
         e.preventDefault();
 
         // newComment(user.sub, id, comment);
-
+        
+        //shows the new comment immediately on the page
         try {
-            // Await the response from the newComment function
+            
             const newCommentResponse = await newComment(user.sub, id, comment);
+            setCommentList(preValue => [...preValue, newCommentResponse]);
     
-            // Update the local comment list with the new comment
-            setCommentList(prevComments => [...prevComments, newCommentResponse]);
-    
-            // Reset the comment state to clear the form
             setComment({
                 "text" : "",
                 "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
@@ -169,7 +167,7 @@ export default function Book() {
     
         } catch (error) {
             console.log(error.message);
-            // Handle error scenario, possibly show an error message to the user
+            //show an error message to the user
         }
     }
     //

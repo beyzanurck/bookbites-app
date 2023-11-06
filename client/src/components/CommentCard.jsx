@@ -6,17 +6,17 @@ import EditCommentPopup from './EditCommentPopUp';
 
 export default function CommentCard({ text, userName, date, rating, icon, commentId }) {
 
-    const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false)
 
-    async function deleteComment(id) {
+  async function deleteComment(id) {
 
-        try {
-            const deletePost = await fetch(`/api/comment/${id}`, 
-            {method: "DELETE"})
-        } catch (error) {
-            console.error(error.message)
-        }
+    try {
+        const deletePost = await fetch(`/api/comment/${id}`, 
+        {method: "DELETE"})
+    } catch (error) {
+        console.error(error.message)
     }
+  }
 
 
   return (
@@ -30,9 +30,9 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
       
       <Card.Body style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
         <Card.Title>{userName}</Card.Title>
-        {/* Render star rating based on rating */}
+
         <div>
-          {/* Placeholder for star rating, replace with your star component */}
+          {/* Placeholder for star rating */}
           {`Rating: ${rating}`}
         </div>
         <Card.Text>{text}</Card.Text>
@@ -57,8 +57,6 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
             />
         }
 
-       
-        
       </Card.Body>
     </Card>
   );
