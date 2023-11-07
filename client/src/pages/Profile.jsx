@@ -2,6 +2,7 @@ import {React, useEffect, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import NotePopup from '../components/NotePopup';
 import SelectStatus from '../components/SelectStatus';
+import BookCard from '../components/BookCard';
 
 export default function Profile() {
   
@@ -103,6 +104,7 @@ export default function Profile() {
 
   useEffect(() => {
     console.log("filtered books ", filteredBooks)
+    console.log("actions ", allActions)
   }, [filteredBooks]);
 
 
@@ -127,6 +129,30 @@ export default function Profile() {
             show = {show}
             onClose={() => {setShow(false)}}
         />
+      }
+
+
+      {
+        filteredBooks.map((book) => {
+
+          const action = allActions.find(action => action.api_id === book.api_id);
+          
+          const isFaved = action ? action.isfavorite : false;
+          const status = action ? action.shelf_status : undefined;
+
+          return (
+            <BookCard 
+              key={book.demo_api_id} 
+              title={book.title}
+              author={book.author}
+              img={book.image_url}
+              category={book.categories}
+              id={book.api_id}
+              faved={isFaved}
+              status={status}
+            />
+          );
+        })
       }
 
 
