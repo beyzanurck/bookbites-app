@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import NotePopup from '../components/NotePopup';
+import SelectStatus from '../components/SelectStatus';
 
 export default function Profile() {
   
@@ -38,7 +39,13 @@ export default function Profile() {
     <div>
       <p> {user && user.name}'s Page </p>
 
-      <button onClick={() => {setShow(true)}}>Add Note</button>
+      <div className='bar-profile'>
+        <SelectStatus />
+        <p>Comments</p>
+        <p>Notes</p>
+        <button onClick={() => {setShow(true)}}>Add Note</button>
+      </div>
+
 
       {
             show && 
