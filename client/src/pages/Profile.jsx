@@ -13,6 +13,8 @@ export default function Profile() {
   //dropdown menu
   const [selectStatus, setSelectStatus] = useState("")
 
+  const [bookIds, setBookIds] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([])
 
   //gets all infos from 3 tables
   async function getUserAllActions(id) {
@@ -70,8 +72,38 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    console.log(getBookIdBySelectStatus(selectStatus, allActions))
+    const ids = getBookIdBySelectStatus(selectStatus, allActions)
+    setBookIds(ids)
   }, [selectStatus]);
+
+
+  //Get specific book info
+  async function getBookById() {
+   
+    try {
+
+      const bookPromises = bookIds.map(async id => {
+
+        const response = await fetch(`/api/${id}`);
+        return await response.json();
+      });
+  
+      // waits for all the fetch calls to resolve
+      const booksDetails = await Promise.all(bookPromises);
+      setFilteredBooks(booksDetails.flat()) //removes one level of nesting
+  
+    } catch (error) {
+      console.error('Error fetching multiple books:', error);
+    }
+  }
+
+  useEffect(() => {
+   getBookById()
+  }, [bookIds]);
+
+  useEffect(() => {
+    console.log("filtered books ", filteredBooks)
+  }, [filteredBooks]);
 
 
 
@@ -90,14 +122,15 @@ export default function Profile() {
 
 
       {
-            show && 
-            <NotePopup 
-                show = {show}
-                onClose={() => {setShow(false)}}
-            />
-        }
+        show && 
+        <NotePopup 
+            show = {show}
+            onClose={() => {setShow(false)}}
+        />
+      }
 
 
     </div>
   )
 }
+
