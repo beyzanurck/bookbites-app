@@ -6,8 +6,12 @@ import SelectStatus from '../components/SelectStatus';
 export default function Profile() {
   
   const { isAuthenticated, user } = useAuth0();
+  //modal shows up
   const [show, setShow] = useState(false)
+  //stores data from 3 tables
   const [allActions, setAllActions] = useState([])
+  //dropdown menu
+  const [selectStatus, setSelectStatus] = useState("")
 
 
   //gets all infos from 3 tables
@@ -32,15 +36,53 @@ export default function Profile() {
 
   
   useEffect(() => {
-    console.log(allActions);
+    console.log("DATA", allActions);
   }, [allActions]);
+
+  function handleSelect (event) {
+
+    const value = event.target.value;
+    setSelectStatus(value)
+  }
+
+
+  function getBookIdBySelectStatus(selectStatus, data){
+
+    let shelf_status; 
+
+    switch (selectStatus) {
+      case "read":
+        shelf_status = 0
+      break;
+      case "to-read":
+        shelf_status = 1
+      break;
+      case "currently-reading":
+        shelf_status = 2
+      break;
+    }
+    
+    const filteredData = data.filter((item) => item.shelf_status === shelf_status)
+    
+    const bookIds = filteredData.map(item => item.api_id)
+
+    return bookIds
+  }
+
+  useEffect(() => {
+    console.log(getBookIdBySelectStatus(selectStatus, allActions))
+  }, [selectStatus]);
+
+
 
   return (
     <div>
       <p> {user && user.name}'s Page </p>
 
       <div className='bar-profile'>
-        <SelectStatus />
+
+        <SelectStatus value={selectStatus} onChange = {handleSelect}/>
+
         <p>Comments</p>
         <p>Notes</p>
         <button onClick={() => {setShow(true)}}>Add Note</button>
