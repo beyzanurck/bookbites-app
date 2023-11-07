@@ -18,7 +18,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         console.error(error.message)
     }
 
-    commentUpdated();
+    if(commentUpdated !== undefined) commentUpdated();
   }
 
 

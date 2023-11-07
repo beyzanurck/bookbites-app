@@ -35,7 +35,7 @@ export default function EditCommentPopup({show, onClose, text, rating, comment_i
 
         event.preventDefault();
         updateComment();
-        commentUpdated();
+        if(commentUpdated !== undefined) commentUpdated();
     }
 
     return (
