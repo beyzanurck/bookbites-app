@@ -164,7 +164,9 @@ export default function Profile() {
 
 
       {
-        allActions.map((item, index) => (
+
+        allActions.filter((item) => { return item.comment_id !== null })
+        .map((item, index) => (
           <CommentCard 
             key = {index}
             text = {item.text}
@@ -178,7 +180,6 @@ export default function Profile() {
           />
         ))
       }
-
 
     </div>
   )
