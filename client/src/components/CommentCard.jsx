@@ -5,7 +5,7 @@ import {MdDelete } from 'react-icons/md';
 import EditCommentPopup from './EditCommentPopUp';
 import StarDisplay from './StarDisplay';
 
-export default function CommentCard({ text, userName, date, rating, icon, commentId }) {
+export default function CommentCard({ text, userName, date, rating, icon, commentId, commentUpdated }) {
 
   const [show, setShow] = useState(false)
 
@@ -17,6 +17,8 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
     } catch (error) {
         console.error(error.message)
     }
+
+    commentUpdated();
   }
 
 
@@ -28,7 +30,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
           src={"https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg"} 
         />
       </div>
-      
+
       <Card.Body style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
         <Card.Title>{userName}</Card.Title>
 
@@ -54,6 +56,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
                 text = {text}
                 rating = {rating}
                 comment_id = {commentId}
+                commentUpdated={commentUpdated}
             />
         }
 

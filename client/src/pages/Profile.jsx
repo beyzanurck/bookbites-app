@@ -109,6 +109,12 @@ export default function Profile() {
   }, [filteredBooks]);
 
 
+  function handleCommentUpdated(){
+    console.log('Comment updated');
+    getUserAllActions(user.sub);
+  }
+
+
 
   return (
     <div>
@@ -167,6 +173,8 @@ export default function Profile() {
             rating={item.rate}
             icon = {true}
             commentId = {item.comment_id}
+            commentUpdated={handleCommentUpdated}
+
           />
         ))
       }

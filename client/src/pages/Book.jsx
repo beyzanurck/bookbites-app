@@ -241,7 +241,7 @@ export default function Book() {
                 <TextArea placeholder={"Comment"} name = {"text"} value = {comment.text} onChange={handleChange}/> 
                 <p>To submit your comment, rate the book after writing the comment.</p>
             </form>
-
+                
             {
                 commentList.map((item, index) => (
                     <CommentCard 

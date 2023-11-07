@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 
-export default function EditCommentPopup({show, onClose, text, rating, comment_id}) {
+export default function EditCommentPopup({show, onClose, text, rating, comment_id, commentUpdated}) {
 
     const [editedComment, setEditedComment] = useState({
         "text" : text,
@@ -34,7 +34,8 @@ export default function EditCommentPopup({show, onClose, text, rating, comment_i
     function handleSubmit(event) {
 
         event.preventDefault();
-        updateComment()
+        updateComment();
+        commentUpdated();
     }
 
     return (
