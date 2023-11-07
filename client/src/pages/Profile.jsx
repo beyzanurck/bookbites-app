@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NotePopup from '../components/NotePopup';
 import SelectStatus from '../components/SelectStatus';
 import BookCard from '../components/BookCard';
+import CommentCard from '../components/CommentCard';
 
 export default function Profile() {
   
@@ -153,6 +154,21 @@ export default function Profile() {
             />
           );
         })
+      }
+
+
+      {
+        allActions.map((item, index) => (
+          <CommentCard 
+            key = {index}
+            text = {item.text}
+            //  get book name later.
+            date = {item.date}
+            rating={item.rate}
+            icon = {true}
+            commentId = {item.comment_id}
+          />
+        ))
       }
 
 
