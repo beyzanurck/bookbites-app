@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
+import NoteVisibility from './NoteVisibility'
 
 export default function NotePopup({show, onClose}) {
 
@@ -33,8 +34,7 @@ export default function NotePopup({show, onClose}) {
         <Modal.Body>
             <form className='add-note' onSubmit={handleSubmit}>
 
-                <input type="radio" value="false" name="isNotePrivate" onChange={handleChange}/> Public
-                <input type="radio" value="true" name="isNotePrivate" onChange={handleChange}/> Private
+                <NoteVisibility onChange = {handleChange}/>
 
                 <TextArea 
                     placeholder={"Note"} 
