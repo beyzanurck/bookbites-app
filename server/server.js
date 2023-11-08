@@ -364,4 +364,23 @@ app.get("/api/profile/:id", async (req, res) =>  {
 });
 
 
+//adds new note
+app.put("/api/note", async (req, res) =>  {
+
+    try {
+
+        const {isNotePrivate, note, feed_id} = req.body;
+        console.log("req.body: ", req.body)
+        const { rows: newNote } = await db.query("UPDATE feeds SET isNotePrivate = $1, note = $2 WHERE feed_id = $3 RETURNING *", [isNotePrivate, note, feed_id]);
+        
+        res.status(200).json(newNote);
+
+    } catch (error) {
+        console.error("Error Message!:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+
+});
+
+
 app.listen(PORT, () => console.log(`HELLOO! Server running on Port http://localhost:${PORT}`));

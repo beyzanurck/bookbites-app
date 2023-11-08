@@ -107,7 +107,7 @@ export default function Profile() {
   useEffect(() => {
     console.log("filtered books ", filteredBooks)
     console.log("actions ", allActions)
-  }, [filteredBooks]);
+  }, [filteredBooks,selectStatus]);
 
 
   function handleCommentUpdated(){
@@ -199,6 +199,8 @@ export default function Profile() {
         <NotePopup 
           show={show}
           onClose={()=>setShow(false)}
+          books = {filteredBooks}
+          feeds = {allActions}
         />
       }
 
