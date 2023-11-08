@@ -19,6 +19,8 @@ export default function Profile() {
   const [bookIds, setBookIds] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([])
 
+  const [activeTab, setActiveTab] = useState('books');
+
   //gets all infos from 3 tables
   async function getUserAllActions(id) {
 
@@ -48,6 +50,8 @@ export default function Profile() {
 
     const value = event.target.value;
     setSelectStatus(value)
+
+    setActiveTab('books')
   }
 
 
@@ -130,22 +134,15 @@ export default function Profile() {
 
         <SelectStatus value={selectStatus} onChange = {handleSelect}/>
 
-        <p>Comments</p>
-        <p>Notes</p>
+        <p onClick={()=> setActiveTab('comments')}>Comments</p>
+        <p onClick={()=> setActiveTab('notes')}>Notes</p>
         <button onClick={() => {setShow(true)}}>Add Note</button>
       </div>
 
 
+      
       {
-        show && 
-        <NotePopup 
-            show = {show}
-            onClose={() => {setShow(false)}}
-        />
-      }
-
-
-      {
+        (activeTab === 'books') &&
         filteredBooks.map((book) => {
 
           const action = allActions.find(action => action.api_id === book.api_id);
@@ -170,7 +167,7 @@ export default function Profile() {
 
 
       {
-
+        (activeTab === 'comments') &&
         allActions.filter((item) => { return item.comment_id !== null })
         .map((item, index) => (
           <CommentCard 
@@ -189,6 +186,7 @@ export default function Profile() {
 
 
       {
+        (activeTab === 'notes') &&
         allActions.filter((item) => { return item.note !== null })
         .map((item, index) => (
           <NoteCard 
