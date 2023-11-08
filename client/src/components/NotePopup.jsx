@@ -24,19 +24,15 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
 
             if(value) {
 
-                console.log("value: ", value)
                 const bookApiId = value;
                 const matchingFeed = feeds.find(item => item.api_id === bookApiId);
                 const feed_id = matchingFeed ? matchingFeed.feed_id : "";
-                console.log("feedid: ", feed_id)
+               
                 setAction(prevValue => ({ ...prevValue, feed_id: feed_id }));
             }
             else {
-                
                 setAction(prevValue => ({ ...prevValue, feed_id: "" }));
             }
-
-            
 
         } else {
             setAction(prevValue => ({ ...prevValue, [name]: value }));
@@ -45,7 +41,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log("action: ", action);
+        
         addNoteYourFeed(action)
     }
 
@@ -74,15 +70,15 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
         <Modal.Body>
             <form className='add-note'>
 
-            {
-                books && 
-                <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
-                    <option value="" disabled> select a status</option>
-                    {books.map((book, index) => (
-                        <option key={index} value={book.api_id}> {book.title} </option>
-                    ))}
-                </select>
-            }
+                {
+                    books && 
+                    <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
+                        <option value="" disabled> select a status</option>
+                        {books.map((book, index) => (
+                            <option key={index} value={book.api_id}> {book.title} </option>
+                        ))}
+                    </select>
+                }
 
                 <NoteVisibility onChange={handleChange} />
 
@@ -92,6 +88,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
                 value={action.note} 
                 onChange={handleChange}
                 />
+                
             </form>
         </Modal.Body>
 

@@ -108,18 +108,11 @@ export default function Profile() {
    getBookById()
   }, [bookIds]);
 
-  useEffect(() => {
-    console.log("filtered books ", filteredBooks)
-    console.log("actions ", allActions)
-  }, [filteredBooks,selectStatus]);
 
-
+  //implements the current changes to the page immediately
   function handleCommentUpdated(){
-    console.log('Comment updated');
     getUserAllActions(user.sub);
   }
-
-
   function handleNoteUpdated(){
     getUserAllActions(user.sub);
   }
