@@ -4,6 +4,7 @@ import NoteCard from '../components/NoteCard';
 import SelectStatus from '../components/SelectStatus';
 import BookCard from '../components/BookCard';
 import CommentCard from '../components/CommentCard';
+import NotePopup from '../components/NotePopup'
 
 export default function Profile() {
   
@@ -190,6 +191,15 @@ export default function Profile() {
             note = {item.note}
           />
         ))
+      }
+      
+
+      {
+        show && 
+        <NotePopup 
+          show={show}
+          onClose={()=>setShow(false)}
+        />
       }
 
     </div>

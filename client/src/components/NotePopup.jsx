@@ -19,6 +19,7 @@ export default function NotePopup({show, onClose}) {
     function handleSubmit(event) {
 
         event.preventDefault();
+        console.log("action: ", action)
     }
 
 
@@ -30,8 +31,10 @@ export default function NotePopup({show, onClose}) {
         </Modal.Header>
 
         <Modal.Body>
-            <form className='add-note'>
+            <form className='add-note' onSubmit={handleSubmit}>
 
+                <input type="radio" value="false" name="isNotePrivate" onChange={handleChange}/> Public
+                <input type="radio" value="true" name="isNotePrivate" onChange={handleChange}/> Private
 
                 <TextArea 
                     placeholder={"Note"} 
