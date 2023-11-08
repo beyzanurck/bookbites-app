@@ -163,10 +163,10 @@ app.post("/api/feed", async (req, res) =>  {
             }
 
             const updatedBook = await db.query(
-                "UPDATE feeds SET isFavorite = $1, shelf_status = $2, note = $3 WHERE api_id = $4 AND user_id = $5 RETURNING *",
-                [isFav, shelf_status, null, api_id, user_id]
+                "UPDATE feeds SET isFavorite = $1, shelf_status = $2 WHERE api_id = $3 AND user_id = $4 RETURNING *",
+                [isFav, shelf_status, api_id, user_id]
             );
-            // Send back the updated book entry with a 200 OK status
+            
             res.status(200).json(updatedBook.rows[0]);
         }
         else {
