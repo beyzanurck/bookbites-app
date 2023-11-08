@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 import NoteVisibility from './NoteVisibility'
 
-export default function NotePopup({ show, onClose, books, feeds }) {
+export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) {
 
     const [action, setAction] = useState({
         "isNotePrivate": false,
@@ -61,6 +61,7 @@ export default function NotePopup({ show, onClose, books, feeds }) {
             body: JSON.stringify(action)
         });
 
+        noteUpdated()
         return await response.json();
     }
 

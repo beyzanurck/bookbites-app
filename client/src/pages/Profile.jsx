@@ -115,7 +115,12 @@ export default function Profile() {
     getUserAllActions(user.sub);
   }
 
-  // const test = allActions.filter((item) => { return item.note !== null })
+
+  function handleNoteUpdated(){
+    getUserAllActions(user.sub);
+  }
+
+  
 
   return (
     <div>
@@ -201,6 +206,7 @@ export default function Profile() {
           onClose={()=>setShow(false)}
           books = {filteredBooks}
           feeds = {allActions}
+          noteUpdated={handleNoteUpdated}
         />
       }
 
