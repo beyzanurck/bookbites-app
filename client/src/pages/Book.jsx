@@ -31,6 +31,9 @@ export default function Book() {
     })
 
     const [commentList, setCommentList] = useState([])
+
+    //activate textarea
+    const [enableCommenting, setEnableCommenting] = useState(true)
   
     
     //Get specific book info
@@ -181,6 +184,10 @@ export default function Book() {
             const response = await fetch(`/api/comment/${id}/${auth0_sub}`);
     
             const allComments = await response.json();
+
+            const userHasCommented = allComments.some(comment => comment.auth0_sub === auth0_sub);
+            setEnableCommenting(!userHasCommented);
+
             setCommentList(allComments);
 
         } catch (error) {
@@ -236,9 +243,19 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <StarRating rating={comment.rate} onRating={handleRating} text = {comment.text} />
+                <StarRating 
+                    rating={comment.rate} 
+                    onRating={handleRating} 
+                    text = {comment.text} 
+                />
         
-                <TextArea placeholder={"Comment"} name = {"text"} value = {comment.text} onChange={handleChange}/> 
+                <TextArea 
+                    placeholder={"Comment"} 
+                    name = {"text"} 
+                    value = {comment.text} 
+                    onChange={handleChange} 
+                    disabled={!enableCommenting}
+                /> 
                 <p>To submit your comment, rate the book after writing the comment.</p>
             </form>
                 

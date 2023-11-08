@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TextArea({placeholder, name, value, onChange}) {
+export default function TextArea({placeholder, name, value, onChange, disabled}) {
   return (
     <textarea  
         placeholder = {`${placeholder} here...`}
@@ -9,6 +9,7 @@ export default function TextArea({placeholder, name, value, onChange}) {
         rows="10" 
         cols="60" 
         onChange={onChange}
+        disabled = {disabled}
     />
   )
 }
