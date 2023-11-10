@@ -156,8 +156,6 @@ app.post("/api/feed", async (req, res) =>  {
 
         if (existingEntry.rows.length > 0) {
 
-            // console.log(shelf_status,existingEntry.rows[0].shelf_status)
-
             if (shelf_status === undefined) {
                 shelf_status = existingEntry.rows[0].shelf_status;
             }
