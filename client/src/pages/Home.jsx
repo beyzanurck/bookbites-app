@@ -71,7 +71,7 @@ export default function Home() {
   
 
   return (
-    <div>
+    <div className='home-page'>
 
         <input 
           className="search-bar"
