@@ -10,6 +10,11 @@
     gap: 2%;
     margin-top: 5%;
     align-items: center;
+    padding-right: 3%;
+}
+
+.book-page-right {
+    padding-left: 3%;
 }
 
 
