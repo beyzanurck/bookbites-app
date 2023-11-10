@@ -249,8 +249,6 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <p>Please rate the book to submit your comment.</p>
-
                 <TextArea 
                     placeholder={"Comment"} 
                     name = {"text"} 
@@ -258,6 +256,8 @@ export default function Book() {
                     onChange={handleChange} 
                     disabled={!enableCommenting}
                 /> 
+
+                <p id='instruction-bp'>Please rate the book to submit your comment.</p>
 
                 <StarRating 
                     rating={comment.rate} 
