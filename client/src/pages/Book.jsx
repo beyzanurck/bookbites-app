@@ -249,22 +249,30 @@ export default function Book() {
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <TextArea 
-                    placeholder={"Comment"} 
-                    name = {"text"} 
-                    value = {comment.text} 
-                    onChange={handleChange} 
-                    disabled={!enableCommenting}
-                /> 
+                <div>
 
-                <p id='instruction-bp'>Please rate the book to submit your comment.</p>
+                    <TextArea 
+                        placeholder={"Comment"} 
+                        name = {"text"} 
+                        value = {comment.text} 
+                        onChange={handleChange} 
+                        disabled={!enableCommenting}
+                    /> 
 
-                <StarRating 
-                    rating={comment.rate} 
-                    onRating={handleRating} 
-                    text = {comment.text} 
-                />
-                
+                    <p id='instruction-bp'>Please rate the book to submit your comment.</p>
+
+                </div>
+
+                <div className="rating-bp">
+
+                    <StarRating 
+                        rating={comment.rate} 
+                        onRating={handleRating} 
+                        text = {comment.text} 
+                    />
+
+                </div>
+ 
             </form>
 
             <div className='display-comments-bp'>

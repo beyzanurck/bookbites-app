@@ -21,9 +21,22 @@
     margin-top: 5%;
 }
 
+.new-comment {
+    display: flex;
+    flex-direction: column;
+}
+
 #instruction-bp {
     font-size: xx-small;
     font-style: italic;
     margin: 0%;
+}
+
+.rating-bp {
+    display: flex;
+    justify-content: center; 
+    width: 100%; 
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
