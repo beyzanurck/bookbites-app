@@ -39,11 +39,6 @@
   padding: 0.25rem;
 }
 
-.books-grid {
-  margin: 3%;
-  display: flex;
-  gap: 4%;
-}
 
 .top{
   display: flex;
