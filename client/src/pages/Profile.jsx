@@ -161,7 +161,7 @@ export default function Profile() {
 
       {
         (activeTab === 'comments') &&
-        allActions.filter((item) => { return item.comment_id !== null })
+        allActions.filter((item) => item.comment_id !== null)
         .map((item, index) => (
           <CommentCard 
             key = {index}
@@ -180,7 +180,7 @@ export default function Profile() {
 
       {
         (activeTab === 'notes') &&
-        allActions.filter((item) => { return item.note !== null })
+        allActions.filter((item) => item.comment_id !== null)
         .map((item, index) => (
           <NoteCard 
             key = {index}
