@@ -34,7 +34,7 @@ export default function EditCommentPopup({show, onClose, text, rating, comment_i
     function handleSubmit(event) {
 
         event.preventDefault();
-        updateComment();
+        updateComment().catch(console.error);
         onCommentUpdated?.();
     }
 
