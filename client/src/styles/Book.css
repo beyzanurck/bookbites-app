@@ -21,6 +21,11 @@
     margin-top: 5%;
 }
 
+.book-name-bp {
+    font-size:x-large;
+    font-weight: bold;
+}
+
 .new-comment {
     display: flex;
     flex-direction: column;
