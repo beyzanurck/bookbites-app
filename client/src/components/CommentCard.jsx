@@ -32,13 +32,18 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
       </div>
 
       <Card.Body style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
-        <Card.Title>{userName}</Card.Title>
+
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+          <Card.Title>{userName}</Card.Title>
+          <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{date}</div>
+
+        </div>
 
         <div>
           <StarDisplay rating={rating} />
         </div>
         <Card.Text>{text}</Card.Text>
-        <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{date}</div>
 
         {
             icon &&
