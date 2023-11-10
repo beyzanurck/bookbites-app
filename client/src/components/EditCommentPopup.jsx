@@ -6,9 +6,9 @@ import TextArea from './TextArea'
 export default function EditCommentPopup({show, onClose, text, rating, comment_id, onCommentUpdated}) {
 
     const [editedComment, setEditedComment] = useState({
-        "text" : text,
+        text,
         "rate" : rating,
-        "comment_id" : comment_id
+        comment_id
     })
 
     function handleChange (event) {
