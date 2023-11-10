@@ -1,0 +1,30 @@
+.search-bar {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    outline: none;
+    width: 100%;
+    max-width: 600px; /* Adjust based on your layout */
+    box-sizing: border-box; /* To include padding in width */
+  }
+  
+  .search-bar:focus {
+    border-color: #009688;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+  }
+  
+  .search-bar::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+  
+  /* Example for a search icon */
+  .search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+  
