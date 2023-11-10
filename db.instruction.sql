@@ -110,6 +110,9 @@ ALTER TABLE book ADD FOREIGN KEY (api_id) REFERENCES demo_api(api_id);
 -- Add auth0_sub attribute
 ALTER TABLE users ADD COLUMN auth0_sub VARCHAR(255) UNIQUE;
 
+-- Add isNotePrivate attribute to feed table
+ALTER TABLE feeds ADD COLUMN isNotePrivate BOOLEAN NOT NULL DEFAULT FALSE;
+
 
 --
 -- PostgreSQL database dump complete

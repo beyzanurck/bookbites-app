@@ -2,6 +2,10 @@ import {useState, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 import {MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useAuth0 } from "@auth0/auth0-react";
+import SelectStatus from '../components/SelectStatus';
+import TextArea from '../components/TextArea';
+import CommentCard from '../components/CommentCard';
+import StarRating from '../components/StarRating';
 
 
 export default function Book() {
@@ -20,7 +24,19 @@ export default function Book() {
         "status" : ""
     })
 
+    const [comment, setComment] = useState({
+        "text" : "",
+        "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
+        "rate" : 0
+    })
+
+    const [commentList, setCommentList] = useState([])
+
+    //activate textarea
+    const [enableCommenting, setEnableCommenting] = useState(true)
   
+    
+    //Get specific book info
     async function getBookById() {
         try {
 
@@ -37,11 +53,12 @@ export default function Book() {
     useEffect(() => {
         getBookById();
     }, []);
+    //
 
 
     //sends favorite and status action info to the feed table
     async function sendActionInfo(auth0_sub, api_id, isFav, shelf_status) {
-        console.log(auth0_sub, api_id, isFav, shelf_status)
+
         const response = await fetch('/api/feed', {
             method: 'POST',
             headers: {
@@ -114,6 +131,75 @@ export default function Book() {
     }, [shelf_status]);
 
 
+    //add new comment
+       async function newComment(auth0_sub, api_id, comment) {
+
+        const response = await fetch('/api/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ auth0_sub, api_id, ...comment })
+        });
+
+        return await response.json();
+    }
+
+    function handleChange(event){
+
+        const {value, name} = event.target
+
+        setComment((preValue) => ({...preValue, [name]: value}));
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        // newComment(user.sub, id, comment);
+
+        //shows the new comment immediately on the page
+        try {
+            
+            const newCommentResponse = await newComment(user.sub, id, comment);
+            setCommentList(preValue => [...preValue, newCommentResponse]);
+            console.log("submit: ", newCommentResponse)
+            setComment({
+                "text" : "",
+                "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
+                "rate" : 0
+            });
+    
+        } catch (error) {
+            console.log(error.message);
+            //show an error message to the user
+        }
+    }
+    //
+
+
+    //gets the book's comments
+    async function getComments(id, auth0_sub) {
+
+        try {
+            const response = await fetch(`/api/comment/${id}/${auth0_sub}`);
+    
+            const allComments = await response.json();
+
+            const userHasCommented = allComments.some(comment => comment.auth0_sub === auth0_sub);
+            setEnableCommenting(!userHasCommented);
+
+            setCommentList(allComments);
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    useEffect(() => {
+        getComments(id, user.sub);
+    }, [commentList]);
+    //
+
     const iconProps = {
         size: 32,
         style: {
@@ -121,6 +207,11 @@ export default function Book() {
         },
         onClick: handleFavories,
     };
+
+    function handleRating(rate) {
+        setComment(prevValue => ({...prevValue, rate }));
+    }
+
 
   return (
     <div>
@@ -140,12 +231,8 @@ export default function Book() {
                     )
             }
 
-            <select value={action.status} onChange={handleSelect}>
-                <option value="" disabled> select a status</option>
-                <option value="read">Read</option>
-                <option value="to-read">To Read</option>
-                <option value="currently-reading">Currently Reading</option>
-            </select>
+            <SelectStatus value = {action.status} onChange = {handleSelect}/>
+
         </div>
 
     
@@ -154,11 +241,38 @@ export default function Book() {
             <p>{book?.[0]?.title}</p>
             <p>{book?.[0]?.description}</p>
 
-            <div>
-                <textarea  rows="10" cols="60" />
+            <form className='new-comment' onSubmit={handleSubmit}>
 
-                <button> Add Comment </button>
-            </div>
+                <StarRating 
+                    rating={comment.rate} 
+                    onRating={handleRating} 
+                    text = {comment.text} 
+                />
+        
+                <TextArea 
+                    placeholder={"Comment"} 
+                    name = {"text"} 
+                    value = {comment.text} 
+                    onChange={handleChange} 
+                    disabled={!enableCommenting}
+                /> 
+                <p>To submit your comment, rate the book after writing the comment.</p>
+            </form>
+                
+            {
+                commentList.map((item, index) => (
+                    <CommentCard 
+                        key = {index}
+                        text = {item.text}
+                        userName = {item.first_name + " " + item.last_name}
+                        date = {item.date}
+                        rating={item.rate}
+                        icon = {item.auth0_sub === user.sub}
+                        commentId = {item.comment_id}
+                    />
+                ))
+            }
+
         </div>
 
       </div>
