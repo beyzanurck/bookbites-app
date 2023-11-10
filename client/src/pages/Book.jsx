@@ -227,8 +227,8 @@ export default function Book() {
                     isAuthenticated && 
                     (
                     action.isFaved
-                        ? <MdFavorite {...iconProps} />
-                        : <MdFavoriteBorder {...iconProps} />
+                        ? <MdFavorite className="favorite-icon" {...iconProps} />
+                        : <MdFavoriteBorder className="favorite-icon" {...iconProps} />
                     )
                 }
 
