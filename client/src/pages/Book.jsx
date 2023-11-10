@@ -6,6 +6,7 @@ import SelectStatus from '../components/SelectStatus';
 import TextArea from '../components/TextArea';
 import CommentCard from '../components/CommentCard';
 import StarRating from '../components/StarRating';
+import '../styles/Book.css'
 
 
 export default function Book() {
@@ -216,48 +217,50 @@ export default function Book() {
   return (
     <div>
 
-      <div className='top'>
+        <div className='top'>
 
-        <div className='book-img'>
+            <div className='book-img'>
 
-            <img src={book?.[0]?.image_url}/>
-            
-            {
-                isAuthenticated && 
-                    (
-                    action.isFaved
-                        ? <MdFavorite {...iconProps} />
-                        : <MdFavoriteBorder {...iconProps} />
-                    )
-            }
+                <img src={book?.[0]?.image_url}/>
+                
+                {
+                    isAuthenticated && 
+                        (
+                        action.isFaved
+                            ? <MdFavorite {...iconProps} />
+                            : <MdFavoriteBorder {...iconProps} />
+                        )
+                }
 
-            <SelectStatus value = {action.status} onChange = {handleSelect}/>
+                <SelectStatus value = {action.status} onChange = {handleSelect}/>
 
-        </div>
+            </div>
 
-    
-        <div className='book-details'>
-            
-            <p>{book?.[0]?.title}</p>
-            <p>{book?.[0]?.description}</p>
-
-            <form className='new-comment' onSubmit={handleSubmit}>
-
-                <StarRating 
-                    rating={comment.rate} 
-                    onRating={handleRating} 
-                    text = {comment.text} 
-                />
         
-                <TextArea 
-                    placeholder={"Comment"} 
-                    name = {"text"} 
-                    value = {comment.text} 
-                    onChange={handleChange} 
-                    disabled={!enableCommenting}
-                /> 
-                <p>To submit your comment, rate the book after writing the comment.</p>
-            </form>
+            <div className='book-details'>
+                
+                <p>{book?.[0]?.title}</p>
+                <p>{book?.[0]?.description}</p>
+
+                <form className='new-comment' onSubmit={handleSubmit}>
+
+                    <StarRating 
+                        rating={comment.rate} 
+                        onRating={handleRating} 
+                        text = {comment.text} 
+                    />
+            
+                    <TextArea 
+                        placeholder={"Comment"} 
+                        name = {"text"} 
+                        value = {comment.text} 
+                        onChange={handleChange} 
+                        disabled={!enableCommenting}
+                    /> 
+                    <p>To submit your comment, rate the book after writing the comment.</p>
+                </form>
+            </div>
+        </div>
                 
             {
                 commentList.map((item, index) => (
@@ -273,9 +276,9 @@ export default function Book() {
                 ))
             }
 
-        </div>
+       
 
-      </div>
+      
      
     </div>
   )

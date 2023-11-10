@@ -1,0 +1,19 @@
+
+.top{
+    display: flex;
+    gap: 5%;
+    margin-top: 5%;
+  }
+  
+  .book-img {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bar-profile {
+    display: flex;
+    justify-content: space-around;
+  }
+
+.book-details {
+}
