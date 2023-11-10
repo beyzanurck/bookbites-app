@@ -219,28 +219,22 @@ export default function Book() {
 
         <div className='book-page-left'>
 
-            <div className='book-img'>
+            <img src={book?.[0]?.image_url}/>
 
-                <img src={book?.[0]?.image_url}/>
+            <div>
 
-                <div>
-
-                    {
-                        isAuthenticated && 
-                        (
-                        action.isFaved
-                            ? <MdFavorite {...iconProps} />
-                            : <MdFavoriteBorder {...iconProps} />
-                        )
-                    }
-
-                </div>
-                
-               
-
-                <SelectStatus value = {action.status} onChange = {handleSelect}/>
+                {
+                    isAuthenticated && 
+                    (
+                    action.isFaved
+                        ? <MdFavorite {...iconProps} />
+                        : <MdFavoriteBorder {...iconProps} />
+                    )
+                }
 
             </div>
+            
+            <SelectStatus value = {action.status} onChange = {handleSelect}/>
 
         </div>
 

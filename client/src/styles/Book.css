@@ -7,8 +7,9 @@
 .book-page-left {
     display: flex;
     flex-direction: column;
-    gap: 5%;
+    gap: 2%;
     margin-top: 5%;
+    align-items: center;
 }
 
 
