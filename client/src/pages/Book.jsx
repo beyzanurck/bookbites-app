@@ -245,40 +245,44 @@ export default function Book() {
                 <p>{book?.[0]?.title}</p>
                 <p>{book?.[0]?.description}</p>
 
-                <form className='new-comment' onSubmit={handleSubmit}>
+            </div>
 
-                    <StarRating 
-                        rating={comment.rate} 
-                        onRating={handleRating} 
-                        text = {comment.text} 
-                    />
-            
-                    <TextArea 
-                        placeholder={"Comment"} 
-                        name = {"text"} 
-                        value = {comment.text} 
-                        onChange={handleChange} 
-                        disabled={!enableCommenting}
-                    /> 
-                    <p>To submit your comment, rate the book after writing the comment.</p>
-                </form>
+            <form className='new-comment' onSubmit={handleSubmit}>
+
+                <StarRating 
+                    rating={comment.rate} 
+                    onRating={handleRating} 
+                    text = {comment.text} 
+                />
+        
+                <TextArea 
+                    placeholder={"Comment"} 
+                    name = {"text"} 
+                    value = {comment.text} 
+                    onChange={handleChange} 
+                    disabled={!enableCommenting}
+                /> 
+                <p>To submit your comment, rate the book after writing the comment.</p>
+            </form>
+
+            <div className='display-comments-bp'>
+
+                {
+                    commentList.map((item, index) => (
+                        <CommentCard 
+                            key = {index}
+                            text = {item.text}
+                            userName = {item.first_name + " " + item.last_name}
+                            date = {item.date}
+                            rating={item.rate}
+                            icon = {item.auth0_sub === user.sub}
+                            commentId = {item.comment_id}
+                        />
+                    ))
+                }
+
             </div>
         
-
-            {
-                commentList.map((item, index) => (
-                    <CommentCard 
-                        key = {index}
-                        text = {item.text}
-                        userName = {item.first_name + " " + item.last_name}
-                        date = {item.date}
-                        rating={item.rate}
-                        icon = {item.auth0_sub === user.sub}
-                        commentId = {item.comment_id}
-                    />
-                ))
-            }
-
         </div>
                 
     </div>
