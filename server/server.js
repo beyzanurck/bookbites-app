@@ -304,7 +304,7 @@ app.delete('/api/comment/:id', async (req, res) => {
         const deletePost= await db.query("DELETE FROM comments WHERE comment_id = $1", [id]
         );
 
-        res.json("The comment was deleted!");
+        res.json({ message: "The comment was deleted!"});
 
     } catch (error) {
         console.error(error.message)
