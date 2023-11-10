@@ -215,28 +215,37 @@ export default function Book() {
 
 
   return (
-    <div>
+    <div className='book-page'>
 
-        <div className='top'>
+        <div className='book-page-left'>
 
             <div className='book-img'>
 
                 <img src={book?.[0]?.image_url}/>
-                
-                {
-                    isAuthenticated && 
+
+                <div>
+
+                    {
+                        isAuthenticated && 
                         (
                         action.isFaved
                             ? <MdFavorite {...iconProps} />
                             : <MdFavoriteBorder {...iconProps} />
                         )
-                }
+                    }
+
+                </div>
+                
+               
 
                 <SelectStatus value = {action.status} onChange = {handleSelect}/>
 
             </div>
 
-        
+        </div>
+
+        <div className='book-page-right'>
+
             <div className='book-details'>
                 
                 <p>{book?.[0]?.title}</p>
@@ -260,8 +269,8 @@ export default function Book() {
                     <p>To submit your comment, rate the book after writing the comment.</p>
                 </form>
             </div>
-        </div>
-                
+        
+
             {
                 commentList.map((item, index) => (
                     <CommentCard 
@@ -276,10 +285,8 @@ export default function Book() {
                 ))
             }
 
-       
-
-      
-     
+        </div>
+                
     </div>
   )
 }
