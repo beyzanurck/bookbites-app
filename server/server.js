@@ -368,7 +368,7 @@ app.put("/api/note", async (req, res) =>  {
     try {
 
         const {isNotePrivate, note, feed_id} = req.body;
-        console.log("req.body: ", req.body)
+        
         const { rows: newNote } = await db.query("UPDATE feeds SET isNotePrivate = $1, note = $2 WHERE feed_id = $3 RETURNING *", [isNotePrivate, note, feed_id]);
         
         res.status(200).json(newNote);
