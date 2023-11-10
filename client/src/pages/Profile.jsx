@@ -171,7 +171,7 @@ export default function Profile() {
             rating={item.rate}
             icon = {true}
             commentId = {item.comment_id}
-            commentUpdated={handleCommentUpdated}
+            onCommentUpdated={handleCommentUpdated}
 
           />
         ))

@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 
-export default function EditCommentPopup({show, onClose, text, rating, comment_id, commentUpdated}) {
+export default function EditCommentPopup({show, onClose, text, rating, comment_id, onCommentUpdated}) {
 
     const [editedComment, setEditedComment] = useState({
         "text" : text,
@@ -35,7 +35,7 @@ export default function EditCommentPopup({show, onClose, text, rating, comment_i
 
         event.preventDefault();
         updateComment();
-        if(commentUpdated !== undefined) commentUpdated();
+        onCommentUpdated?.();
     }
 
     return (
