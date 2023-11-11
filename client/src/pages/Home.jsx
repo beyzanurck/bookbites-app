@@ -91,17 +91,17 @@ export default function Home() {
               }
 
               return (
-                item.title.toLowerCase().includes(search.toLowerCase()) || 
-                item.author.toLowerCase().includes(search.toLowerCase())
+                item.volumeInfo.title.toLowerCase().includes(search.toLowerCase()) || 
+                item.volumeInfo.author.toLowerCase().includes(search.toLowerCase())
               )
             })
             .map((item, index) => (
               <BookCard 
                 key = {index}
-                title = {item.title}
-                author = {item.author}
-                img = {item.image_url}
-                category = {item.categories}
+                title = {item.volumeInfo.title}
+                author = {item.volumeInfo.author}
+                img = {item.volumeInfo.imageLinks.thumbnail}
+                category = {item.volumeInfo.categories}
                 id = {item.api_id}
                 faved = {actionById(item.api_id)[0]}
                 status = {actionById(item.api_id)[1]}

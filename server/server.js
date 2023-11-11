@@ -102,12 +102,12 @@ app.get("/api/books", async (req, res) =>  {
     try {
         // const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
 
-        const url = `https://www.googleapis.com/books/v1/volumes?q=search+terms&maxResults=1`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=search+terms&maxResults=5`;
 
         const response = await fetch(url);
         const data = await response.json();
         const demo_books = data.items; 
-        console.log("title", demo_books[0].volumeInfo.title)
+        // console.log("title", demo_books[0].volumeInfo.title)
         res.status(200).json(demo_books);
 
     } catch (error) {
