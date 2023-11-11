@@ -6,6 +6,7 @@ import SelectStatus from '../components/SelectStatus';
 import TextArea from '../components/TextArea';
 import CommentCard from '../components/CommentCard';
 import StarRating from '../components/StarRating';
+import '../styles/Book.css'
 
 
 export default function Book() {
@@ -214,69 +215,86 @@ export default function Book() {
 
 
   return (
-    <div>
+    <div className='book-page'>
 
-      <div className='top'>
-
-        <div className='book-img'>
+        <div className='book-page-left'>
 
             <img src={book?.[0]?.image_url}/>
-            
-            {
-                isAuthenticated && 
+
+            <div>
+
+                {
+                    isAuthenticated && 
                     (
                     action.isFaved
-                        ? <MdFavorite {...iconProps} />
-                        : <MdFavoriteBorder {...iconProps} />
+                        ? <MdFavorite className="favorite-icon" {...iconProps} />
+                        : <MdFavoriteBorder className="favorite-icon" {...iconProps} />
                     )
-            }
+                }
 
+            </div>
+            
             <SelectStatus value = {action.status} onChange = {handleSelect}/>
 
         </div>
 
-    
-        <div className='book-details'>
-            
-            <p>{book?.[0]?.title}</p>
-            <p>{book?.[0]?.description}</p>
+        <div className='book-page-right'>
+
+            <div className='book-details'>
+                
+                <p className='book-name-bp'>{book?.[0]?.title}</p>
+                <p className='book-des-bp'>{book?.[0]?.description}</p>
+
+            </div>
 
             <form className='new-comment' onSubmit={handleSubmit}>
 
-                <StarRating 
-                    rating={comment.rate} 
-                    onRating={handleRating} 
-                    text = {comment.text} 
-                />
-        
-                <TextArea 
-                    placeholder={"Comment"} 
-                    name = {"text"} 
-                    value = {comment.text} 
-                    onChange={handleChange} 
-                    disabled={!enableCommenting}
-                /> 
-                <p>To submit your comment, rate the book after writing the comment.</p>
-            </form>
-                
-            {
-                commentList.map((item, index) => (
-                    <CommentCard 
-                        key = {index}
-                        text = {item.text}
-                        userName = {item.first_name + " " + item.last_name}
-                        date = {item.date}
-                        rating={item.rate}
-                        icon = {item.auth0_sub === user.sub}
-                        commentId = {item.comment_id}
+                <div>
+
+                    <TextArea 
+                        placeholder={"Comment"} 
+                        name = {"text"} 
+                        value = {comment.text} 
+                        onChange={handleChange} 
+                        disabled={!enableCommenting}
+                    /> 
+
+                    <p id='instruction-bp'>Please rate the book to submit your comment.</p>
+
+                </div>
+
+                <div className="rating-bp">
+
+                    <StarRating 
+                        rating={comment.rate} 
+                        onRating={handleRating} 
+                        text = {comment.text} 
                     />
-                ))
-            }
 
+                </div>
+ 
+            </form>
+
+            <div className='display-comments-bp'>
+
+                {
+                    commentList.map((item, index) => (
+                        <CommentCard 
+                            key = {index}
+                            text = {item.text}
+                            userName = {item.first_name + " " + item.last_name}
+                            date = {item.date}
+                            rating={item.rate}
+                            icon = {item.auth0_sub === user.sub}
+                            commentId = {item.comment_id}
+                        />
+                    ))
+                }
+
+            </div>
+        
         </div>
-
-      </div>
-     
+                
     </div>
   )
 }

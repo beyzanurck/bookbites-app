@@ -4,6 +4,7 @@ import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
 import EditCommentPopup from './EditCommentPopUp';
 import StarDisplay from './StarDisplay';
+import '../styles/CommentCard.css'
 
 export default function CommentCard({ text, userName, date, rating, icon, commentId, onCommentUpdated }) {
 
@@ -21,9 +22,17 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
     onCommentUpdated?.();
   }
 
+  //month as a str/ day/ year
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString('en-US', {
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+
 
   return (
-    <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row', margin: '1rem' }}>
+    <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row'}}>
       <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
         <Card.Img 
           style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
@@ -31,20 +40,26 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         />
       </div>
 
-      <Card.Body style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
-        <Card.Title>{userName}</Card.Title>
+      <Card.Body style={{ position: 'relative' ,flex: '1', display: 'flex', flexDirection: 'column' }}>
+
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+          <Card.Title>{userName}</Card.Title>
+          <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{formattedDate}</div>
+
+        </div>
 
         <div>
           <StarDisplay rating={rating} />
         </div>
+
         <Card.Text>{text}</Card.Text>
-        <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{date}</div>
 
         {
             icon &&
-            <div>
-                <AiFillEdit size={32} style={{color: 'red'}} onClick={() => {setShow(true)}}/>
-                <MdDelete size={32} style={{color: 'green'}} onClick={() => {deleteComment(commentId)}}/>
+            <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} >
+                <AiFillEdit className = "editIcon" size={20} style={{color: 'green'}} onClick={() => {setShow(true)}}/>
+                <MdDelete className = "deleteIcon" size={20} style={{color: 'red'}} onClick={() => {deleteComment(commentId)}}/>
             </div> 
         }
 

@@ -63,22 +63,27 @@ export default function BookCard({title, author, img, category, id, faved, statu
         <Card.Img variant="top" src={img} />
       </Link>
 
-      <Card.Body>
+      <Card.Body style={{ position: 'relative'}}>
         <Card.Title>{title}</Card.Title>
+
         <Card.Text>
           <strong>Author:</strong> {author} <br />
           <strong>Category:</strong> {category}
         </Card.Text>
 
-        {
-          isAuthenticated && 
-          (
-            isFaved
-              ? <MdFavorite {...iconProps} />
-              : <MdFavoriteBorder {...iconProps} />
-          )
-        }
-        
+        <div  style={{ position: 'absolute', bottom: '10px', right: '7.5rem', top: '82%' }} >
+
+          {
+            isAuthenticated && 
+            (
+              isFaved
+                ? <MdFavorite className="favorite-icon" {...iconProps} />
+                : <MdFavoriteBorder className="favorite-icon" {...iconProps} />
+            )
+          }
+
+        </div>
+
       </Card.Body>
     </Card>
 

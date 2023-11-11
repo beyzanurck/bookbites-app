@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard'
 import { useAuth0 } from "@auth0/auth0-react";
+import '../styles/Home.css'
 
 export default function Home() {
 
@@ -70,9 +71,10 @@ export default function Home() {
   
 
   return (
-    <div>
+    <div className='home-page'>
 
-        <input
+        <input 
+          className="search-bar"
           placeholder="search a book by title/author"
           type='text'
           value={search}

@@ -6,8 +6,8 @@ export default function TextArea({placeholder, name, value, onChange, disabled})
         placeholder = {`${placeholder} here...`}
         name = {name}
         value={value}
-        rows="10" 
-        cols="60" 
+        rows="9" 
+        cols="80" 
         onChange={onChange}
         disabled = {disabled}
     />
