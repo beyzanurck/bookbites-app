@@ -102,7 +102,7 @@ export default function Home() {
                 author = {item.volumeInfo.authors}
                 img = {item.volumeInfo.imageLinks.thumbnail}
                 category = {item.volumeInfo.categories}
-                id = {item.id}
+                id = {item?.id}
                 faved = {actionById(item.id)[0]}
                 status = {actionById(item.id)[1]}
               />

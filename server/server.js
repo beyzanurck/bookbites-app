@@ -157,6 +157,7 @@ app.post("/api/feed", async (req, res) =>  {
     try {
         
         let {auth0_sub, api_id, isFav, shelf_status } = req.body;
+        console.log("auth0_sub, api_id, isFav, shelf_status", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
