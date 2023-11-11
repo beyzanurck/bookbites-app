@@ -99,7 +99,7 @@ export default function Home() {
               <BookCard 
                 key = {index}
                 title = {item.volumeInfo.title}
-                author = {item.volumeInfo.author}
+                author = {item.volumeInfo.authors}
                 img = {item.volumeInfo.imageLinks.thumbnail}
                 category = {item.volumeInfo.categories}
                 id = {item.api_id}
