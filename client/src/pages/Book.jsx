@@ -219,7 +219,7 @@ export default function Book() {
 
         <div className='book-page-left'>
 
-            <img src={book?.[0]?.image_url}/>
+            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""}/>
 
             <div>
 
