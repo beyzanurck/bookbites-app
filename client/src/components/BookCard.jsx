@@ -74,8 +74,8 @@ export default function BookCard({title, author, img, category, id, faved, statu
           isAuthenticated && 
           (
             isFaved
-              ? <MdFavorite {...iconProps} />
-              : <MdFavoriteBorder {...iconProps} />
+              ? <MdFavorite className="favorite-icon" {...iconProps} />
+              : <MdFavoriteBorder className="favorite-icon" {...iconProps} />
           )
         }
         
