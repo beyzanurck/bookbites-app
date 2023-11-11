@@ -4,6 +4,7 @@ import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
 import EditCommentPopup from './EditCommentPopUp';
 import StarDisplay from './StarDisplay';
+import '../styles/CommentCard.css'
 
 export default function CommentCard({ text, userName, date, rating, icon, commentId, onCommentUpdated }) {
 
