@@ -5,6 +5,7 @@ import SelectStatus from '../components/SelectStatus';
 import BookCard from '../components/BookCard';
 import CommentCard from '../components/CommentCard';
 import NotePopup from '../components/NotePopup'
+import '../styles/Profile.css'
 
 export default function Profile() {
   
@@ -123,7 +124,7 @@ export default function Profile() {
     <div>
       <p> {user && user.name}'s Page </p>
 
-      <div className='bar-profile'>
+      <div className='subBar-profile-page'>
 
         <SelectStatus value={selectStatus} onChange = {handleSelect}/>
 
