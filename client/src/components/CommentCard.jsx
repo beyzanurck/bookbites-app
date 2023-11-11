@@ -31,7 +31,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         />
       </div>
 
-      <Card.Body style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+      <Card.Body style={{ position: 'relative' ,flex: '1', display: 'flex', flexDirection: 'column' }}>
 
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
@@ -48,7 +48,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
 
         {
             icon &&
-            <div>
+            <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} >
                 <AiFillEdit size={32} style={{color: 'green'}} onClick={() => {setShow(true)}}/>
                 <MdDelete size={32} style={{color: 'red'}} onClick={() => {deleteComment(commentId)}}/>
             </div> 
