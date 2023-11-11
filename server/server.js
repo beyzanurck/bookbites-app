@@ -123,7 +123,15 @@ app.get("/api/:id", async (req, res) =>  {
 
     try {
         const { id } = req.params;
-        const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        const url = `https://www.googleapis.com/books/v1/volumes/${id}`
+        // const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        const response = await fetch(url);
+        const data = await response.json();
+        const book = data; 
+
+        console.log("THE BOOK", book)
 
         if (book.length === 0) {
             res.status(404).json({ message: "Book not found" });
