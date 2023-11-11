@@ -22,6 +22,14 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
     onCommentUpdated?.();
   }
 
+  //month as a str/ day/ year
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString('en-US', {
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+
 
   return (
     <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row'}}>
@@ -37,7 +45,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
           <Card.Title>{userName}</Card.Title>
-          <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{date}</div>
+          <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{formattedDate}</div>
 
         </div>
 
