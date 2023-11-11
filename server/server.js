@@ -107,7 +107,7 @@ app.get("/api/books", async (req, res) =>  {
         const response = await fetch(url);
         const data = await response.json();
         const demo_books = data.items; 
-        // console.log("title", demo_books[0].volumeInfo.title)
+        // console.log("title", demo_books[0].id)
         res.status(200).json(demo_books);
 
     } catch (error) {
