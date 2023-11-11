@@ -90,10 +90,14 @@ export default function Home() {
                 return true
               }
 
+              const title = item?.volumeInfo?.title || "";
+              const authors = item?.volumeInfo?.authors || [];
+              const searchLower = search.toLowerCase();
+
               return (
-                item.volumeInfo.title.toLowerCase().includes(search.toLowerCase()) || 
-                item.volumeInfo.author.toLowerCase().includes(search.toLowerCase())
-              )
+                title.toLowerCase().includes(searchLower) || 
+                authors.some(author => author.toLowerCase().includes(searchLower))
+              );
             })
             .map((item, index) => (
               <BookCard 
