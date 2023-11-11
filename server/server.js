@@ -4,6 +4,7 @@ import db from "./db/db-connection.js";
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fetch from 'node-fetch';
 
 
 const app = express();
@@ -99,7 +100,14 @@ app.post("/api/users", async (req, res) =>  {
 app.get("/api/books", async (req, res) =>  {
     
     try {
-        const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
+        // const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
+
+        const url = `https://www.googleapis.com/books/v1/volumes?q=search+terms&maxResults=1`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+        const demo_books = data.items; 
+        console.log("title", demo_books[0].volumeInfo.title)
         res.status(200).json(demo_books);
 
     } catch (error) {
