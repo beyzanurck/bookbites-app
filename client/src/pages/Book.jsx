@@ -242,7 +242,7 @@ export default function Book() {
 
             <div className='book-details'>
                 
-                <p className='book-name-bp'>{book?.[0]?.title}</p>
+                <p className='book-name-bp'>{book?.volumeInfo?.title || ""}</p>
                 <p className='book-des-bp'>{book?.[0]?.description}</p>
 
             </div>
