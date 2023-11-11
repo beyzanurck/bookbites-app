@@ -71,7 +71,7 @@ export default function BookCard({title, author, img, category, id, faved, statu
           <strong>Category:</strong> {category}
         </Card.Text>
 
-        <div  style={{ position: 'absolute', bottom: '10px', right: '7.5rem'}} >
+        <div  style={{ position: 'absolute', bottom: '10px', right: '7.5rem', top: '82%' }} >
 
           {
             isAuthenticated && 
