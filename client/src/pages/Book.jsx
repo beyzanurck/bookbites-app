@@ -213,6 +213,11 @@ export default function Book() {
         setComment(prevValue => ({...prevValue, rate }));
     }
 
+    function removeHtmlTags(str) {
+        if (!str) return "";
+        return str.replace(/<[^>]*>/g, '');
+    }
+      
 
   return (
     <div className='book-page'>
@@ -243,7 +248,7 @@ export default function Book() {
             <div className='book-details'>
                 
                 <p className='book-name-bp'>{book?.volumeInfo?.title || ""}</p>
-                <p className='book-des-bp'>{book?.volumeInfo?.description || ""}</p>
+                <p className='book-des-bp'>{removeHtmlTags(book?.volumeInfo?.description)}</p>
 
             </div>
 
