@@ -49,8 +49,8 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         {
             icon &&
             <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} >
-                <AiFillEdit size={32} style={{color: 'green'}} onClick={() => {setShow(true)}}/>
-                <MdDelete size={32} style={{color: 'red'}} onClick={() => {deleteComment(commentId)}}/>
+                <AiFillEdit size={20} style={{color: 'green'}} onClick={() => {setShow(true)}}/>
+                <MdDelete size={20} style={{color: 'red'}} onClick={() => {deleteComment(commentId)}}/>
             </div> 
         }
 
