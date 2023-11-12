@@ -186,7 +186,7 @@ export default function Profile() {
 
       {
         (activeTab === 'notes') &&
-        allActions.filter((item) => item.comment_id !== null)
+        allActions.filter((item) => item.note !== null)
         .map((item, index) => (
           <NoteCard 
             key = {index}
