@@ -241,7 +241,7 @@ export default function Profile() {
         <NotePopup 
           show={show}
           onClose={()=>setShow(false)}
-          books = {filteredBooks}
+          books = {allBooksOfUser}
           feeds = {allActions}
           noteUpdated={handleNoteUpdated}
         />
