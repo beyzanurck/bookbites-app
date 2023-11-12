@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {useEffect} from 'react'
+import logo from '../assets/logo.png';
+import {GiBookAura } from 'react-icons/gi';
+
 
 export default function NavBar() {
 
@@ -47,6 +50,10 @@ export default function NavBar() {
 
     return (
         <nav className='navbar'>
+            {/* <img src={logo} alt="BookBites Logo" style={{ height: '50px', width: 'auto' }}/> */}
+
+            <GiBookAura style= {{color: 'green', marginLeft: 20}} size={48}/>
+
             <Link to="/" className='home'> BookBites </Link>
             <ul>
                 <li>
