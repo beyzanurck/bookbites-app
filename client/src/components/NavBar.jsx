@@ -75,7 +75,7 @@ export default function NavBar() {
                         </li>
                     </>
                 ) : (
-                    <Link  style= {{marginRight: 20}} onClick={() => loginWithRedirect()}>
+                    <Link onClick={() => loginWithRedirect()}>
                         Log In
                     </Link>
                 )}
