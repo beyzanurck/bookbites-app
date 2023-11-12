@@ -9,8 +9,9 @@
 
 
 .navbar {
-  background-color: black;
-  color: white;
+  /* background-color: rgb(249, 241, 220); */
+  background-color: rgb(237, 185, 144);
+  color: rgb(29, 43, 44);
   display: flex;
   justify-content: space-between;
   align-items: center;
