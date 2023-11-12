@@ -79,7 +79,18 @@ app.post("/api/users", async (req, res) =>  {
         const existingUser = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
         if (existingUser.rows.length > 0) {
-            return res.status(409).json({ status: "user_exists", message: "User already exists!" }); // returns 409 conflict status if the user already exists.
+            
+            if (image === undefined || image === null) {
+                console.log("image is empty")
+            } else {
+                const updatedUser = await db.query(
+                    "UPDATE users SET image = $1 WHERE email = $2 RETURNING *",
+                    [image, email]
+                );
+                res.status(200).json(updatedUser.rows[0]);
+            }
+            return; 
+            // return res.status(409).json({ status: "user_exists", message: "User already exists!" }); // returns 409 conflict status if the user already exists.
         }
 
         // If not, insert the new user
@@ -140,7 +151,7 @@ app.get("/api/:id", async (req, res) =>  {
         const data = await response.json();
         const book = data; 
 
-        console.log("THE BOOK", book)
+        // console.log("THE BOOK", book)
 
         if (book.length === 0) {
             res.status(404).json({ message: "Book not found" });

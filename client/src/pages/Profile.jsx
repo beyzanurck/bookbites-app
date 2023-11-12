@@ -165,9 +165,9 @@ export default function Profile() {
 
       <img 
         style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
-        src={allActions.image} 
+        src={allActions[0]?.image} 
       />
-      
+
       <p> {user && user.name}'s Page </p>
 
       <div className='subBar-profile-page'>
