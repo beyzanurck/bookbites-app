@@ -84,6 +84,10 @@ export default function Profile() {
     setBookIds(ids)
   }, [selectStatus]);
 
+  useEffect(() => {
+    console.log("bookIds ", bookIds)
+  }, [bookIds]);
+
 
   //Get specific book info
   async function getBookById() {
@@ -99,6 +103,7 @@ export default function Profile() {
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
       setFilteredBooks(booksDetails.flat()) //removes one level of nesting
+      console.log("filteredBooks, ", filteredBooks)
   
     } catch (error) {
       console.error('Error fetching multiple books:', error);
@@ -146,12 +151,12 @@ export default function Profile() {
 
           return (
             <BookCard 
-              key={book.demo_api_id} 
-              title={book.title}
-              author={book.author}
-              img={book.image_url}
-              category={book.categories}
-              id={book.api_id}
+              key={book.id} 
+              title={book.volumeInfo.title}
+              author={book.volumeInfo.authors}
+              img={book.volumeInfo.imageLinks.thumbnail}
+              category={book.volumeInfo.categories[0]}
+              id={book.id}
               faved={isFaved}
               status={status}
             />
