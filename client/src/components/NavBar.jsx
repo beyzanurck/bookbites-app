@@ -65,13 +65,13 @@ export default function NavBar() {
                             <Link to='/profile'> {user.given_name}'s Profile </Link>
                         </li>
                         <li>
-                            <button onClick={() => logout()}>Log Out</button>
+                            <Link onClick={() => logout()}>Log Out</Link>
                         </li>
                     </>
                 ) : (
-                    <button style= {{marginRight: 20}} onClick={() => loginWithRedirect()}>
+                    <Link  style= {{marginRight: 20}} onClick={() => loginWithRedirect()}>
                         Log In
-                    </button>
+                    </Link>
                 )}
             </ul>
         </nav>
