@@ -128,6 +128,9 @@ export default function Profile() {
   function handleNoteUpdated(){
     getUserAllActions(user.sub);
   }
+  function handleImageUpdated(){
+    getUserAllActions(user.sub);
+  }
 
   //books in the user's library
   async function getAllBooksOfUser() {
@@ -272,6 +275,7 @@ export default function Profile() {
           show={show.imagePopup}
           onClose={()=> setShow(prevValue => ({...prevValue, "imagePopup": false}))}
           userInfo={user.email}
+          onImageUpdated = {handleImageUpdated}
         />
       }
 

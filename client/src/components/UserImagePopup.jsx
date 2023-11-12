@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 
-export default function UserImagePopup({show, onClose, userInfo}) {
+export default function UserImagePopup({show, onClose, userInfo, onImageUpdated}) {
     const [user, setUser] = useState({
         email: userInfo,     
         image: ""
@@ -31,6 +31,7 @@ export default function UserImagePopup({show, onClose, userInfo}) {
             body: JSON.stringify(userData)
         });
 
+        onImageUpdated();
         return await response.json();
     }
 
