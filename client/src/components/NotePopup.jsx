@@ -75,7 +75,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
                     <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
                         <option value="" disabled> select a status</option>
                         {books.map((book, index) => (
-                            <option key={index} value={book.api_id}> {book.title} </option>
+                            <option key={index} value={book.id}> {book.volumeInfo.title} </option>
                         ))}
                     </select>
                 }
