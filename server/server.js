@@ -255,6 +255,7 @@ app.post("/api/comment", async (req, res) =>  {
     try {
 
         const {auth0_sub, api_id, text, date, rate } = req.body;
+        console.log("auth0_sub, api_id, text, date, rate", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
