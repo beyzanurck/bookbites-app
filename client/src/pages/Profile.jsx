@@ -227,12 +227,19 @@ export default function Profile() {
       {
         (activeTab === 'notes') &&
         allActions.filter((item) => item.note !== null)
-        .map((item, index) => (
-          <NoteCard 
-            key = {index}
-            note = {item.note}
-          />
-        ))
+        .map((item, index) => {
+
+          const book = allBooksOfUser.find(book => book.id === item.api_id)
+          const bookName = book.volumeInfo.title
+          
+          return (
+            <NoteCard 
+              key = {index}
+              note = {item.note}
+              name = {bookName}
+            />
+          )
+        })
       }
       
 
