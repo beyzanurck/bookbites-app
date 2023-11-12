@@ -6,12 +6,17 @@ import BookCard from '../components/BookCard';
 import CommentCard from '../components/CommentCard';
 import NotePopup from '../components/NotePopup'
 import '../styles/Profile.css'
+import UserImagePopup from '../components/UserImagePopup';
 
 export default function Profile() {
   
   const { isAuthenticated, user } = useAuth0();
   //modal shows up
-  const [show, setShow] = useState(false)
+  // const [show, setShow] = useState(false)
+  const [show, setShow] = useState({
+    "notePopup" : false,
+    "imagePopup" : false
+  })
   //stores data from 3 tables
   const [allActions, setAllActions] = useState([])
   //dropdown menu
@@ -176,7 +181,8 @@ export default function Profile() {
 
         <p onClick={()=> setActiveTab('comments')}>Comments</p>
         <p onClick={()=> setActiveTab('notes')}>Notes</p>
-        <button onClick={() => {setShow(true)}}>Add Note</button>
+        {/* <button onClick={() => {setShow(true)}}>Add Note</button> */}
+        <button onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</button>
       </div>
 
 
@@ -250,10 +256,10 @@ export default function Profile() {
       
 
       {
-        show && 
+        show.notePopup && 
         <NotePopup 
-          show={show}
-          onClose={()=>setShow(false)}
+          show={show.notePopup}
+          onClose={()=> setShow(prevValue => ({...prevValue, "notePopup": false}))}
           books = {filteredBooks}
           feeds = {allActions}
           noteUpdated={handleNoteUpdated}
