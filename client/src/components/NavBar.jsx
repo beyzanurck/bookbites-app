@@ -55,7 +55,7 @@ export default function NavBar() {
                 {isAuthenticated ? (
                     <>
                         <li>
-                            <Link to='/profile'> {user.email} </Link>
+                            <Link to='/profile'> {user.given_name}'s Profile </Link>
                         </li>
                         <li>
                             <button onClick={() => logout()}>Log Out</button>

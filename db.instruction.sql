@@ -113,6 +113,9 @@ ALTER TABLE users ADD COLUMN auth0_sub VARCHAR(255) UNIQUE;
 -- Add isNotePrivate attribute to feed table
 ALTER TABLE feeds ADD COLUMN isNotePrivate BOOLEAN NOT NULL DEFAULT FALSE;
 
+-- Removes the f.key contraint
+ALTER TABLE comments DROP CONSTRAINT comments_api_id_fkey;
+
 
 --
 -- PostgreSQL database dump complete

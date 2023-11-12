@@ -90,21 +90,25 @@ export default function Home() {
                 return true
               }
 
+              const title = item?.volumeInfo?.title || "";
+              const authors = item?.volumeInfo?.authors || [];
+              const searchLower = search.toLowerCase();
+
               return (
-                item.title.toLowerCase().includes(search.toLowerCase()) || 
-                item.author.toLowerCase().includes(search.toLowerCase())
-              )
+                title.toLowerCase().includes(searchLower) || 
+                authors.some(author => author.toLowerCase().includes(searchLower))
+              );
             })
             .map((item, index) => (
               <BookCard 
                 key = {index}
-                title = {item.title}
-                author = {item.author}
-                img = {item.image_url}
-                category = {item.categories}
-                id = {item.api_id}
-                faved = {actionById(item.api_id)[0]}
-                status = {actionById(item.api_id)[1]}
+                title = {item.volumeInfo.title}
+                author = {item.volumeInfo.authors}
+                img = {item.volumeInfo.imageLinks.thumbnail}
+                category = {item.volumeInfo.categories}
+                id = {item?.id}
+                faved = {actionById(item.id)[0]}
+                status = {actionById(item.id)[1]}
               />
             ))
           }

@@ -57,7 +57,7 @@ export default function BookCard({title, author, img, category, id, faved, statu
 
   return (
 
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '13rem' }}>
 
       <Link to={`/book/${id}`} state={{ faved : isFaved, shelf_status : status }}>
         <Card.Img variant="top" src={img} />

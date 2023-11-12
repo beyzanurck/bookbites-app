@@ -4,6 +4,7 @@ import db from "./db/db-connection.js";
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fetch from 'node-fetch';
 
 
 const app = express();
@@ -78,7 +79,18 @@ app.post("/api/users", async (req, res) =>  {
         const existingUser = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
         if (existingUser.rows.length > 0) {
-            return res.status(409).json({ status: "user_exists", message: "User already exists!" }); // returns 409 conflict status if the user already exists.
+            
+            if (image === undefined || image === null) {
+                console.log("image is empty")
+            } else {
+                const updatedUser = await db.query(
+                    "UPDATE users SET image = $1 WHERE email = $2 RETURNING *",
+                    [image, email]
+                );
+                res.status(200).json(updatedUser.rows[0]);
+            }
+            return; 
+            // return res.status(409).json({ status: "user_exists", message: "User already exists!" }); // returns 409 conflict status if the user already exists.
         }
 
         // If not, insert the new user
@@ -99,7 +111,23 @@ app.post("/api/users", async (req, res) =>  {
 app.get("/api/books", async (req, res) =>  {
     
     try {
-        const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
+        const urls = [
+            'https://www.googleapis.com/books/v1/volumes?q=subject:science+fiction&startIndex=3&maxResults=12',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:cookbooks&maxResults=8',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:manga&maxResults=8',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:history&maxResults=8'
+        ];
+
+        const fetchBookData = async (url) => {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.items || [];
+        };
+
+        const allBookRequests = urls.map(url => fetchBookData(url));
+        const allBooksResults = await Promise.all(allBookRequests);
+
+        const demo_books = allBooksResults.flat();
         res.status(200).json(demo_books);
 
     } catch (error) {
@@ -115,7 +143,15 @@ app.get("/api/:id", async (req, res) =>  {
 
     try {
         const { id } = req.params;
-        const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        const url = `https://www.googleapis.com/books/v1/volumes/${id}`
+        // const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
+
+        const response = await fetch(url);
+        const data = await response.json();
+        const book = data; 
+
+        // console.log("THE BOOK", book)
 
         if (book.length === 0) {
             res.status(404).json({ message: "Book not found" });
@@ -149,6 +185,7 @@ app.post("/api/feed", async (req, res) =>  {
     try {
         
         let {auth0_sub, api_id, isFav, shelf_status } = req.body;
+        console.log("auth0_sub, api_id, isFav, shelf_status", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
@@ -238,6 +275,7 @@ app.post("/api/comment", async (req, res) =>  {
     try {
 
         const {auth0_sub, api_id, text, date, rate } = req.body;
+        console.log("auth0_sub, api_id, text, date, rate", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
@@ -273,7 +311,8 @@ app.get("/api/comment/:id/:userSub", async (req, res) =>  {
                 comments.rate, 
                 users.first_name, 
                 users.last_name,
-                users.auth0_sub
+                users.auth0_sub,
+                users.image
             FROM comments 
             JOIN users ON comments.user_id = users.user_id
             WHERE comments.api_id = $1

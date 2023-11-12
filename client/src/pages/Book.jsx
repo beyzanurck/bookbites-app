@@ -213,13 +213,18 @@ export default function Book() {
         setComment(prevValue => ({...prevValue, rate }));
     }
 
+    function removeHtmlTags(str) {
+        if (!str) return "";
+        return str.replace(/<[^>]*>/g, '');
+    }
+      
 
   return (
     <div className='book-page'>
 
         <div className='book-page-left'>
 
-            <img src={book?.[0]?.image_url}/>
+            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""}/>
 
             <div>
 
@@ -242,8 +247,8 @@ export default function Book() {
 
             <div className='book-details'>
                 
-                <p className='book-name-bp'>{book?.[0]?.title}</p>
-                <p className='book-des-bp'>{book?.[0]?.description}</p>
+                <p className='book-name-bp'>{book?.volumeInfo?.title || ""}</p>
+                <p className='book-des-bp'>{removeHtmlTags(book?.volumeInfo?.description)}</p>
 
             </div>
 
@@ -287,6 +292,7 @@ export default function Book() {
                             rating={item.rate}
                             icon = {item.auth0_sub === user.sub}
                             commentId = {item.comment_id}
+                            userImage={item.image}
                         />
                     ))
                 }

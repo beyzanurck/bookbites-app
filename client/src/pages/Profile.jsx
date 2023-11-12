@@ -6,12 +6,17 @@ import BookCard from '../components/BookCard';
 import CommentCard from '../components/CommentCard';
 import NotePopup from '../components/NotePopup'
 import '../styles/Profile.css'
+import UserImagePopup from '../components/UserImagePopup';
 
 export default function Profile() {
   
   const { isAuthenticated, user } = useAuth0();
   //modal shows up
-  const [show, setShow] = useState(false)
+  // const [show, setShow] = useState(false)
+  const [show, setShow] = useState({
+    "notePopup" : false,
+    "imagePopup" : false
+  })
   //stores data from 3 tables
   const [allActions, setAllActions] = useState([])
   //dropdown menu
@@ -19,6 +24,7 @@ export default function Profile() {
 
   const [bookIds, setBookIds] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([])
+  const [allBooksOfUser, setAllBooksOfUser] = useState([])
 
   const [activeTab, setActiveTab] = useState('books');
 
@@ -84,6 +90,10 @@ export default function Profile() {
     setBookIds(ids)
   }, [selectStatus]);
 
+  useEffect(() => {
+    console.log("bookIds ", bookIds)
+  }, [bookIds]);
+
 
   //Get specific book info
   async function getBookById() {
@@ -99,6 +109,7 @@ export default function Profile() {
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
       setFilteredBooks(booksDetails.flat()) //removes one level of nesting
+      console.log("filteredBooks, ", filteredBooks)
   
     } catch (error) {
       console.error('Error fetching multiple books:', error);
@@ -117,11 +128,54 @@ export default function Profile() {
   function handleNoteUpdated(){
     getUserAllActions(user.sub);
   }
+  function handleImageUpdated(){
+    getUserAllActions(user.sub);
+  }
 
+  //books in the user's library
+  async function getAllBooksOfUser() {
+
+    try {
+      const bookPromises = allActions.map(async item => {
+
+        const response = await fetch(`/api/${item.api_id}`);
+        const bookData = await response.json();
+        console.log("Fetched book data for ID:", item.api_id, bookData); // Diagnostic log
+        return bookData;
+      });
   
+      // waits for all the fetch calls to resolve
+      const booksDetails = await Promise.all(bookPromises);
+      console.log("All fetched book details:", booksDetails); 
+      setAllBooksOfUser(booksDetails) //removes one level of nesting
+      console.log("allBooksOfUser, ", allBooksOfUser); 
+  
+    } catch (error) {
+      console.error('Error fetching multiple books:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (allActions.length > 0) {
+      getAllBooksOfUser();
+      console.log("allBooksOfUser, ", allBooksOfUser)
+    }
+  }, [allActions]);
+
+  useEffect(() => {
+    console.log("Updated allBooksOfUser: ", allBooksOfUser);
+  }, [allBooksOfUser]);
+  
+
 
   return (
     <div>
+
+      <img 
+        style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
+        src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
+      />
+
       <p> {user && user.name}'s Page </p>
 
       <div className='subBar-profile-page'>
@@ -130,7 +184,8 @@ export default function Profile() {
 
         <p onClick={()=> setActiveTab('comments')}>Comments</p>
         <p onClick={()=> setActiveTab('notes')}>Notes</p>
-        <button onClick={() => {setShow(true)}}>Add Note</button>
+        {/* <button onClick={() => {setShow(true)}}>Add Note</button> */}
+        <button onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</button>
       </div>
 
 
@@ -139,19 +194,19 @@ export default function Profile() {
         (activeTab === 'books') &&
         filteredBooks.map((book) => {
 
-          const action = allActions.find(action => action.api_id === book.api_id);
+          const action = allActions.find(action => action.api_id === book.id);
           
           const isFaved = action ? action.isfavorite : false;
           const status = action ? action.shelf_status : undefined;
 
           return (
             <BookCard 
-              key={book.demo_api_id} 
-              title={book.title}
-              author={book.author}
-              img={book.image_url}
-              category={book.categories}
-              id={book.api_id}
+              key={book.id} 
+              title={book.volumeInfo.title}
+              author={book.volumeInfo.authors}
+              img={book.volumeInfo.imageLinks.thumbnail}
+              category={book.volumeInfo.categories[0]}
+              id={book.id}
               faved={isFaved}
               status={status}
             />
@@ -163,42 +218,65 @@ export default function Profile() {
       {
         (activeTab === 'comments') &&
         allActions.filter((item) => item.comment_id !== null)
-        .map((item, index) => (
-          <CommentCard 
-            key = {index}
-            text = {item.text}
-            //  get book name later.
-            date = {item.date}
-            rating={item.rate}
-            icon = {true}
-            commentId = {item.comment_id}
-            onCommentUpdated={handleCommentUpdated}
+        .map((item, index) => {
 
-          />
-        ))
+          const book = allBooksOfUser.find(book => book.id === item.api_id)
+          const bookName = book.volumeInfo.title
+
+          return (
+            <CommentCard 
+              key = {index}
+              text = {item.text}
+              userName={bookName}
+              date = {item.date}
+              rating={item.rate}
+              icon = {true}
+              commentId = {item.comment_id}
+              onCommentUpdated={handleCommentUpdated}
+              userImage = {allActions[0]?.image}
+            />
+          )
+        })
       }
 
 
       {
         (activeTab === 'notes') &&
-        allActions.filter((item) => item.comment_id !== null)
-        .map((item, index) => (
-          <NoteCard 
-            key = {index}
-            note = {item.note}
-          />
-        ))
+        allActions.filter((item) => item.note !== null)
+        .map((item, index) => {
+
+          const book = allBooksOfUser.find(book => book.id === item.api_id)
+          const bookName = book.volumeInfo.title
+
+          return (
+            <NoteCard 
+              key = {index}
+              note = {item.note}
+              name = {bookName}
+            />
+          )
+        })
       }
       
 
       {
-        show && 
+        show.notePopup && 
         <NotePopup 
-          show={show}
-          onClose={()=>setShow(false)}
+          show={show.notePopup}
+          onClose={()=> setShow(prevValue => ({...prevValue, "notePopup": false}))}
           books = {filteredBooks}
           feeds = {allActions}
           noteUpdated={handleNoteUpdated}
+        />
+      }
+
+      {
+        show.imagePopup && 
+        <UserImagePopup
+          show={show.imagePopup}
+          onClose={()=> setShow(prevValue => ({...prevValue, "imagePopup": false}))}
+          userInfo={user.email}
+          onImageUpdated = {handleImageUpdated}
         />
       }
 
