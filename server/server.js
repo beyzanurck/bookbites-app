@@ -100,14 +100,23 @@ app.post("/api/users", async (req, res) =>  {
 app.get("/api/books", async (req, res) =>  {
     
     try {
-        // const {rows : demo_books} = await db.query('SELECT * FROM demo_api');
+        const urls = [
+            'https://www.googleapis.com/books/v1/volumes?q=subject:science+fiction&maxResults=8',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:cookbooks&maxResults=8',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:manga&maxResults=8',
+            'https://www.googleapis.com/books/v1/volumes?q=subject:history&maxResults=8'
+        ];
 
-        const url = `https://www.googleapis.com/books/v1/volumes?q=search+terms&startIndex=4&maxResults=16`;
+        const fetchBookData = async (url) => {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.items || [];
+        };
 
-        const response = await fetch(url);
-        const data = await response.json();
-        const demo_books = data.items; 
-        // console.log("title", demo_books[0].id)
+        const allBookRequests = urls.map(url => fetchBookData(url));
+        const allBooksResults = await Promise.all(allBookRequests);
+
+        const demo_books = allBooksResults.flat();
         res.status(200).json(demo_books);
 
     } catch (error) {
