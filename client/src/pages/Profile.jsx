@@ -203,19 +203,24 @@ export default function Profile() {
       {
         (activeTab === 'comments') &&
         allActions.filter((item) => item.comment_id !== null)
-        .map((item, index) => (
-          <CommentCard 
-            key = {index}
-            text = {item.text}
-            //  get book name later.
-            date = {item.date}
-            rating={item.rate}
-            icon = {true}
-            commentId = {item.comment_id}
-            onCommentUpdated={handleCommentUpdated}
+        .map((item, index) => {
 
-          />
-        ))
+          const book = allBooksOfUser.find(book => book.id === item.api_id)
+          const bookName = book.volumeInfo.title
+
+          return (
+            <CommentCard 
+              key = {index}
+              text = {item.text}
+              userName={bookName}
+              date = {item.date}
+              rating={item.rate}
+              icon = {true}
+              commentId = {item.comment_id}
+              onCommentUpdated={handleCommentUpdated}
+            />
+          )
+        })
       }
 
 
