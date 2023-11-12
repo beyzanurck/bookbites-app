@@ -144,7 +144,7 @@ export default function Profile() {
         (activeTab === 'books') &&
         filteredBooks.map((book) => {
 
-          const action = allActions.find(action => action.api_id === book.api_id);
+          const action = allActions.find(action => action.api_id === book.id);
           
           const isFaved = action ? action.isfavorite : false;
           const status = action ? action.shelf_status : undefined;
