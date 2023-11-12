@@ -162,6 +162,12 @@ export default function Profile() {
 
   return (
     <div>
+
+      <img 
+        style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
+        src={allActions.image} 
+      />
+      
       <p> {user && user.name}'s Page </p>
 
       <div className='subBar-profile-page'>
@@ -231,7 +237,7 @@ export default function Profile() {
 
           const book = allBooksOfUser.find(book => book.id === item.api_id)
           const bookName = book.volumeInfo.title
-          
+
           return (
             <NoteCard 
               key = {index}
@@ -248,7 +254,7 @@ export default function Profile() {
         <NotePopup 
           show={show}
           onClose={()=>setShow(false)}
-          books = {allBooksOfUser}
+          books = {filteredBooks}
           feeds = {allActions}
           noteUpdated={handleNoteUpdated}
         />
