@@ -66,12 +66,12 @@ export default function BookCard({title, author, img, category, id, faved, statu
       <Card.Body style={{ position: 'relative'}}>
         <Card.Title>{title}</Card.Title>
 
-        <Card.Text>
+        <Card.Text style={{ marginBottom: '1.2rem'}}>
           <strong>Author:</strong> {author} <br />
           <strong>Category:</strong> {category}
         </Card.Text>
 
-        <div  style={{ position: 'absolute', right: '6rem', top: '87%' }} >
+        <div  style={{ position: 'absolute', right: '5.3rem', bottom: '0.3rem' }} >
 
           {
             isAuthenticated && 
