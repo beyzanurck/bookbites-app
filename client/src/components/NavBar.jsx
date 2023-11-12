@@ -52,7 +52,7 @@ export default function NavBar() {
         <nav className='navbar'>
             {/* <img src={logo} alt="BookBites Logo" style={{ height: '50px', width: 'auto' }}/> */}
 
-            <GiBookAura style= {{color: 'green', marginLeft: 20}} size={48}/>
+            <GiBookAura style= {{color: 'rgb(0,46,97)', marginLeft: 20}} size={48}/>
 
             <Link to="/" className='home'> BookBites </Link>
             <ul>
