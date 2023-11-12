@@ -233,6 +233,7 @@ export default function Profile() {
               icon = {true}
               commentId = {item.comment_id}
               onCommentUpdated={handleCommentUpdated}
+              userImage = {allActions[0]?.image}
             />
           )
         })

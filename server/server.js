@@ -311,7 +311,8 @@ app.get("/api/comment/:id/:userSub", async (req, res) =>  {
                 comments.rate, 
                 users.first_name, 
                 users.last_name,
-                users.auth0_sub
+                users.auth0_sub,
+                users.image
             FROM comments 
             JOIN users ON comments.user_id = users.user_id
             WHERE comments.api_id = $1

@@ -6,7 +6,7 @@ import EditCommentPopup from './EditCommentPopUp';
 import StarDisplay from './StarDisplay';
 import '../styles/CommentCard.css'
 
-export default function CommentCard({ text, userName, date, rating, icon, commentId, onCommentUpdated }) {
+export default function CommentCard({ text, userName, date, rating, icon, commentId, onCommentUpdated, userImage }) {
 
   const [show, setShow] = useState(false)
 
@@ -36,7 +36,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
       <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
         <Card.Img 
           style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
-          src={"https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg"} 
+          src={userImage} 
         />
       </div>
 
