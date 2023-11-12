@@ -46,7 +46,7 @@ export default function UserImagePopup({show, onClose, userInfo}) {
            
             <TextArea 
                 placeholder={"Image URL"} 
-                name={"note"} 
+                name={"image"} 
                 value={user.image} 
                 onChange={handleChange}
             />
