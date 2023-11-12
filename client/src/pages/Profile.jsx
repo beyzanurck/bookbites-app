@@ -170,7 +170,7 @@ export default function Profile() {
 
       <img 
         style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
-        src={allActions[0]?.image} 
+        src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
       />
 
       <p> {user && user.name}'s Page </p>
@@ -263,6 +263,15 @@ export default function Profile() {
           books = {filteredBooks}
           feeds = {allActions}
           noteUpdated={handleNoteUpdated}
+        />
+      }
+
+      {
+        show.imagePopup && 
+        <UserImagePopup
+          show={show.imagePopup}
+          onClose={()=> setShow(prevValue => ({...prevValue, "imagePopup": false}))}
+          userInfo={user.email}
         />
       }
 

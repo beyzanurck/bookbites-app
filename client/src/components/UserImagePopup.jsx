@@ -3,9 +3,9 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 
-export default function UserImagePopup({userInfo}) {
+export default function UserImagePopup({show, onClose, userInfo}) {
     const [user, setUser] = useState({
-        email: userInfo.email,     
+        email: userInfo,     
         image: ""
     });
 
@@ -37,7 +37,7 @@ export default function UserImagePopup({userInfo}) {
   return (
     <Modal show={show} onHide={onClose} size="lg">
     <Modal.Header closeButton>
-        <Modal.Title>Add New Note</Modal.Title>
+        <Modal.Title>Add Profile Picture</Modal.Title>
     </Modal.Header>
 
     <Modal.Body>
