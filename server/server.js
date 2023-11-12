@@ -112,10 +112,10 @@ app.get("/api/books", async (req, res) =>  {
     
     try {
         const urls = [
-            'https://www.googleapis.com/books/v1/volumes?q=subject:science+fiction&startIndex=3&maxResults=12',
-            'https://www.googleapis.com/books/v1/volumes?q=subject:cookbooks&maxResults=8',
-            'https://www.googleapis.com/books/v1/volumes?q=subject:manga&maxResults=8',
-            'https://www.googleapis.com/books/v1/volumes?q=subject:history&maxResults=8'
+            'https://www.googleapis.com/books/v1/volumes?q=subject:science+fiction&startIndex=3&maxResults=12'
+            // 'https://www.googleapis.com/books/v1/volumes?q=subject:cookbooks&maxResults=8',
+            // 'https://www.googleapis.com/books/v1/volumes?q=subject:manga&maxResults=8',
+            // 'https://www.googleapis.com/books/v1/volumes?q=subject:history&maxResults=8'
         ];
 
         const fetchBookData = async (url) => {
