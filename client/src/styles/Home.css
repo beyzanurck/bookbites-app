@@ -47,7 +47,7 @@
   margin: 3%;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
-  gap: 2%; /* Space between cards */
+  gap: 3%; /* Space between cards */
 }
 
 /* For medium-sized screens (e.g., tablets), use 3 columns */
