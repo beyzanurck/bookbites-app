@@ -19,6 +19,7 @@ export default function Profile() {
 
   const [bookIds, setBookIds] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([])
+  const [allBooksOfUser, setAllBooksOfUser] = useState([])
 
   const [activeTab, setActiveTab] = useState('books');
 
@@ -123,7 +124,41 @@ export default function Profile() {
     getUserAllActions(user.sub);
   }
 
+  //books in the user's library
+  async function getAllBooksOfUser() {
+
+    try {
+      const bookPromises = allActions.map(async item => {
+
+        const response = await fetch(`/api/${item.api_id}`);
+        const bookData = await response.json();
+        console.log("Fetched book data for ID:", item.api_id, bookData); // Diagnostic log
+        return bookData;
+      });
   
+      // waits for all the fetch calls to resolve
+      const booksDetails = await Promise.all(bookPromises);
+      console.log("All fetched book details:", booksDetails); 
+      setAllBooksOfUser(booksDetails) //removes one level of nesting
+      console.log("allBooksOfUser, ", allBooksOfUser); 
+  
+    } catch (error) {
+      console.error('Error fetching multiple books:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (allActions.length > 0) {
+      getAllBooksOfUser();
+      console.log("allBooksOfUser, ", allBooksOfUser)
+    }
+  }, [allActions]);
+
+  useEffect(() => {
+    console.log("Updated allBooksOfUser: ", allBooksOfUser);
+  }, [allBooksOfUser]);
+  
+
 
   return (
     <div>
