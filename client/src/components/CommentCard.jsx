@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {AiFillEdit } from 'react-icons/ai';
 import {MdDelete } from 'react-icons/md';
-import EditCommentPopup from './EditCommentPopUp';
+import EditCommentPopup from './EditCommentPopup';
 import StarDisplay from './StarDisplay';
 import '../styles/CommentCard.css'
 
