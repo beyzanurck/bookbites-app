@@ -145,13 +145,10 @@ app.get("/api/:id", async (req, res) =>  {
         const { id } = req.params;
 
         const url = `https://www.googleapis.com/books/v1/volumes/${id}`
-        // const { rows: book } = await db.query('SELECT * FROM demo_api WHERE api_id = $1', [id]);
 
         const response = await fetch(url);
         const data = await response.json();
         const book = data; 
-
-        // console.log("THE BOOK", book)
 
         if (book.length === 0) {
             res.status(404).json({ message: "Book not found" });
@@ -185,7 +182,6 @@ app.post("/api/feed", async (req, res) =>  {
     try {
         
         let {auth0_sub, api_id, isFav, shelf_status } = req.body;
-        console.log("auth0_sub, api_id, isFav, shelf_status", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
@@ -275,7 +271,6 @@ app.post("/api/comment", async (req, res) =>  {
     try {
 
         const {auth0_sub, api_id, text, date, rate } = req.body;
-        console.log("auth0_sub, api_id, text, date, rate", req.body)
 
         let user_id = await getUserIdFromSub(auth0_sub)
 
