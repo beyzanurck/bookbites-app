@@ -64,6 +64,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
 
   return (
     <Modal show={show} onHide={onClose} size="lg">
+        
         <Modal.Header closeButton>
             <Modal.Title>Add New Note</Modal.Title>
         </Modal.Header>
@@ -72,30 +73,29 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
             <form className='add-note'>
 
                 <div className='menu-and-visibility'>
-                {
-                    books && 
-                    <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
-                        <option value="" disabled> select a book</option>
-                        {books.map((book, index) => (
-                            <option key={index} value={book.id}> {book.volumeInfo.title} </option>
-                        ))}
-                    </select>
-                }
+                    {
+                        books && 
+                        <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
+                            <option value="" disabled> select a book</option>
+                            {books.map((book, index) => (
+                                <option key={index} value={book.id}> {book.volumeInfo.title} </option>
+                            ))}
+                        </select>
+                    }
 
-                <NoteVisibility onChange={handleChange} />
+                    <NoteVisibility onChange={handleChange} />
                 </div>
 
-                
-
                 <TextArea 
-                placeholder={"Note"} 
-                name={"note"} 
-                value={action.note} 
-                onChange={handleChange}
+                    placeholder={"Note"} 
+                    name={"note"} 
+                    value={action.note} 
+                    onChange={handleChange}
                 />
-                
+
             </form>
         </Modal.Body>
+
 
         <Modal.Footer>
 
@@ -106,6 +106,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
             <Button variant="secondary" onClick={onClose}
                 style={{backgroundColor: 'rgb(0,46,97)', borderColor: 'rgb(0,46,97)', color: 'rgb(239, 193, 154)'}}
             >Close</Button>
+
         </Modal.Footer>
     </Modal>
   )
