@@ -33,6 +33,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
 
   return (
     <Card style={{ width: '100%', display: 'flex', flexDirection: 'row',  margin: '1rem'}}>
+      
       <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
         <Card.Img 
           style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
@@ -43,10 +44,8 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
       <Card.Body style={{ position: 'relative' ,flex: '1', display: 'flex', flexDirection: 'column' }}>
 
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-
           <Card.Title>{userName}</Card.Title>
           <div style={{ fontStyle: 'italic', fontSize: '0.85rem'}}>{formattedDate}</div>
-
         </div>
 
         <div>
@@ -56,23 +55,23 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         <Card.Text>{text}</Card.Text>
 
         {
-            icon &&
-            <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} >
-                <AiFillEdit className = "editIcon" size={20} style={{color: 'rgb(239, 193, 154)'}} onClick={() => {setShow(true)}}/>
-                <MdDelete className = "deleteIcon" size={20} style={{color: 'rgb(0,46,97)'}} onClick={() => {deleteComment(commentId)}}/>
-            </div> 
+          icon &&
+          <div style={{ position: 'absolute', bottom: '10px', right: '10px' }} >
+              <AiFillEdit className = "editIcon" size={20} style={{color: 'rgb(239, 193, 154)'}} onClick={() => {setShow(true)}}/>
+              <MdDelete className = "deleteIcon" size={20} style={{color: 'rgb(0,46,97)'}} onClick={() => {deleteComment(commentId)}}/>
+          </div> 
         }
 
         {
-            show && 
-            <EditCommentPopup 
-                show = {show}
-                onClose={() => {setShow(false)}}
-                text = {text}
-                rating = {rating}
-                comment_id = {commentId}
-                onCommentUpdated={onCommentUpdated}
-            />
+          show && 
+          <EditCommentPopup 
+              show = {show}
+              onClose={() => {setShow(false)}}
+              text = {text}
+              rating = {rating}
+              comment_id = {commentId}
+              onCommentUpdated={onCommentUpdated}
+          />
         }
 
       </Card.Body>
