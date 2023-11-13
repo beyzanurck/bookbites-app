@@ -7,6 +7,8 @@ import CommentCard from '../components/CommentCard';
 import NotePopup from '../components/NotePopup'
 import '../styles/Profile.css'
 import UserImagePopup from '../components/UserImagePopup';
+import { Link } from "react-router-dom";
+
 
 export default function Profile() {
   
@@ -171,21 +173,19 @@ export default function Profile() {
   return (
     <div>
 
-      <img 
-        style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
-        src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
-      />
-
-      <p> {user && user.name}'s Page </p>
-
       <div className='subBar-profile-page'>
+
+        <img 
+          style={{ width: '128px', height: '128px', borderRadius: '50%' }} 
+          src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
+        />
 
         <SelectStatus value={selectStatus} onChange = {handleSelect}/>
 
-        <p onClick={()=> setActiveTab('comments')}>Comments</p>
-        <p onClick={()=> setActiveTab('notes')}>Notes</p>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('comments')}>Comments</Link>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('notes')}>Notes</Link>
         {/* <button onClick={() => {setShow(true)}}>Add Note</button> */}
-        <button onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</button>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</Link>
       </div>
 
 
