@@ -1,21 +1,13 @@
-/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
-
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
-
-
 .navbar {
-  background-color: black;
-  color: white;
+  background-color: rgb(239, 193, 154);
+  color: rgb(0,46,97);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
   padding: 0 2rem;
+  font-family: 'Bitter', serif;
+  font-family: 'Lora', serif;
 }
 
 .home {
@@ -36,6 +28,5 @@
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 0.25rem;
+  padding-right: 1rem;
 }
-

@@ -1,16 +1,14 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center; 
-  /* height: 100vh;  */
 }
 
 
 .search-bar {
   padding: 10px 20px;
   font-size: 16px;
-  border-radius: 25px;
+  border-radius: 10px;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
   outline: none;
@@ -21,7 +19,7 @@
 }
   
 .search-bar:focus {
-  border-color: #009688;
+  border-color: rgb(0,46,97);
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
 }
 
@@ -39,14 +37,29 @@
 
 
 .books-grid {
-  /* margin: 3%;
-  display: flex;
-  gap: 2%;
-  margin-top: 5%; */
-
   margin: 3%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
-  gap: 2%; /* Space between cards */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 3%; 
 }
-  
+
+
+@media (max-width: 1024px) {
+  .books-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+}

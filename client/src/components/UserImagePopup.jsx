@@ -56,8 +56,8 @@ export default function UserImagePopup({show, onClose, userInfo, onImageUpdated}
     </Modal.Body>
 
     <Modal.Footer>
-        <Button variant="primary" onClick={handleSubmit}>Save</Button>
-        <Button variant="secondary" onClick={onClose}>Close</Button>
+        <Button variant="primary" onClick={handleSubmit} style={{backgroundColor: 'rgb(239, 193, 154)', borderColor: 'rgb(239, 193, 154)', color: 'rgb(0,46,97)'}}>Save</Button>
+        <Button variant="secondary" onClick={onClose} style={{backgroundColor: 'rgb(0,46,97)', borderColor: 'rgb(0,46,97)', color: 'rgb(239, 193, 154)'}} >Close</Button>
     </Modal.Footer>
 </Modal>
   )

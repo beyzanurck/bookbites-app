@@ -7,6 +7,8 @@ import CommentCard from '../components/CommentCard';
 import NotePopup from '../components/NotePopup'
 import '../styles/Profile.css'
 import UserImagePopup from '../components/UserImagePopup';
+import { Link } from "react-router-dom";
+
 
 export default function Profile() {
   
@@ -49,15 +51,10 @@ export default function Profile() {
   }, [isAuthenticated, user]); 
 
   
-  useEffect(() => {
-    console.log("DATA", allActions);
-  }, [allActions]);
-
   function handleSelect (event) {
 
     const value = event.target.value;
     setSelectStatus(value)
-
     setActiveTab('books')
   }
 
@@ -90,10 +87,6 @@ export default function Profile() {
     setBookIds(ids)
   }, [selectStatus]);
 
-  useEffect(() => {
-    console.log("bookIds ", bookIds)
-  }, [bookIds]);
-
 
   //Get specific book info
   async function getBookById() {
@@ -109,8 +102,7 @@ export default function Profile() {
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
       setFilteredBooks(booksDetails.flat()) //removes one level of nesting
-      console.log("filteredBooks, ", filteredBooks)
-  
+    
     } catch (error) {
       console.error('Error fetching multiple books:', error);
     }
@@ -140,16 +132,13 @@ export default function Profile() {
 
         const response = await fetch(`/api/${item.api_id}`);
         const bookData = await response.json();
-        console.log("Fetched book data for ID:", item.api_id, bookData); // Diagnostic log
         return bookData;
       });
   
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
-      console.log("All fetched book details:", booksDetails); 
       setAllBooksOfUser(booksDetails) //removes one level of nesting
-      console.log("allBooksOfUser, ", allBooksOfUser); 
-  
+      
     } catch (error) {
       console.error('Error fetching multiple books:', error);
     }
@@ -158,63 +147,58 @@ export default function Profile() {
   useEffect(() => {
     if (allActions.length > 0) {
       getAllBooksOfUser();
-      console.log("allBooksOfUser, ", allBooksOfUser)
     }
   }, [allActions]);
 
-  useEffect(() => {
-    console.log("Updated allBooksOfUser: ", allBooksOfUser);
-  }, [allBooksOfUser]);
-  
-
 
   return (
-    <div>
-
-      <img 
-        style={{ width: '64px', height: '64px', borderRadius: '50%' }} 
-        src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
-      />
-
-      <p> {user && user.name}'s Page </p>
+    <div className='profile-page'>
 
       <div className='subBar-profile-page'>
 
+        <img 
+          style={{ width: '128px', height: '128px', borderRadius: '50%' }} 
+          src={allActions[0]?.image}  onClick={() => {setShow(prevValue => ({...prevValue, "imagePopup": true}))}}
+        />
+
         <SelectStatus value={selectStatus} onChange = {handleSelect}/>
 
-        <p onClick={()=> setActiveTab('comments')}>Comments</p>
-        <p onClick={()=> setActiveTab('notes')}>Notes</p>
-        {/* <button onClick={() => {setShow(true)}}>Add Note</button> */}
-        <button onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</button>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('comments')}>Comments</Link>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('notes')}>Notes</Link>
+        <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</Link>
       </div>
 
 
+      <div className='books-grid'>
+
+        {
+          (activeTab === 'books') &&
+          filteredBooks.map((book) => {
+
+            const action = allActions.find(action => action.api_id === book.id);
+            
+            const isFaved = action ? action.isfavorite : false;
+            const status = action ? action.shelf_status : undefined;
+
+            return (
+              
+              <BookCard 
+                key={book.id} 
+                title={book.volumeInfo.title}
+                author={book.volumeInfo.authors}
+                img={book.volumeInfo.imageLinks.thumbnail}
+                category={book.volumeInfo.categories[0]}
+                id={book.id}
+                faved={isFaved}
+                status={status}
+              />
+            );
+          })
+        }
+
+      </div>
       
-      {
-        (activeTab === 'books') &&
-        filteredBooks.map((book) => {
-
-          const action = allActions.find(action => action.api_id === book.id);
-          
-          const isFaved = action ? action.isfavorite : false;
-          const status = action ? action.shelf_status : undefined;
-
-          return (
-            <BookCard 
-              key={book.id} 
-              title={book.volumeInfo.title}
-              author={book.volumeInfo.authors}
-              img={book.volumeInfo.imageLinks.thumbnail}
-              category={book.volumeInfo.categories[0]}
-              id={book.id}
-              faved={isFaved}
-              status={status}
-            />
-          );
-        })
-      }
-
-
+    
       {
         (activeTab === 'comments') &&
         allActions.filter((item) => item.comment_id !== null)

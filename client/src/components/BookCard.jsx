@@ -57,7 +57,7 @@ export default function BookCard({title, author, img, category, id, faved, statu
 
   return (
 
-    <Card style={{ width: '13rem' }}>
+    <Card style={{ width: '13rem'}}>
 
       <Link to={`/book/${id}`} state={{ faved : isFaved, shelf_status : status }}>
         <Card.Img variant="top" src={img} />
@@ -66,12 +66,12 @@ export default function BookCard({title, author, img, category, id, faved, statu
       <Card.Body style={{ position: 'relative'}}>
         <Card.Title>{title}</Card.Title>
 
-        <Card.Text>
+        <Card.Text style={{ marginBottom: '1.2rem'}}>
           <strong>Author:</strong> {author} <br />
           <strong>Category:</strong> {category}
         </Card.Text>
 
-        <div  style={{ position: 'absolute', bottom: '10px', right: '7.5rem', top: '82%' }} >
+        <div  style={{ position: 'absolute', right: '5.3rem', bottom: '0.3rem' }} >
 
           {
             isAuthenticated && 

@@ -112,6 +112,7 @@ CREATE TABLE public.feeds (
     isfavorite boolean DEFAULT false,
     shelf_status integer,
     note text,
+    isnoteprivate boolean DEFAULT false NOT NULL,
     CONSTRAINT feeds_shelf_status_check CHECK ((shelf_status = ANY (ARRAY[0, 1, 2])))
 );
 
@@ -231,13 +232,8 @@ COPY public.demo_api (demo_api_id, api_id, title, author, publicationyear, image
 -- Data for Name: feeds; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.feeds (feed_id, api_id, user_id, isfavorite, shelf_status, note) FROM stdin;
-1	wvqXEAAAQBAJ	19	f	\N	\N
-3	vHnZCwAAQBAJ	19	t	\N	\N
-2	wvqXEAAAQBAJ	17	f	\N	\N
-4	vHnZCwAAQBAJ	17	f	\N	\N
-6	XfFvDwAAQBAJ	17	f	\N	\N
-5	Sm5AKLXKxHgC	17	f	\N	\N
+COPY public.feeds (feed_id, api_id, user_id, isfavorite, shelf_status, note, isnoteprivate) FROM stdin;
+61	39KQY1FnSfkC	17	t	0	Reminds me of my physics teacher in high school :)	f
 \.
 
 
@@ -246,8 +242,7 @@ COPY public.feeds (feed_id, api_id, user_id, isfavorite, shelf_status, note) FRO
 --
 
 COPY public.users (user_id, first_name, last_name, email, image, auth0_sub) FROM stdin;
-17	Beyzanur	Ceylan	beyzanurceylan77@gmail.com	\N	google-oauth2|104532387427706249809
-19	Beyzanur	Kılınç	nurbeyzakilinc@gmail.com	\N	google-oauth2|101574986102351626672
+17	Beyzanur	Ceylan	beyzanurceylan77@gmail.com	https://media.licdn.com/dms/image/C5603AQFnpElh1XODsA/profile-displayphoto-shrink_400_400/0/1575567122423?e=1705536000&v=beta&t=Gvtl5ruoMBkciy_BxlaG8GRaXGSU-QLw-ZN-89U4ZaM	google-oauth2|104532387427706249809
 \.
 
 
@@ -255,7 +250,7 @@ COPY public.users (user_id, first_name, last_name, email, image, auth0_sub) FROM
 -- Name: comments_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.comments_comment_id_seq', 1, false);
+SELECT pg_catalog.setval('public.comments_comment_id_seq', 243, true);
 
 
 --
@@ -269,14 +264,14 @@ SELECT pg_catalog.setval('public.demo_api_demo_api_id_seq', 5, true);
 -- Name: feeds_feed_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.feeds_feed_id_seq', 6, true);
+SELECT pg_catalog.setval('public.feeds_feed_id_seq', 61, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 19, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 31, true);
 
 
 --
@@ -333,14 +328,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
-
-
---
--- Name: comments comments_api_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_api_id_fkey FOREIGN KEY (api_id) REFERENCES public.demo_api(api_id);
 
 
 --

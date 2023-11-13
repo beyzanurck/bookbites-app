@@ -156,14 +156,12 @@ export default function Book() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        // newComment(user.sub, id, comment);
-
         //shows the new comment immediately on the page
         try {
             
             const newCommentResponse = await newComment(user.sub, id, comment);
             setCommentList(preValue => [...preValue, newCommentResponse]);
-            console.log("submit: ", newCommentResponse)
+            
             setComment({
                 "text" : "",
                 "date" : new Date().toISOString().split('T')[0] + ' 00:00:00',
@@ -224,7 +222,7 @@ export default function Book() {
 
         <div className='book-page-left'>
 
-            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""}/>
+            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""} style={{width: '150%'}}/>
 
             <div>
 

@@ -63,9 +63,9 @@ export default function EditCommentPopup({show, onClose, text, rating, comment_i
 
             <Modal.Footer>
 
-                <Button variant="primary" type="submit" onClick={handleSubmit}>Save</Button>
+                <Button variant="primary" type="submit" onClick={handleSubmit} style={{backgroundColor: 'rgb(239, 193, 154)', borderColor: 'rgb(239, 193, 154)', color: 'rgb(0,46,97)'}}>Save</Button>
 
-                <Button variant="secondary" onClick={onClose}>
+                <Button style={{backgroundColor: 'rgb(0,46,97)', borderColor: 'rgb(0,46,97)', color: 'rgb(239, 193, 154)'}}  variant="secondary" onClick={onClose}>
                     Close
                 </Button>
 
