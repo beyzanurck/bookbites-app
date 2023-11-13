@@ -51,15 +51,10 @@ export default function Profile() {
   }, [isAuthenticated, user]); 
 
   
-  useEffect(() => {
-    console.log("DATA", allActions);
-  }, [allActions]);
-
   function handleSelect (event) {
 
     const value = event.target.value;
     setSelectStatus(value)
-
     setActiveTab('books')
   }
 
@@ -92,10 +87,6 @@ export default function Profile() {
     setBookIds(ids)
   }, [selectStatus]);
 
-  useEffect(() => {
-    console.log("bookIds ", bookIds)
-  }, [bookIds]);
-
 
   //Get specific book info
   async function getBookById() {
@@ -111,8 +102,7 @@ export default function Profile() {
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
       setFilteredBooks(booksDetails.flat()) //removes one level of nesting
-      console.log("filteredBooks, ", filteredBooks)
-  
+    
     } catch (error) {
       console.error('Error fetching multiple books:', error);
     }
@@ -142,16 +132,13 @@ export default function Profile() {
 
         const response = await fetch(`/api/${item.api_id}`);
         const bookData = await response.json();
-        console.log("Fetched book data for ID:", item.api_id, bookData); // Diagnostic log
         return bookData;
       });
   
       // waits for all the fetch calls to resolve
       const booksDetails = await Promise.all(bookPromises);
-      console.log("All fetched book details:", booksDetails); 
       setAllBooksOfUser(booksDetails) //removes one level of nesting
-      console.log("allBooksOfUser, ", allBooksOfUser); 
-  
+      
     } catch (error) {
       console.error('Error fetching multiple books:', error);
     }
@@ -160,14 +147,8 @@ export default function Profile() {
   useEffect(() => {
     if (allActions.length > 0) {
       getAllBooksOfUser();
-      console.log("allBooksOfUser, ", allBooksOfUser)
     }
   }, [allActions]);
-
-  useEffect(() => {
-    console.log("Updated allBooksOfUser: ", allBooksOfUser);
-  }, [allBooksOfUser]);
-  
 
 
   return (
@@ -184,7 +165,6 @@ export default function Profile() {
 
         <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('comments')}>Comments</Link>
         <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={()=> setActiveTab('notes')}>Notes</Link>
-        {/* <button onClick={() => {setShow(true)}}>Add Note</button> */}
         <Link style={{textDecoration: 'none', color: 'inherit'}}onClick={() => {setShow(prevValue => ({...prevValue, "notePopup": true}))}}>Add Note</Link>
       </div>
 
