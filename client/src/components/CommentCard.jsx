@@ -32,7 +32,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
 
 
   return (
-    <Card style={{ width: '48rem', display: 'flex', flexDirection: 'row',  margin: '1rem'}}>
+    <Card style={{ width: '100%', display: 'flex', flexDirection: 'row',  margin: '1rem'}}>
       <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
         <Card.Img 
           style={{ width: '64px', height: '64px', borderRadius: '50%' }} 

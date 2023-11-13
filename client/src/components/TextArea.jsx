@@ -7,9 +7,9 @@ export default function TextArea({placeholder, name, value, onChange, disabled})
         name = {name}
         value={value}
         rows="9" 
-        cols="80" 
         onChange={onChange}
         disabled = {disabled}
+        style={{width: '100%'}}
     />
   )
 }
