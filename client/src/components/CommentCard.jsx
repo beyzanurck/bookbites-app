@@ -45,7 +45,7 @@ export default function CommentCard({ text, userName, date, rating, icon, commen
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
           <Card.Title>{userName}</Card.Title>
-          <div style={{ fontStyle: 'italic', fontSize: '0.85rem' }}>{formattedDate}</div>
+          <div style={{ fontStyle: 'italic', fontSize: '0.85rem'}}>{formattedDate}</div>
 
         </div>
 
