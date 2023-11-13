@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
 import {useEffect} from 'react'
-import logo from '../assets/logo.png';
 import {GiBookAura } from 'react-icons/gi';
 
 
@@ -24,6 +22,7 @@ export default function NavBar() {
         return await response.json();
     }
 
+
     async function sendEmail() {
 
         if (isAuthenticated && user && user.email) {
@@ -44,14 +43,13 @@ export default function NavBar() {
     }
 
     useEffect(() => {
-
         sendEmail();
     }, [isAuthenticated, user]);
 
+
     return (
         <nav className='navbar'>
-            {/* <img src={logo} alt="BookBites Logo" style={{ height: '50px', width: 'auto' }}/> */}
-
+            
             <ul>
                 <li>
                     <GiBookAura style= {{color: 'rgb(0,46,97)', marginLeft: 20}} size={48}/>
@@ -65,6 +63,7 @@ export default function NavBar() {
                 <li>
                     <Link to='/about'> About </Link>
                 </li>
+
                 {isAuthenticated ? (
                     <>
                         <li>
@@ -79,6 +78,7 @@ export default function NavBar() {
                         Log In
                     </Link>
                 )}
+                
             </ul>
         </nav>
     );
