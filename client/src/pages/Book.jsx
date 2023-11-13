@@ -224,7 +224,7 @@ export default function Book() {
 
         <div className='book-page-left'>
 
-            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""}/>
+            <img src={book?.volumeInfo?.imageLinks?.thumbnail || ""} style={{width: '150%'}}/>
 
             <div>
 
