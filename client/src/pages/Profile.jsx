@@ -171,7 +171,7 @@ export default function Profile() {
 
 
   return (
-    <div>
+    <div className='profile-page'>
 
       <div className='subBar-profile-page'>
 
@@ -189,32 +189,36 @@ export default function Profile() {
       </div>
 
 
+      <div className='books-grid'>
+
+        {
+          (activeTab === 'books') &&
+          filteredBooks.map((book) => {
+
+            const action = allActions.find(action => action.api_id === book.id);
+            
+            const isFaved = action ? action.isfavorite : false;
+            const status = action ? action.shelf_status : undefined;
+
+            return (
+              
+              <BookCard 
+                key={book.id} 
+                title={book.volumeInfo.title}
+                author={book.volumeInfo.authors}
+                img={book.volumeInfo.imageLinks.thumbnail}
+                category={book.volumeInfo.categories[0]}
+                id={book.id}
+                faved={isFaved}
+                status={status}
+              />
+            );
+          })
+        }
+
+      </div>
       
-      {
-        (activeTab === 'books') &&
-        filteredBooks.map((book) => {
-
-          const action = allActions.find(action => action.api_id === book.id);
-          
-          const isFaved = action ? action.isfavorite : false;
-          const status = action ? action.shelf_status : undefined;
-
-          return (
-            <BookCard 
-              key={book.id} 
-              title={book.volumeInfo.title}
-              author={book.volumeInfo.authors}
-              img={book.volumeInfo.imageLinks.thumbnail}
-              category={book.volumeInfo.categories[0]}
-              id={book.id}
-              faved={isFaved}
-              status={status}
-            />
-          );
-        })
-      }
-
-
+    
       {
         (activeTab === 'comments') &&
         allActions.filter((item) => item.comment_id !== null)
