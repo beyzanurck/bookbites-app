@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextArea from './TextArea'
 import NoteVisibility from './NoteVisibility'
+import '../styles/Profile.css'
 
 export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) {
 
@@ -70,6 +71,7 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
         <Modal.Body>
             <form className='add-note'>
 
+                <div className='menu-and-visibility'>
                 {
                     books && 
                     <select name="feed_id" value={selectedBookApiId} onChange={handleChange}>
@@ -81,6 +83,9 @@ export default function NotePopup({ show, onClose, books, feeds, noteUpdated }) 
                 }
 
                 <NoteVisibility onChange={handleChange} />
+                </div>
+
+                
 
                 <TextArea 
                 placeholder={"Note"} 

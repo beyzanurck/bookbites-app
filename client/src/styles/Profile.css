@@ -4,3 +4,10 @@
     align-items: center;
     margin: 20px;
 }
+
+.menu-and-visibility {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2%;
+}
