@@ -1,9 +1,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center; 
-  /* height: 100vh;  */
 }
 
 
@@ -39,32 +37,27 @@
 
 
 .books-grid {
-  /* margin: 3%;
-  display: flex;
-  gap: 2%;
-  margin-top: 5%; */
-
   margin: 3%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
-  gap: 3%; /* Space between cards */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 3%; 
 }
 
-/* For medium-sized screens (e.g., tablets), use 3 columns */
+
 @media (max-width: 1024px) {
   .books-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* For small-sized screens (e.g., smartphones), use 2 columns */
+
 @media (max-width: 768px) {
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* For extra small screens, use 1 column */
+
 @media (max-width: 480px) {
   .books-grid {
     grid-template-columns: 1fr;
