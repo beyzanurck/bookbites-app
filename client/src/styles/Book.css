@@ -63,6 +63,12 @@
     /* gap: 20px; */
 }
 
+.book-des-bp {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+
 
 
 
