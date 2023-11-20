@@ -17,8 +17,13 @@
 | dotenv       	| bootstrap       	|          	| @testing-library/jest-dom 	|
 | concurrently 	| react-router-dom 	|          	| vitest-dom                	|
 | nodemon      	|                 	|          	|                           	|
- 
 
+<video width="900" height="550" controls>
+  <source src="/client/public/bookbites2.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+ 
 ### Introduction:
 
 BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
