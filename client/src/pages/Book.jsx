@@ -196,7 +196,7 @@ export default function Book() {
 
     useEffect(() => {
         getComments(id, user.sub);
-    }, [commentList]);
+    }, [id, user.id]);
     //
 
     const iconProps = {
