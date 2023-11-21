@@ -28,9 +28,17 @@ BookBites is an easy-to-use website for people who love books. You can find grea
 | ![nodemon](https://img.shields.io/badge/-nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white) |                |                |                  |
 
 
+## WIREFRAME
+![wireframe](/client/public/images/wireframe.png)
 
+## USER FLOW
+![userflow](/client/public/images/user%20flow.png)
 
+## DB SCHEMA
+![schema](/client/public/images/schema.png)
 
+## TIME MANAGEMENT
+![timeline](/client/public/images/timeline.png)
 
 
 
