@@ -5,9 +5,9 @@
 BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
 
 #### Part 1:
-![bites1 Demo](bites1.gif)
+![bites1 Demo](/client/public/images/bites1.gif)
 #### Part 2:
-![bites2 Demo](bites2.gif)
+![bites2 Demo](/client/public/images/bites2.gif)
 
 
 ## Technologies:
