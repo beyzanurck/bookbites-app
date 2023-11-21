@@ -18,8 +18,19 @@
 | concurrently 	| react-router-dom 	|          	| vitest-dom                	|
 | nodemon      	|                 	|          	|                           	|
 
+![react](https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png)
+![vite] (https://github.com/marwin1991/profile-technology-icons/assets/62091613/b40892ef-efb8-4b0e-a6b5-d1cfc2f3fc35)
+![node] (https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png)
+![express] (https://user-images.githubusercontent.com/25181517/183859966-a3462d8d-1bc7-4880-b353-e2cbed900ed6.png)
+![PostgreSQL] (https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png)
+![Postman] (https://user-images.githubusercontent.com/25181517/192109061-e138ca71-337c-4019-8d42-4792fdaa7128.png)
+![Vitest] (https://github.com/vitest-dev/vitest/blob/main/docs/public/logo.svg)
+
+
 ![bites1 Demo](bites1.gif)
 ![bites2 Demo](bites2.gif)
+
+
 
 
 ### Introduction:
