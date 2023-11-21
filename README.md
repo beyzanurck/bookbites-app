@@ -1,44 +1,64 @@
 # Project Name
 
-### Technologies: 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Technologies](#technologies)
+3. [Dependencies](#dependencies)
+4. [Wireframe](#wireframe)
+5. [User Flow](#user-flow)
+6. [Database Schema](#db-schema)
+7. [Timeline](#time-management)
+8. [Nice-to-have Features](#stretch-goals)
+9. [Project Setup](#project-setup)
 
-| Backend 	| Frontend 	| Database   	| Testing   	|
-|---------	|----------	|------------	|-----------	|
-| Node    	| Vite     	| PostgreSQL 	| RTL       	|
-| Express 	| React    	| SQL        	| Vitest    	|
-| Postman 	|     	    |         	    |       	    |
 
-
-### Dependencies: 
-
-| Backend      	| Frontend        	| Database 	| Testing                   	|
-|--------------	|-----------------	|----------	|---------------------------	|
-| cors         	| react-bootstrap 	| pg       	| @testing-library/react    	|
-| dotenv       	| bootstrap       	|          	| @testing-library/jest-dom 	|
-| concurrently 	| react-router-dom 	|          	| vitest-dom                	|
-| nodemon      	|                 	|          	|                           	|
- 
-
-### Introduction:
+## Introduction:
 
 BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
 
-[WIREFRAME](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.pk2anoxkgn7g)
+#### Part 1:
+![bites1 Demo](/client/public/images/bites1.gif)
+#### Part 2:
+![bites2 Demo](/client/public/images/bites2.gif)
 
-[USER FLOW](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.2ym2dm87nqoe)
 
-[DB SCHEMA](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.jk8agzwxywxx)
+## Technologies:
 
-[TIME MANAGEMENT](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.bgu51xvagxmv)
+| Backend        | Frontend       | Database       | Testing         |
+| -------------- | -------------- | -------------- | --------------  |
+| ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white) | ![Vite](https://img.shields.io/badge/-Vite-646cff?style=flat-square&logo=vite&logoColor=white) | ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white) | ![testing-library/react](https://img.shields.io/badge/-testing--library/react-E33332?style=flat-square&logo=testing-library&logoColor=white)|
+| ![Express](https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white) | ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white) | ![SQL](https://img.shields.io/badge/-SQL-000000?style=flat-square) | ![Vitest](https://img.shields.io/badge/-Vitest-944058?style=flat-square&logo=vitest&logoColor=white) |
+| ![Postman](https://img.shields.io/badge/-Postman-FF6C37?style=flat-square&logo=postman&logoColor=white) |                |                |                  |
 
-#### STRETCH GOALS
+## Dependencies:
 
+| Backend        | Frontend       | Database       | Testing         |
+| -------------- | -------------- | -------------- | --------------  |
+| ![cors](https://img.shields.io/badge/-cors-000000?style=flat-square) | ![react-bootstrap](https://img.shields.io/badge/-react--bootstrap-563D7C?style=flat-square&logo=react-bootstrap&logoColor=white) | ![pg](https://img.shields.io/badge/-pg-336791?style=flat-square&logo=postgresql&logoColor=white) | ![vitest-dom](https://img.shields.io/badge/-vitest--dom-944058?style=flat-square&logo=vitest&logoColor=white) |
+| ![dotenv](https://img.shields.io/badge/-dotenv-000000?style=flat-square) | ![bootstrap](https://img.shields.io/badge/-bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white) |                |  |
+| ![concurrently](https://img.shields.io/badge/-concurrently-000000?style=flat-square) | ![react-router-dom](https://img.shields.io/badge/-react--router--dom-CA4245?style=flat-square&logo=react-router&logoColor=white) |                |  |
+| ![nodemon](https://img.shields.io/badge/-nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white) |                |                |                  |
+
+
+## WIREFRAME
+![wireframe](/client/public/images/wireframe.png)
+
+## USER FLOW
+![userflow](/client/public/images/user%20flow.png)
+
+## DB SCHEMA
+![schema](/client/public/images/schema.png)
+
+## TIME MANAGEMENT
+![timeline](/client/public/images/timeline.png)
+
+
+## STRETCH GOALS
 
 - Feed page so that people can see activity on the page
 - Users can visit their profile pages
 - Users can follow each other
 - Users can message each other
-- Editing the user’s image
 
 
 ## Project Setup
