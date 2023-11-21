@@ -1,22 +1,13 @@
 # Project Name
 
-### Technologies: 
+## Introduction:
 
-| Backend 	| Frontend 	| Database   	| Testing   	|
-|---------	|----------	|------------	|-----------	|
-| Node    	| Vite     	| PostgreSQL 	| RTL       	|
-| Express 	| React    	| SQL        	| Vitest    	|
-| Postman 	|     	    |         	    |       	    |
+BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
 
-
-### Dependencies: 
-
-| Backend      	| Frontend        	| Database 	| Testing                   	|
-|--------------	|-----------------	|----------	|---------------------------	|
-| cors         	| react-bootstrap 	| pg       	| @testing-library/react    	|
-| dotenv       	| bootstrap       	|          	| @testing-library/jest-dom 	|
-| concurrently 	| react-router-dom 	|          	| vitest-dom                	|
-| nodemon      	|                 	|          	|                           	|
+#### Part 1:
+![bites1 Demo](bites1.gif)
+#### Part 2:
+![bites2 Demo](bites2.gif)
 
 
 ## Technologies:
@@ -38,15 +29,12 @@
 
 
 
-![bites1 Demo](bites1.gif)
-![bites2 Demo](bites2.gif)
 
 
 
 
-### Introduction:
 
-BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
+
 
 [WIREFRAME](https://docs.google.com/document/d/1NmcmOL7xhBAnZpQ8qrA7-AZ5A8HHKMlKz5rg43rStBE/edit#heading=h.pk2anoxkgn7g)
 
