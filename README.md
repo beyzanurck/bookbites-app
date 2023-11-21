@@ -23,7 +23,7 @@
 
 | Backend        | Frontend       | Database       | Testing         |
 | -------------- | -------------- | -------------- | --------------  |
-| ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white) | ![Vite](https://img.shields.io/badge/-Vite-646cff?style=flat-square&logo=vite&logoColor=white) | ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white) | ![RTL](https://img.shields.io/badge/-RTL-blue?style=flat-square) |
+| ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white) | ![Vite](https://img.shields.io/badge/-Vite-646cff?style=flat-square&logo=vite&logoColor=white) | ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white) | ![testing-library/react](https://img.shields.io/badge/-testing--library/react-E33332?style=flat-square&logo=testing-library&logoColor=white)|
 | ![Express](https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white) | ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white) | ![SQL](https://img.shields.io/badge/-SQL-000000?style=flat-square) | ![Vitest](https://img.shields.io/badge/-Vitest-944058?style=flat-square&logo=vitest&logoColor=white) |
 | ![Postman](https://img.shields.io/badge/-Postman-FF6C37?style=flat-square&logo=postman&logoColor=white) |                |                |                  |
 
@@ -31,8 +31,8 @@
 
 | Backend        | Frontend       | Database       | Testing         |
 | -------------- | -------------- | -------------- | --------------  |
-| ![cors](https://img.shields.io/badge/-cors-000000?style=flat-square) | ![react-bootstrap](https://img.shields.io/badge/-react--bootstrap-563D7C?style=flat-square&logo=react-bootstrap&logoColor=white) | ![pg](https://img.shields.io/badge/-pg-336791?style=flat-square&logo=postgresql&logoColor=white) | ![testing-library/react](https://img.shields.io/badge/-testing--library/react-E33332?style=flat-square&logo=testing-library&logoColor=white) |
-| ![dotenv](https://img.shields.io/badge/-dotenv-000000?style=flat-square) | ![bootstrap](https://img.shields.io/badge/-bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white) |                | ![testing-library/jest-dom](https://img.shields.io/badge/-testing--library/jest--dom-C21325?style=flat-square&logo=jest&logoColor=white) |
+| ![cors](https://img.shields.io/badge/-cors-000000?style=flat-square) | ![react-bootstrap](https://img.shields.io/badge/-react--bootstrap-563D7C?style=flat-square&logo=react-bootstrap&logoColor=white) | ![pg](https://img.shields.io/badge/-pg-336791?style=flat-square&logo=postgresql&logoColor=white) |  |
+| ![dotenv](https://img.shields.io/badge/-dotenv-000000?style=flat-square) | ![bootstrap](https://img.shields.io/badge/-bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white) |                |  |
 | ![concurrently](https://img.shields.io/badge/-concurrently-000000?style=flat-square) | ![react-router-dom](https://img.shields.io/badge/-react--router--dom-CA4245?style=flat-square&logo=react-router&logoColor=white) |                | ![vitest-dom](https://img.shields.io/badge/-vitest--dom-944058?style=flat-square&logo=vitest&logoColor=white) |
 | ![nodemon](https://img.shields.io/badge/-nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white) |                |                |                  |
 
