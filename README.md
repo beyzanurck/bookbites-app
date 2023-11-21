@@ -1,5 +1,17 @@
 # Project Name
 
+# Table of Contents
+1. [Introduction](#introduction)
+2. [Technologies](#technologies)
+3. [Dependencies](#dependencies)
+4. [Wireframe](#wireframe)
+5. [User Flow](#user-flow)
+6. [Database Schema](#db-schema)
+7. [Timeline](#time-management)
+8. [Nice-to-have Features](#stretch-goals)
+9. [Project Setup](#project-setup)
+
+
 ## Introduction:
 
 BookBites is an easy-to-use website for people who love books. You can find great books, write reviews, give ratings, and make notes about your readings. You can also share your thoughts with others. It's the perfect tool for anyone who loves to read.
@@ -43,12 +55,10 @@ BookBites is an easy-to-use website for people who love books. You can find grea
 
 #### STRETCH GOALS
 
-
 - Feed page so that people can see activity on the page
 - Users can visit their profile pages
 - Users can follow each other
 - Users can message each other
-- Editing the user’s image
 
 
 ## Project Setup
