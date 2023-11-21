@@ -1,6 +1,6 @@
 # Project Name
 
-# Table of Contents
+## Table of Contents
 1. [Introduction](#introduction)
 2. [Technologies](#technologies)
 3. [Dependencies](#dependencies)
@@ -53,7 +53,7 @@ BookBites is an easy-to-use website for people who love books. You can find grea
 ![timeline](/client/public/images/timeline.png)
 
 
-#### STRETCH GOALS
+## STRETCH GOALS
 
 - Feed page so that people can see activity on the page
 - Users can visit their profile pages
